@@ -1,0 +1,10 @@
+org\openmrs\module\facilityreporting\Item.class
+org\openmrs\module\facilityreporting\api\impl\FacilityreportingServiceImpl.class
+org\openmrs\module\facilityreporting\FacilityreportingConfig.class
+org\openmrs\module\facilityreporting\FacilityreportingActivator.class
+org\openmrs\module\facilityreporting\api\dao\FacilityreportingDao.class
+org\openmrs\module\facilityreporting\api\Report.class
+org\openmrs\module\facilityreporting\api\Dataset.class
+org\openmrs\module\facilityreporting\api\Data.class
+org\openmrs\module\facilityreporting\api\Indicator.class
+org\openmrs\module\facilityreporting\api\FacilityreportingService.class

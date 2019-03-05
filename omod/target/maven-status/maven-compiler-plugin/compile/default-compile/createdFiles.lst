@@ -1,0 +1,2 @@
+org\openmrs\module\facilityreporting\extension\html\AdminList.class
+org\openmrs\module\facilityreporting\web\controller\FacilityreportingController.class
