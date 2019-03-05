@@ -23,7 +23,7 @@
   		    http://www.springframework.org/schema/util
   		    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
-    <context:component-scan base-package="org.openmrs.module.facilityreporting" />
+
 
     <!-- Wraps FacilityreportingService methods in DB transactions and OpenMRS interceptors,
     which set audit info like dateCreated, changedBy, etc.-->
@@ -54,5 +54,13 @@
                 <ref bean="facilityreporting.FacilityreportingService" />
             </list>
         </property>
+    </bean>
+
+    <bean id="kenyaemr.facilityReporting.home" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+        <constructor-arg value="facilityReporting.home" />
+        <constructor-arg value="Facility Reporting" />
+        <constructor-arg value="facilityreporting/facilityReportingHome.page" />
+        <constructor-arg value="kenyaemrCharts:apps/etl_admin.png" />
+        <constructor-arg value="510" />
     </bean>
 </beans>
