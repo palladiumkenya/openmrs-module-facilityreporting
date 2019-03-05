@@ -1,9 +1,9 @@
-${moduleName}
+KenyaEMR Facility Reporting Module
 ==========================
 
 Description
 -----------
-This is a very basic module which can be used as a starting point in creating a new module.
+This module provides a routine feature to record facility data not currently collected in the EMR. This comes handy as it provides for unified reporting to other systems i.e. DHIS2
 
 Building from Source
 --------------------
