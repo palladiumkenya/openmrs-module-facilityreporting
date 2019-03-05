@@ -1,40 +1,44 @@
-package org.openmrs.module.facilityreporting.api;
+package org.openmrs.module.facilityreporting.api.models;
 
 import org.openmrs.BaseOpenmrsData;
 
-public class FacilityReportReport extends BaseOpenmrsData {
+public class FacilityReportDataset extends BaseOpenmrsData {
 	
 	private Integer id;
 	
-	private String name;
+	private FacilityReport report;
 	
-	private String uuid;
+	private String name;
 	
 	private String description;
 	
+	private String uuid;
+	
 	private String mapping;
 	
-	public FacilityReportReport(String name, String uuid, String description, String mapping) {
+	public FacilityReportDataset(String name, String description, String uuid, String mapping) {
 		this.name = name;
-		this.uuid = uuid;
 		this.description = description;
+		this.uuid = uuid;
 		this.mapping = mapping;
 	}
 	
+	@Override
 	public Integer getId() {
 		return id;
 	}
 	
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
 	
-	public String getUuid() {
-		return uuid;
+	public FacilityReport getReport() {
+		return report;
 	}
 	
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
+	public void setReport(FacilityReport report) {
+		this.report = report;
 	}
 	
 	public String getName() {
@@ -51,6 +55,16 @@ public class FacilityReportReport extends BaseOpenmrsData {
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	@Override
+	public String getUuid() {
+		return uuid;
+	}
+	
+	@Override
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	
 	public String getMapping() {

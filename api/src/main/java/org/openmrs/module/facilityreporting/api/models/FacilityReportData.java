@@ -1,16 +1,16 @@
-package org.openmrs.module.facilityreporting.api;
+package org.openmrs.module.facilityreporting.api.models;
 
 import org.openmrs.BaseOpenmrsData;
 
 import java.util.Date;
 
-public class Data extends BaseOpenmrsData {
+public class FacilityReportData extends BaseOpenmrsData {
 	
 	private Integer id;
 	
-	private Indicator indicator;
+	private FacilityReportIndicator indicator;
 	
-	private Report report;
+	private FacilityReport report;
 	
 	private String value;
 	
@@ -18,7 +18,7 @@ public class Data extends BaseOpenmrsData {
 	
 	private Date endDate;
 	
-	public Data(Integer id, String value, Date startDate, Date endDate) {
+	public FacilityReportData(Integer id, String value, Date startDate, Date endDate) {
 		this.id = id;
 		this.value = value;
 		this.startDate = startDate;
@@ -35,19 +35,19 @@ public class Data extends BaseOpenmrsData {
 		this.id = id;
 	}
 	
-	public Indicator getIndicator() {
+	public FacilityReportIndicator getIndicator() {
 		return indicator;
 	}
 	
-	public void setIndicator(Indicator indicator) {
+	public void setIndicator(FacilityReportIndicator indicator) {
 		this.indicator = indicator;
 	}
 	
-	public Report getReport() {
+	public FacilityReport getReport() {
 		return report;
 	}
 	
-	public void setReport(Report report) {
+	public void setReport(FacilityReport report) {
 		this.report = report;
 	}
 	

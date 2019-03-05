@@ -5,7 +5,7 @@
 
 <hibernate-mapping package="org.openmrs.module.facilityreporting">
 
-	<class name="org.openmrs.module.facilityreporting.api.FacilityReportIndicator"
+	<class name="org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator"
 		table="kenyaemr_facilityreporting_indicator">
 		<id name="id" type="int" column="id" unsaved-value="0">
 			<generator class="native" />
@@ -13,7 +13,7 @@
 		<discriminator column="id" insert="false" />
 		<property name="name" type ="java.lang.String" column ="name" length="255"/>
 		<property name="description" type="java.lang.String" column="description" length="255"/>
-		<many-to-one name="facilityReportDataSet" class="org.openmrs.module.facilityreporting.api.FacilityReportDataSet" column="dataset_id"/>
+		<many-to-one name="dataset" class="org.openmrs.module.facilityreporting.api.models.FacilityReportDataset" column="dataset_id"/>
 		<property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" />
 		<property name="mapping" type="java.lang.String" column="mapping" length="255"/>
 		<property name="dateCreated" type="java.util.Date" column="date_created" length="19"/>
