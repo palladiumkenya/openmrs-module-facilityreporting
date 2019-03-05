@@ -4,36 +4,176 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
- 
-    <!--
-    	See http://wiki.openmrs.org/display/docs/Module+liquibase+File for 
-    	documentation on this file.
-    
-        See http://www.liquibase.org/manual/home#available_database_refactorings
-        for a list of supported elements and attributes
-    -->
- 
- 	<!-- Uncomment the changeset below if you want to make the Item class persistable, see also Item and FacilityreportingDaoTest -->
- 	<!--
-	<changeSet id="facilityreporting-2016-08-02-12-21" author="raff">
-		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="facilityreporting_item"/></not>
-		</preConditions>
-		<comment>
-			Creating the facilityreporting_item table
-		</comment>
-		<createTable tableName="facilityreporting_item">
-			<column name="facilityreporting_item_id" type="int" autoIncrement="true">
-				<constraints primaryKey="true" nullable="false"/>
-			</column>
-			<column name="uuid" type="char(38)">
-				<constraints nullable="false" unique="true"></constraints>
-			</column>
-			<column name="owner" type="int" />
-			<column name="description" type="varchar(255)" />
-		</createTable>
-        <addForeignKeyConstraint constraintName="facilityreporting_item_owner_fk" baseTableName="facilityreporting_item" baseColumnNames="owner"  referencedTableName="users"
-                                 referencedColumnNames="user_id" />
-    </changeSet> -->
- 
+
+    <!--  FACILITY REPORTING SCHEMA -->
+
+    <changeSet id="kenyaemr_facilityreporting_001" author="schege">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="kenyaemr_facilityreporting_report"/>
+            </not>
+        </preConditions>
+        <comment>
+            Creating the facilityreporting_report table
+        </comment>
+        <createTable tableName="kenyaemr_facilityreporting_report">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="char(38)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="true" unique="false"></constraints>
+            </column>
+            <column name="mapping" type="varchar(255)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+
+            <column name="date_created" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="datetime"/>
+            <column defaultValueBoolean="false" name="voided" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int"/>
+            <column name="date_voided" type="datetime"/>
+            <column name="voided_reason" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="kenyaemr_facilityreporting_002" author="schege">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="kenyaemr_facilityreporting_dataset"/>
+            </not>
+        </preConditions>
+        <comment>
+            Creating the facilityreporting_dataset table
+        </comment>
+        <createTable tableName="kenyaemr_facilityreporting_dataset">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="char(38)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+            <column name="report_id" type="int">
+                <constraints nullable="false" unique="false"></constraints>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="true" unique="false"></constraints>
+            </column>
+            <column name="mapping" type="varchar(255)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+            <column name="date_created" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="datetime"/>
+            <column defaultValueBoolean="false" name="voided" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int"/>
+            <column name="date_voided" type="datetime"/>
+            <column name="voided_reason" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="kenyaemr_facilityreporting_dataset" baseColumnNames="report_id" constraintName="kenyaemr_facilityreporting_report_constraint" referencedTableName="kenyaemr_facilityreporting_report" referencedColumnNames="id" />
+    </changeSet>
+
+    <changeSet id="kenyaemr_facilityreporting_003" author="schege">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="kenyaemr_facilityreporting_indicator"/>
+            </not>
+        </preConditions>
+        <comment>
+            Creating the facilityreporting_indicator table
+        </comment>
+        <createTable tableName="kenyaemr_facilityreporting_indicator">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="char(38)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+            <column name="dataset_id" type="int">
+                <constraints nullable="false" unique="false"></constraints>
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="true" unique="false"></constraints>
+            </column>
+            <column name="mapping" type="varchar(255)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+            <column name="date_created" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="datetime"/>
+            <column defaultValueBoolean="false" name="voided" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int"/>
+            <column name="date_voided" type="datetime"/>
+            <column name="voided_reason" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="kenyaemr_facilityreporting_indicator" baseColumnNames="dataset_id" constraintName="kenyaemr_facilityreporting_dataset_constraint" referencedTableName="kenyaemr_facilityreporting_dataset" referencedColumnNames="id" />
+    </changeSet>
+
+    <changeSet id="kenyaemr_facilityreporting_004" author="schege">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="kenyaemr_facilityreporting_data"/>
+            </not>
+        </preConditions>
+        <comment>
+            Creating the facilityreporting_data table
+        </comment>
+        <createTable tableName="kenyaemr_facilityreporting_data">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="indicator_id" type="int">
+                <constraints nullable="false" unique="false"></constraints>
+            </column>
+            <column name="report_id" type="int">
+                <constraints nullable="false" unique="false"></constraints>
+            </column>
+            <column name="start_date" type="date">
+                <constraints nullable="false" unique="false"></constraints>
+            </column>
+            <column name="end_date" type="date">
+                <constraints nullable="false" unique="false"></constraints>
+            </column>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="true" unique="false"></constraints>
+            </column>
+            <column name="date_created" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="datetime"/>
+            <column defaultValueBoolean="false" name="voided" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int"/>
+            <column name="date_voided" type="datetime"/>
+            <column name="voided_reason" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="kenyaemr_facilityreporting_data" baseColumnNames="report_id" constraintName="kenyaemr_facilityreporting_report_data_constraint" referencedTableName="kenyaemr_facilityreporting_report" referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="kenyaemr_facilityreporting_data" baseColumnNames="indicator_id" constraintName="kenyaemr_facilityreporting_indicator_data_constraint" referencedTableName="kenyaemr_facilityreporting_indicator" referencedColumnNames="id" />
+    </changeSet>
 </databaseChangeLog>
