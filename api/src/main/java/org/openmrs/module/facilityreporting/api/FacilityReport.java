@@ -2,7 +2,7 @@ package org.openmrs.module.facilityreporting.api;
 
 import org.openmrs.BaseOpenmrsData;
 
-public class Report extends BaseOpenmrsData {
+public class FacilityReportReport extends BaseOpenmrsData {
 	
 	private Integer id;
 	
@@ -14,7 +14,7 @@ public class Report extends BaseOpenmrsData {
 	
 	private String mapping;
 	
-	public Report(String name, String uuid, String description, String mapping) {
+	public FacilityReportReport(String name, String uuid, String description, String mapping) {
 		this.name = name;
 		this.uuid = uuid;
 		this.description = description;
