@@ -10,9 +10,14 @@
 package org.openmrs.module.facilityreporting.api.dao;
 
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.facilityreporting.Item;
+import org.openmrs.module.facilityreporting.api.models.FacilityReport;
+import org.openmrs.module.facilityreporting.api.models.FacilityReportData;
+import org.openmrs.module.facilityreporting.api.models.FacilityReportDataset;
+import org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,5 +38,117 @@ public class FacilityreportingDao {
 	public Item saveItem(Item item) {
 		getSession().saveOrUpdate(item);
 		return item;
+	}
+	
+	/**
+	 * saves or updates a facility report object
+	 * 
+	 * @param report
+	 * @return
+	 * @throws APIException
+	 */
+	public FacilityReport saveOrUpdateReport(FacilityReport report) {
+		getSession().saveOrUpdate(report);
+		return report;
+	}
+	
+	/**
+	 * gets facility report object by uuid
+	 * 
+	 * @param id
+	 * @return
+	 * @throws APIException
+	 */
+	public FacilityReport getReportById(Integer id) {
+		return (FacilityReport) getSession().createCriteria(FacilityReport.class).add(Restrictions.eq("id", id))
+		        .uniqueResult();
+	}
+	
+	/**
+	 * gets facility report object by uuid
+	 * 
+	 * @param reportUuid
+	 * @return
+	 * @throws APIException
+	 */
+	public FacilityReport getReportByUuid(String reportUuid) {
+		return (FacilityReport) getSession().createCriteria(FacilityReport.class).add(Restrictions.eq("uuid", reportUuid))
+		        .uniqueResult();
+		
+	}
+	
+	/**
+	 * saves or updates dataset object
+	 * 
+	 * @param dataset
+	 * @return
+	 * @throws APIException
+	 */
+	public FacilityReportDataset saveOrUpdateDataset(FacilityReportDataset dataset) {
+		getSession().saveOrUpdate(dataset);
+		return dataset;
+	}
+	
+	/**
+	 * returns FacilityReportDataset whose uuid is provided
+	 * 
+	 * @param datasetUuid
+	 * @return
+	 * @throws APIException
+	 */
+	public FacilityReportDataset getDatasetByUuid(String datasetUuid) {
+		return (FacilityReportDataset) getSession().createCriteria(FacilityReportDataset.class)
+		        .add(Restrictions.eq("uuid", datasetUuid)).uniqueResult();
+		
+	}
+	
+	/**
+	 * saves or updates indicator object
+	 * 
+	 * @param indicator
+	 * @return
+	 * @throws APIException
+	 */
+	public FacilityReportIndicator saveOrUpdateIndicator(FacilityReportIndicator indicator) {
+		getSession().saveOrUpdate(indicator);
+		return indicator;
+	}
+	
+	/**
+	 * returns indicator whose uuid is provided
+	 * 
+	 * @param indicatorUuid
+	 * @return
+	 * @throws APIException
+	 */
+	public FacilityReportIndicator getReportIndicatorByUuid(String indicatorUuid) {
+		return (FacilityReportIndicator) getSession().createCriteria(FacilityReportIndicator.class)
+		        .add(Restrictions.eq("uuid", indicatorUuid)).uniqueResult();
+		
+	}
+	
+	/**
+	 * saves or updates report data object
+	 * 
+	 * @param reportData
+	 * @return
+	 * @throws APIException
+	 */
+	public FacilityReportData saveOrUpdateReportData(FacilityReportData reportData) {
+		getSession().saveOrUpdate(reportData);
+		return reportData;
+	}
+	
+	/**
+	 * returns report data whose uuid is provided
+	 * 
+	 * @param dataUuid
+	 * @return
+	 * @throws APIException
+	 */
+	public FacilityReportData getReportDataByUuid(String dataUuid) {
+		return (FacilityReportData) getSession().createCriteria(FacilityReportData.class)
+		        .add(Restrictions.eq("uuid", dataUuid)).uniqueResult();
+		
 	}
 }

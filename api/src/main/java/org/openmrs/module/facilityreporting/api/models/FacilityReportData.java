@@ -3,6 +3,7 @@ package org.openmrs.module.facilityreporting.api.models;
 import org.openmrs.BaseOpenmrsData;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class FacilityReportData extends BaseOpenmrsData {
 	
@@ -18,11 +19,21 @@ public class FacilityReportData extends BaseOpenmrsData {
 	
 	private Date endDate;
 	
+	public FacilityReportData() {
+		prePersist();
+	}
+	
 	public FacilityReportData(Integer id, String value, Date startDate, Date endDate) {
 		this.id = id;
 		this.value = value;
 		this.startDate = startDate;
 		this.endDate = endDate;
+	}
+	
+	public void prePersist() {
+		
+		if (null == getUuid())
+			setUuid(UUID.randomUUID().toString());
 	}
 	
 	@Override

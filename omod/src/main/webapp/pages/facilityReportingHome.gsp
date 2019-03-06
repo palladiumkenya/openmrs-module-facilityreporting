@@ -39,6 +39,14 @@
                 <td colspan="4"><input type="button" value="Add Report Configuraton"/></td>
             </tr>
             <% } %>
+            <tr>
+                <td colspan="2">
+                    <button class="addTrace" name="addTrace" type="button"
+                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportConfigurationForm", [ returnUrl: ui.thisUrl() ])}')">
+                        <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Configuration
+                    </button>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
