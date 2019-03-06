@@ -20,6 +20,8 @@ import org.openmrs.module.facilityreporting.api.models.FacilityReportDataset;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * The main service of this module, which is exposed for other modules. See
  * moduleApplicationContext.xml on how it is wired up.
@@ -130,5 +132,9 @@ public interface FacilityreportingService extends OpenmrsService {
 	 * @throws APIException
 	 */
 	FacilityReportData getReportDataByUuid(String dataUuid) throws APIException;
-	
+
+	List<FacilityReport> getFacilityReportObj();
+	List<FacilityReportDataset> getFacilityReportDatasetObj(FacilityReport facilityReport);
+	List<FacilityReportIndicator> getFacilityReportIndicatorObj(FacilityReportDataset facilityReportDataset);
+
 }
