@@ -22,9 +22,8 @@
       action="${ui.actionLink("facilityreporting", "reportDatasetForm", "saveReportDatasetForm")}">
     <% if (command.original) { %>
     <input type="hidden" name="id" value="${command.original.id}"/>
-    <input type="hidden" name="reportId" value="${report.id}"/>
     <% } %>
-
+    <input type="hidden" name="report" value="${report.id}"/>
     <div class="ke-panel-content">
 
         <div class="ke-form-globalerrors" style="display: none"></div>
