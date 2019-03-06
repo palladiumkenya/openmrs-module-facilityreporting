@@ -19,6 +19,7 @@ public class FacilityReportingHomePageController {
 	
 	public void controller(UiUtils ui, PageModel model) {
 		
+
 		FacilityreportingService service = org.openmrs.api.context.Context.getService(FacilityreportingService.class);
 		
 		List<FacilityReport> reportConfigurations = service.getAllReportDefinitions();
@@ -38,5 +39,6 @@ public class FacilityReportingHomePageController {
 		}
 		
 		return objects;
+
 	}
 }
