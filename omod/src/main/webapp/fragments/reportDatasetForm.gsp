@@ -84,9 +84,9 @@
         jQuery('#facility-report-dataset-form .cancel-button').click(function () {
             ui.navigate('${ config.returnUrl }');
         });
-        kenyaui.setupAjaxPost('facility-report-form', {
+        kenyaui.setupAjaxPost('facility-report-dataset-form', {
             onSuccess: function (data) {
-                if (data.reportId) {
+                if (data.datasetId) {
                     <% if (config.returnUrl) { %>
                     ui.navigate('${ config.returnUrl }');
                     <% } else { %>

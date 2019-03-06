@@ -49,7 +49,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <button class="addConfiguration" name="addConfiguration" type="button"
+                    <button class="addConfiguration" name="addDatasetConfiguration" type="button"
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportDatasetForm", [reportId: 2, returnUrl: ui.thisUrl() ])}')">
                         <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Dataset
                     </button>

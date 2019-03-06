@@ -30,8 +30,8 @@ public class ReportDatasetFormFragmentController {
 	public SimpleObject saveReportDatasetForm(
 	        @MethodParam("newFacilityReportDatasetForm") @BindParams FacilityReportDatasetForm form, UiUtils ui) {
 		ui.validate(form, form, null);
-		FacilityReportDataset report = form.save();
-		return SimpleObject.create("reportId", report.getId());
+		FacilityReportDataset dataset = form.save();
+		return SimpleObject.create("datasetId", dataset.getId());
 	}
 	
 	public FacilityReportDatasetForm newFacilityReportDatasetForm(
