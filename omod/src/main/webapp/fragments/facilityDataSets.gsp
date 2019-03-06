@@ -11,6 +11,30 @@
 <script >
     window.OpenMRS = window.OpenMRS || {};
     window.OpenMRS.datim = ${datim}
+        jq(document).ready(function () {
+
+            jq('.saveData').click(function () {
+                payload = {
+                    "DataSetResults": result
+
+                };
+                jq.getJSON('${ ui.actionLink("facilityreporting", "facilityDataSets", "saveDataset") }',
+                    {
+                        'payload': JSON.stringify(payload)
+                    })
+                    .success(function (data) {
+                        payload = {};
+                        window.location.reload(true);
+                    })
+                    .error(function (xhr, status, err) {
+                        console.log('AJAX error ' + JSON.stringify(xhr));
+                        console.log("response text: " + JSON.stringify(xhr.statusText));
+
+                    })
+            });
+
+
+        });
 </script>
 
 
@@ -22,7 +46,8 @@
 
         <div ng-repeat = " data in control.dataset">
             <div class="form-group row">
-                <h4>{{data.datasetName}}</h4>
+                <fieldset>
+                <legend>{{data.datasetName}}</legend>
                 <div ng-repeat ="indicator in data.indicators">
                     <table>
                         <thead>
@@ -47,13 +72,14 @@
                     </table>
 
                 </div>
+                </fieldset>
 
             </div>
         </div>
         </div>
         </div>
         <div>
-            <button ng-click ="savReportDataSets">Save</button>
+            <button type="button" ng-click="savReportDataSets()" class="saveData">Save</button>
         </div>
 </div>
 
