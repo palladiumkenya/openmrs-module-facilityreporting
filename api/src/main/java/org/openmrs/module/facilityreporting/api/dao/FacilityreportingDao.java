@@ -9,6 +9,7 @@
  */
 package org.openmrs.module.facilityreporting.api.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.hibernate.DbSession;
@@ -20,6 +21,9 @@ import org.openmrs.module.facilityreporting.api.models.FacilityReportDataset;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.Date;
+import java.util.List;
 
 @Repository("facilityreporting.FacilityreportingDao")
 public class FacilityreportingDao {
@@ -77,6 +81,11 @@ public class FacilityreportingDao {
 		
 	}
 	
+	public List<FacilityReport> getAllReportDefinitions() {
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(FacilityReport.class);
+		return criteria.list();
+	}
+	
 	/**
 	 * saves or updates dataset object
 	 * 
@@ -100,6 +109,17 @@ public class FacilityreportingDao {
 		return (FacilityReportDataset) getSession().createCriteria(FacilityReportDataset.class)
 		        .add(Restrictions.eq("uuid", datasetUuid)).uniqueResult();
 		
+	}
+	
+	public FacilityReportDataset getDatasetById(Integer id) {
+		return (FacilityReportDataset) getSession().createCriteria(FacilityReport.class).add(Restrictions.eq("id", id))
+		        .uniqueResult();
+	}
+	
+	public List<FacilityReportDataset> getDatasetsByReport(FacilityReport report) {
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(FacilityReportDataset.class);
+		criteria.add(Restrictions.eq("report", report));
+		return criteria.list();
 	}
 	
 	/**
@@ -150,5 +170,24 @@ public class FacilityreportingDao {
 		return (FacilityReportData) getSession().createCriteria(FacilityReportData.class)
 		        .add(Restrictions.eq("uuid", dataUuid)).uniqueResult();
 		
+	}
+	
+	public FacilityReportIndicator getReportIndicatorById(Integer id) {
+		return (FacilityReportIndicator) getSession().createCriteria(FacilityReport.class).add(Restrictions.eq("id", id))
+		        .uniqueResult();
+	}
+	
+	public List<FacilityReportIndicator> getIndicatorsByDataset(FacilityReportDataset dataset) {
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(FacilityReportDataset.class);
+		criteria.add(Restrictions.eq("dataset", dataset));
+		return criteria.list();
+	}
+	
+	public List<FacilityReportData> getReportData(FacilityReport report, Date startDate, Date endDate) {
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(FacilityReportDataset.class);
+		criteria.add(Restrictions.eq("report", report));
+		criteria.add(Restrictions.eq("startDate", startDate));
+		criteria.add(Restrictions.eq("endDate", endDate));
+		return criteria.list();
 	}
 }

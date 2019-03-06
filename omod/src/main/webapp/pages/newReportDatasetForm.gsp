@@ -12,6 +12,6 @@
 </div>
 <div class="ke-page-content">
 
-    ${ ui.includeFragment("facilityreporting", "facilityReportForm", [returnUrl: ui.pageLink("facilityreporting", "facilityReportingHome")]) }
+    ${ ui.includeFragment("facilityreporting", "reportDatasetForm", [reportId: report.id, returnUrl: ui.pageLink("facilityreporting", "facilityReportingHome")]) }
 
  </div>

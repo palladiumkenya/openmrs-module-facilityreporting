@@ -18,7 +18,7 @@
             <thead>
             <tr>
                 <th>Report Name</th>
-                <th>Description</th>
+                <th colspan="2">Description</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -27,7 +27,7 @@
             <% reports.each { report -> %>
             <tr>
                 <td>${ report.name }</td>
-                <td>${ report.description }</td>
+                <td colspan="2">${ report.description }</td>
                 <td><button>View Configuration</button> <button>Enter Data</button></td>
             </tr>
             <% } %>
@@ -41,9 +41,17 @@
             <% } %>
             <tr>
                 <td colspan="2">
-                    <button class="addTrace" name="addTrace" type="button"
+                    <button class="addConfiguration" name="addConfiguration" type="button"
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportConfigurationForm", [ returnUrl: ui.thisUrl() ])}')">
                         <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Configuration
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button class="addConfiguration" name="addConfiguration" type="button"
+                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportDatasetForm", [reportId: 2, returnUrl: ui.thisUrl() ])}')">
+                        <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Dataset
                     </button>
                 </td>
             </tr>
