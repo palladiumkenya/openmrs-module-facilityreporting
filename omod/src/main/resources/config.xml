@@ -19,10 +19,10 @@
 	
 	<require_version>1.11.6</require_version>
 	<require_modules>
-		<require_module>
-			org.openmrs.module.uiframework
-		</require_module>
+		<require_module>org.openmrs.module.uiframework</require_module>
+		<require_module version="${kenyauiVersion}">org.openmrs.module.kenyaui</require_module>
 	</require_modules>
+
 	
 	<!-- Extensions -->
 	<extension>
@@ -33,7 +33,15 @@
 	<aware_of_modules>
 		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
 	</aware_of_modules>
-	
+
+	<mappingFiles>
+
+		FacilityReport.hbm.xml
+		FacilityReportData.hbm.xml
+		FacilityReportDataset.hbm.xml
+		FacilityReportIndicator.hbm.xml
+
+	</mappingFiles>
 	
 	<!-- AOP
 	<advice>

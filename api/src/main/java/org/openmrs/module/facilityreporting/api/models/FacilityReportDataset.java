@@ -1,14 +1,16 @@
-package org.openmrs.module.facilityreporting.api;
+package org.openmrs.module.facilityreporting.api.models;
 
 import org.openmrs.BaseOpenmrsData;
 
-public class Indicator extends BaseOpenmrsData {
+import java.util.UUID;
+
+public class FacilityReportDataset extends BaseOpenmrsData {
 	
 	private Integer id;
 	
-	private String name;
+	private FacilityReport report;
 	
-	private Dataset dataset;
+	private String name;
 	
 	private String description;
 	
@@ -16,11 +18,21 @@ public class Indicator extends BaseOpenmrsData {
 	
 	private String mapping;
 	
-	public Indicator(String name, String description, String uuid, String mapping) {
+	public FacilityReportDataset() {
+		prePersist();
+	}
+	
+	public FacilityReportDataset(String name, String description, String uuid, String mapping) {
 		this.name = name;
 		this.description = description;
 		this.uuid = uuid;
 		this.mapping = mapping;
+	}
+	
+	public void prePersist() {
+		
+		if (null == getUuid())
+			setUuid(UUID.randomUUID().toString());
 	}
 	
 	@Override
@@ -33,20 +45,20 @@ public class Indicator extends BaseOpenmrsData {
 		this.id = id;
 	}
 	
+	public FacilityReport getReport() {
+		return report;
+	}
+	
+	public void setReport(FacilityReport report) {
+		this.report = report;
+	}
+	
 	public String getName() {
 		return name;
 	}
 	
 	public void setName(String name) {
 		this.name = name;
-	}
-	
-	public Dataset getDataset() {
-		return dataset;
-	}
-	
-	public void setDataset(Dataset dataset) {
-		this.dataset = dataset;
 	}
 	
 	public String getDescription() {

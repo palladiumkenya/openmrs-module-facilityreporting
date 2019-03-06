@@ -5,14 +5,14 @@
 
 <hibernate-mapping package="org.openmrs.module.facilityreporting">
 
-	<class name="org.openmrs.module.facilityreporting.api.FacilityReportData"
+	<class name="org.openmrs.module.facilityreporting.api.models.FacilityReportData"
 		table="kenyaemr_facilityreporting_data">
 		<id name="id" type="int" column="id" unsaved-value="0">
 			<generator class="native" />
 		</id>
 		<discriminator column="id" insert="false" />
-		<many-to-one name="facilityReportIndicator" class="org.openmrs.module.facilityreporting.api.FacilityReportIndicator" column="indicator_id"/>
-		<many-to-one name="facilityReport" class ="org.openmrs.module.facilityreporting.api.FacilityReport" column ="report_id"/>
+		<many-to-one name="indicator" class="org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator" column="indicator_id"/>
+		<many-to-one name="report" class ="org.openmrs.module.facilityreporting.api.models.FacilityReport" column ="report_id"/>
 		<property name="startDate" type="java.util.Date" column="start_date" length="19"/>
 		<property name="endDate" type="java.util.Date" column="end_date" length="19"/>
 		<property name="value" type="java.lang.String" column="value" length="255"/>

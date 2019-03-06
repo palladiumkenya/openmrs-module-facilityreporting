@@ -1,8 +1,10 @@
-package org.openmrs.module.facilityreporting.api;
+package org.openmrs.module.facilityreporting.api.models;
 
 import org.openmrs.BaseOpenmrsData;
 
-public class FacilityReportReport extends BaseOpenmrsData {
+import java.util.UUID;
+
+public class FacilityReport extends BaseOpenmrsData {
 	
 	private Integer id;
 	
@@ -14,11 +16,21 @@ public class FacilityReportReport extends BaseOpenmrsData {
 	
 	private String mapping;
 	
-	public FacilityReportReport(String name, String uuid, String description, String mapping) {
+	public FacilityReport() {
+		prePersist();
+	}
+	
+	public FacilityReport(String name, String uuid, String description, String mapping) {
 		this.name = name;
 		this.uuid = uuid;
 		this.description = description;
 		this.mapping = mapping;
+	}
+	
+	public void prePersist() {
+		
+		if (null == getUuid())
+			setUuid(UUID.randomUUID().toString());
 	}
 	
 	public Integer getId() {

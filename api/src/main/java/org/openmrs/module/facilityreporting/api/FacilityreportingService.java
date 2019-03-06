@@ -14,6 +14,10 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.facilityreporting.FacilityreportingConfig;
 import org.openmrs.module.facilityreporting.Item;
+import org.openmrs.module.facilityreporting.api.models.FacilityReport;
+import org.openmrs.module.facilityreporting.api.models.FacilityReportData;
+import org.openmrs.module.facilityreporting.api.models.FacilityReportDataset;
+import org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -45,4 +49,86 @@ public interface FacilityreportingService extends OpenmrsService {
 	@Authorized(FacilityreportingConfig.MODULE_PRIVILEGE)
 	@Transactional
 	Item saveItem(Item item) throws APIException;
+	
+	/**
+	 * saves or updates a facility report object
+	 * 
+	 * @param report
+	 * @return
+	 * @throws APIException
+	 */
+	FacilityReport saveOrUpdateReport(FacilityReport report) throws APIException;
+	
+	/**
+	 * gets facility report object by uuid
+	 * 
+	 * @param reportUuid
+	 * @return
+	 * @throws APIException
+	 */
+	FacilityReport getReportByUuid(String reportUuid) throws APIException;
+	
+	/**
+	 * gets facility report object by uuid
+	 * 
+	 * @param id
+	 * @return
+	 * @throws APIException
+	 */
+	FacilityReport getReportById(Integer id) throws APIException;
+	
+	/**
+	 * saves or updates dataset object
+	 * 
+	 * @param dataset
+	 * @return
+	 * @throws APIException
+	 */
+	FacilityReportDataset saveOrUpdateDataset(FacilityReportDataset dataset) throws APIException;
+	
+	/**
+	 * returns FacilityReportDataset whose uuid is provided
+	 * 
+	 * @param datasetUuid
+	 * @return
+	 * @throws APIException
+	 */
+	FacilityReportDataset getDatasetByUuid(String datasetUuid) throws APIException;
+	
+	/**
+	 * saves or updates indicator object
+	 * 
+	 * @param indicator
+	 * @return
+	 * @throws APIException
+	 */
+	FacilityReportIndicator saveOrUpdateIndicator(FacilityReportIndicator indicator) throws APIException;
+	
+	/**
+	 * returns indicator whose uuid is provided
+	 * 
+	 * @param indicatorUuid
+	 * @return
+	 * @throws APIException
+	 */
+	FacilityReportIndicator getReportIndicatorByUuid(String indicatorUuid) throws APIException;
+	
+	/**
+	 * saves or updates report data object
+	 * 
+	 * @param reportData
+	 * @return
+	 * @throws APIException
+	 */
+	FacilityReportData saveOrUpdateReportData(FacilityReportData reportData) throws APIException;
+	
+	/**
+	 * returns report data whose uuid is provided
+	 * 
+	 * @param dataUuid
+	 * @return
+	 * @throws APIException
+	 */
+	FacilityReportData getReportDataByUuid(String dataUuid) throws APIException;
+	
 }
