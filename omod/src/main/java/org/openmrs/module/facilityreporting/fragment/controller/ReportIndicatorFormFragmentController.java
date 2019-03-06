@@ -3,6 +3,8 @@ package org.openmrs.module.facilityreporting.fragment.controller;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.facilityreporting.api.FacilityreportingService;
 import org.openmrs.module.facilityreporting.api.models.FacilityReport;
+import org.openmrs.module.facilityreporting.api.models.FacilityReportDataset;
+import org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator;
 import org.openmrs.module.kenyaui.form.AbstractWebForm;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
@@ -15,34 +17,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class ReportIndicatorFormFragmentController {
 	
-	public void controller(@FragmentParam(value = "id", required = false) FacilityReport facilityReport,
-	        @RequestParam(value = "returnUrl") String returnUrl, PageModel model) {
+	public void controller(@FragmentParam(value = "id", required = false) FacilityReportIndicator facilityReportIndicator,
+	        @RequestParam(value = "returnUrl") String returnUrl,
+	        @RequestParam(value = "datasetId") FacilityReportDataset dataset, PageModel model) {
 		
-		FacilityReport exists = facilityReport != null ? facilityReport : null;
-		model.addAttribute("command", newFacilityReportForm(exists));
+		FacilityReportIndicator exists = facilityReportIndicator != null ? facilityReportIndicator : null;
+		model.addAttribute("command", newFacilityReportIndicatorForm(exists, dataset));
+		model.addAttribute("returnUrl", returnUrl);
+		model.addAttribute("dataset", dataset);
 		
 	}
 	
-	public SimpleObject saveReportForm(@MethodParam("newFacilityReportDatasetForm") @BindParams FacilityReportForm form,
-	        UiUtils ui) {
+	public SimpleObject saveReportIndicatorForm(
+	        @MethodParam("newFacilityReportIndicatorForm") @BindParams FacilityReportIndicatorForm form, UiUtils ui) {
 		ui.validate(form, form, null);
-		FacilityReport report = form.save();
-		return SimpleObject.create("reportId", report.getId());
+		FacilityReportIndicator indicator = form.save();
+		return SimpleObject.create("indicatorId", indicator.getId());
 	}
 	
-	public FacilityReportForm newFacilityReportForm(
-	        @RequestParam(value = "id", required = false) FacilityReport facilityReport) {
-		if (facilityReport != null) {
+	public FacilityReportIndicatorForm newFacilityReportIndicatorForm(
+	        @RequestParam(value = "id", required = false) FacilityReportIndicator reportIndicator,
+	        @RequestParam(value = "datasetId", required = false) FacilityReportDataset dataset) {
+		if (reportIndicator != null) {
 			
-			return new FacilityReportForm(facilityReport);
+			return new FacilityReportIndicatorForm(reportIndicator, dataset);
 		} else {
-			return new FacilityReportForm();
+			return new FacilityReportIndicatorForm(dataset);
 		}
 	}
 	
-	public class FacilityReportForm extends AbstractWebForm {
+	public class FacilityReportIndicatorForm extends AbstractWebForm {
 		
-		private FacilityReport original;
+		private FacilityReportIndicator original;
 		
 		private String name;
 		
@@ -50,31 +56,39 @@ public class ReportIndicatorFormFragmentController {
 		
 		private String mapping;
 		
-		public FacilityReportForm() {
+		private FacilityReportDataset dataset;
+		
+		public FacilityReportIndicatorForm() {
 		}
 		
-		public FacilityReportForm(FacilityReport facilityReport) {
-			
-			this.original = facilityReport;
-			this.name = facilityReport.getName();
-			this.description = facilityReport.getDescription();
-			this.mapping = facilityReport.getMapping();
+		public FacilityReportIndicatorForm(FacilityReportDataset dataset) {
+			this.dataset = dataset;
+		}
+		
+		public FacilityReportIndicatorForm(FacilityReportIndicator reportIndicator, FacilityReportDataset dataset) {
+			this.original = reportIndicator;
+			this.name = reportIndicator.getName();
+			this.description = reportIndicator.getDescription();
+			this.mapping = reportIndicator.getMapping();
+			this.dataset = dataset;
 			
 		}
 		
-		public FacilityReport save() {
-			FacilityReport toSave;
+		public FacilityReportIndicator save() {
+			FacilityReportIndicator toSave;
 			if (original != null) {
 				
 				toSave = original;
 			} else {
-				toSave = new FacilityReport();
+				toSave = new FacilityReportIndicator();
 			}
 			toSave.setName(name);
 			toSave.setDescription(description);
 			toSave.setMapping(mapping);
-			FacilityReport fReport = Context.getService(FacilityreportingService.class).saveOrUpdateReport(toSave);
-			return fReport;
+			toSave.setDataset(dataset);
+			FacilityReportIndicator fIndicator = Context.getService(FacilityreportingService.class).saveOrUpdateIndicator(
+			    toSave);
+			return fIndicator;
 			
 		}
 		
@@ -86,11 +100,11 @@ public class ReportIndicatorFormFragmentController {
 			
 		}
 		
-		public FacilityReport getOriginal() {
+		public FacilityReportIndicator getOriginal() {
 			return original;
 		}
 		
-		public void setOriginal(FacilityReport original) {
+		public void setOriginal(FacilityReportIndicator original) {
 			this.original = original;
 		}
 		
@@ -116,6 +130,14 @@ public class ReportIndicatorFormFragmentController {
 		
 		public void setMapping(String mapping) {
 			this.mapping = mapping;
+		}
+		
+		public FacilityReportDataset getDataset() {
+			return dataset;
+		}
+		
+		public void setDataset(FacilityReportDataset dataset) {
+			this.dataset = dataset;
 		}
 	}
 	

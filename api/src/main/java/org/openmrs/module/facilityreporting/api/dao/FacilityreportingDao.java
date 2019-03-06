@@ -112,8 +112,8 @@ public class FacilityreportingDao {
 	}
 	
 	public FacilityReportDataset getDatasetById(Integer id) {
-		return (FacilityReportDataset) getSession().createCriteria(FacilityReport.class).add(Restrictions.eq("id", id))
-		        .uniqueResult();
+		return (FacilityReportDataset) getSession().createCriteria(FacilityReportDataset.class)
+		        .add(Restrictions.eq("id", id)).uniqueResult();
 	}
 	
 	public List<FacilityReportDataset> getDatasetsByReport(FacilityReport report) {
@@ -173,18 +173,18 @@ public class FacilityreportingDao {
 	}
 	
 	public FacilityReportIndicator getReportIndicatorById(Integer id) {
-		return (FacilityReportIndicator) getSession().createCriteria(FacilityReport.class).add(Restrictions.eq("id", id))
-		        .uniqueResult();
+		return (FacilityReportIndicator) getSession().createCriteria(FacilityReportIndicator.class)
+		        .add(Restrictions.eq("id", id)).uniqueResult();
 	}
 	
 	public List<FacilityReportIndicator> getIndicatorsByDataset(FacilityReportDataset dataset) {
-		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(FacilityReportDataset.class);
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(FacilityReportIndicator.class);
 		criteria.add(Restrictions.eq("dataset", dataset));
 		return criteria.list();
 	}
 	
 	public List<FacilityReportData> getReportData(FacilityReport report, Date startDate, Date endDate) {
-		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(FacilityReportDataset.class);
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(FacilityReportData.class);
 		criteria.add(Restrictions.eq("report", report));
 		criteria.add(Restrictions.eq("startDate", startDate));
 		criteria.add(Restrictions.eq("endDate", endDate));

@@ -54,6 +54,12 @@
                         <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Dataset
                     </button>
                 </td>
+                <td colspan="2">
+                    <button class="addConfiguration" name="addIndicatorConfiguration" type="button"
+                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportIndicatorForm", [datasetId: 2, returnUrl: ui.thisUrl() ])}')">
+                        <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Indicator
+                    </button>
+                </td>
             </tr>
             </tbody>
         </table>
