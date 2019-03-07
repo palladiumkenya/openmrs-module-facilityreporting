@@ -3,8 +3,8 @@
     def menuItems = [
             [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: ui.pageLink("kenyaemr", "userHome") ]
     ]
+    ui.includeCss("facilityreporting", "table_formatter.css")
 %>
-
 <div class="ke-page-sidebar">
     <div class="ke-panel-frame">
         ${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Navigation", items: menuItems ]) }
@@ -12,56 +12,42 @@
 </div>
 
 <div class="ke-page-content">
-    <div>
-        <h3>Facility Reporting Configuration</h3>
-        <table id="log_table">
-            <thead>
+        <h2>Facility Reports</h2>
+        <div class="clear"></div>
+
+        <% if (reports) { %>
+        <table class="simple-table">
             <tr>
-                <th>Report Name</th>
-                <th colspan="2">Description</th>
-                <th>Actions</th>
+                <th align="left">Report Name</th>
+                <th align="left">Description</th>
+                <th align="left">Mapping</th>
+                <th align="left">Actions</th>
             </tr>
-            </thead>
-            <tbody class='scrollable'>
-            <% if (reports) { %>
-            <% reports.each { report -> %>
-            <tr>
-                <td>${ report.name }</td>
-                <td colspan="2">${ report.description }</td>
-                <td><button>View Configuration</button> <button>Enter Data</button></td>
-            </tr>
-            <% } %>
-            <% } else { %>
-            <tr>
-                <td colspan="4">No reports available</td>
-            </tr>
-            <tr>
-                <td colspan="4"><input type="button" value="Add Report Configuraton"/></td>
-            </tr>
-            <% } %>
-            <tr>
-                <td colspan="2">
-                    <button class="addConfiguration" name="addConfiguration" type="button"
-                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportConfigurationForm", [ returnUrl: ui.thisUrl() ])}')">
-                        <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Configuration
+        <% reports.each { report -> %>
+
+        <tr>
+                <td>${report.name}</td>
+
+                <td>${report.description ?: ""}</td>
+
+                <td>${report.mapping ?: ""}</td>
+                <td class="column-five">
+                    <button
+                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "reportDatasetsList", [reportId: report.id, returnUrl: ui.thisUrl() ])}')">
+                        <img src="${ui.resourceLink("kenyaui", "images/glyphs/view.png")}"/> View Datasets
                     </button>
                 </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <button class="addConfiguration" name="addDatasetConfiguration" type="button"
-                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportDatasetForm", [reportId: 2, returnUrl: ui.thisUrl() ])}')">
-                        <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Dataset
-                    </button>
-                </td>
-                <td colspan="2">
-                    <button class="addConfiguration" name="addIndicatorConfiguration" type="button"
-                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportIndicatorForm", [datasetId: 2, returnUrl: ui.thisUrl() ])}')">
-                        <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Indicator
-                    </button>
-                </td>
-            </tr>
-            </tbody>
+        </tr>
+        <% } %>
         </table>
+        <% } else { %>
+
+        <div>No reports available</div>
+        <% } %>
+    <div>
+            <button class="addConfiguration" name="addConfiguration" type="button"
+                    onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportConfigurationForm", [ returnUrl: ui.thisUrl() ])}')">
+                <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Report Configuration
+            </button>
     </div>
 </div>

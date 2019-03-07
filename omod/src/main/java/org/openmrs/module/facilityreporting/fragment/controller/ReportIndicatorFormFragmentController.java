@@ -39,7 +39,6 @@ public class ReportIndicatorFormFragmentController {
 	        @RequestParam(value = "id", required = false) FacilityReportIndicator reportIndicator,
 	        @RequestParam(value = "datasetId", required = false) FacilityReportDataset dataset) {
 		if (reportIndicator != null) {
-			
 			return new FacilityReportIndicatorForm(reportIndicator, dataset);
 		} else {
 			return new FacilityReportIndicatorForm(dataset);

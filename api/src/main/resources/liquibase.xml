@@ -176,4 +176,10 @@
         <addForeignKeyConstraint baseTableName="kenyaemr_facilityreporting_data" baseColumnNames="report_id" constraintName="kenyaemr_facilityreporting_report_data_constraint" referencedTableName="kenyaemr_facilityreporting_report" referencedColumnNames="id" />
         <addForeignKeyConstraint baseTableName="kenyaemr_facilityreporting_data" baseColumnNames="indicator_id" constraintName="kenyaemr_facilityreporting_indicator_data_constraint" referencedTableName="kenyaemr_facilityreporting_indicator" referencedColumnNames="id" />
     </changeSet>
+    <changeSet id="${project.parent.artifactId}-20190306-1320" author="aojwang">
+        <comment>
+            inserts additional datasets and indicators for MOH 731
+        </comment>
+        <sqlFile path="sql/moh731_additional_report_indicators.sql" stripComments="true" />
+    </changeSet>
 </databaseChangeLog>
