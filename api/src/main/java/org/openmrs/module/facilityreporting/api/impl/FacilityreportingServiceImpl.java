@@ -20,6 +20,9 @@ import org.openmrs.module.facilityreporting.api.models.FacilityReportData;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportDataset;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator;
 
+import java.util.Date;
+import java.util.List;
+
 public class FacilityreportingServiceImpl extends BaseOpenmrsService implements FacilityreportingService {
 	
 	FacilityreportingDao dao;
@@ -70,6 +73,11 @@ public class FacilityreportingServiceImpl extends BaseOpenmrsService implements 
 	}
 	
 	@Override
+	public List<FacilityReport> getAllReportDefinitions() throws APIException {
+		return dao.getAllReportDefinitions();
+	}
+	
+	@Override
 	public FacilityReportDataset saveOrUpdateDataset(FacilityReportDataset dataset) throws APIException {
 		return dao.saveOrUpdateDataset(dataset);
 	}
@@ -77,6 +85,16 @@ public class FacilityreportingServiceImpl extends BaseOpenmrsService implements 
 	@Override
 	public FacilityReportDataset getDatasetByUuid(String datasetUuid) throws APIException {
 		return dao.getDatasetByUuid(datasetUuid);
+	}
+	
+	@Override
+	public FacilityReportDataset getDatasetById(Integer id) throws APIException {
+		return dao.getDatasetById(id);
+	}
+	
+	@Override
+	public List<FacilityReportDataset> getDatasetsByReport(FacilityReport report) throws APIException {
+		return dao.getDatasetsByReport(report);
 	}
 	
 	@Override
@@ -90,6 +108,16 @@ public class FacilityreportingServiceImpl extends BaseOpenmrsService implements 
 	}
 	
 	@Override
+	public FacilityReportIndicator getReportIndicatorById(Integer id) throws APIException {
+		return dao.getReportIndicatorById(id);
+	}
+	
+	@Override
+	public List<FacilityReportIndicator> getIndicatorsByDataset(FacilityReportDataset dataset) throws APIException {
+		return dao.getIndicatorsByDataset(dataset);
+	}
+	
+	@Override
 	public FacilityReportData saveOrUpdateReportData(FacilityReportData reportData) throws APIException {
 		return dao.saveOrUpdateReportData(reportData);
 	}
@@ -97,5 +125,10 @@ public class FacilityreportingServiceImpl extends BaseOpenmrsService implements 
 	@Override
 	public FacilityReportData getReportDataByUuid(String dataUuid) throws APIException {
 		return dao.getReportDataByUuid(dataUuid);
+	}
+	
+	@Override
+	public List<FacilityReportData> getReportData(FacilityReport report, Date startDate, Date endDate) throws APIException {
+		return dao.getReportData(report, startDate, endDate);
 	}
 }

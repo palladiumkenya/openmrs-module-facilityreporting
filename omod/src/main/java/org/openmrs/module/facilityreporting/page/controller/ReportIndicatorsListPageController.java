@@ -2,6 +2,8 @@ package org.openmrs.module.facilityreporting.page.controller;
 
 import org.openmrs.module.facilityreporting.api.FacilityreportingService;
 import org.openmrs.module.facilityreporting.api.models.FacilityReport;
+import org.openmrs.module.facilityreporting.api.models.FacilityReportDataset;
+import org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator;
 import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
@@ -14,21 +16,24 @@ import java.util.List;
 /**
  * Controller class for facility reporting home page
  */
-@AppPage("facilityReporting.home")
-public class FacilityReportingHomePageController {
+
+public class ReportIndicatorsListPageController {
 	
-	public void controller(UiUtils ui, PageModel model) {
+	public void controller(UiUtils ui, @RequestParam("datasetId") FacilityReportDataset dataset,
+	        @RequestParam(value = "returnUrl") String returnUrl, PageModel model) {
 		
 		FacilityreportingService service = org.openmrs.api.context.Context.getService(FacilityreportingService.class);
 		
-		List<FacilityReport> reportConfigurations = service.getAllReportDefinitions();
-		model.put("reports", reportFormatter(reportConfigurations));
+		List<FacilityReportIndicator> reportConfigurations = service.getIndicatorsByDataset(dataset);
+		model.put("indicators", reportFormatter(reportConfigurations));
+		model.put("dataset", dataset);
+		model.put("returnUrl", returnUrl);
 	}
 	
-	private List<SimpleObject> reportFormatter(List<FacilityReport> definitions) {
+	private List<SimpleObject> reportFormatter(List<FacilityReportIndicator> definitions) {
 		List<SimpleObject> objects = new ArrayList<SimpleObject>();
 		
-		for (FacilityReport ds : definitions) {
+		for (FacilityReportIndicator ds : definitions) {
 			
 			SimpleObject reportObject = SimpleObject.create("id", ds.getId(), "name", ds.getName(), "description",
 			    ds.getDescription(), "mapping", ds.getMapping());

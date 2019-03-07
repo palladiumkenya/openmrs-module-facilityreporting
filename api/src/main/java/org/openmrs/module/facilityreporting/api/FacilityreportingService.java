@@ -20,6 +20,9 @@ import org.openmrs.module.facilityreporting.api.models.FacilityReportDataset;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * The main service of this module, which is exposed for other modules. See
  * moduleApplicationContext.xml on how it is wired up.
@@ -57,6 +60,7 @@ public interface FacilityreportingService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
+	@Transactional
 	FacilityReport saveOrUpdateReport(FacilityReport report) throws APIException;
 	
 	/**
@@ -66,6 +70,8 @@ public interface FacilityreportingService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
+	@Authorized()
+	@Transactional(readOnly = true)
 	FacilityReport getReportByUuid(String reportUuid) throws APIException;
 	
 	/**
@@ -75,7 +81,19 @@ public interface FacilityreportingService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
+	@Authorized()
+	@Transactional(readOnly = true)
 	FacilityReport getReportById(Integer id) throws APIException;
+	
+	/**
+	 * Returns a list of all non-voided report definitions
+	 * 
+	 * @return
+	 * @throws APIException
+	 */
+	@Authorized()
+	@Transactional(readOnly = true)
+	List<FacilityReport> getAllReportDefinitions() throws APIException;
 	
 	/**
 	 * saves or updates dataset object
@@ -84,6 +102,7 @@ public interface FacilityreportingService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
+	@Transactional
 	FacilityReportDataset saveOrUpdateDataset(FacilityReportDataset dataset) throws APIException;
 	
 	/**
@@ -93,7 +112,31 @@ public interface FacilityreportingService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
+	@Authorized()
+	@Transactional(readOnly = true)
 	FacilityReportDataset getDatasetByUuid(String datasetUuid) throws APIException;
+	
+	/**
+	 * Returns dataset for the provided id
+	 * 
+	 * @param id
+	 * @return
+	 * @throws APIException
+	 */
+	@Authorized()
+	@Transactional(readOnly = true)
+	FacilityReportDataset getDatasetById(Integer id) throws APIException;
+	
+	/**
+	 * Get all non voided datasets for a report
+	 * 
+	 * @param report
+	 * @return
+	 * @throws APIException
+	 */
+	@Authorized()
+	@Transactional(readOnly = true)
+	List<FacilityReportDataset> getDatasetsByReport(FacilityReport report) throws APIException;
 	
 	/**
 	 * saves or updates indicator object
@@ -102,6 +145,7 @@ public interface FacilityreportingService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
+	@Transactional
 	FacilityReportIndicator saveOrUpdateIndicator(FacilityReportIndicator indicator) throws APIException;
 	
 	/**
@@ -111,7 +155,31 @@ public interface FacilityreportingService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
+	@Authorized()
+	@Transactional(readOnly = true)
 	FacilityReportIndicator getReportIndicatorByUuid(String indicatorUuid) throws APIException;
+	
+	/**
+	 * gets report indicator by id
+	 * 
+	 * @param id
+	 * @return
+	 * @throws APIException
+	 */
+	@Authorized()
+	@Transactional(readOnly = true)
+	FacilityReportIndicator getReportIndicatorById(Integer id) throws APIException;
+	
+	/**
+	 * Gets all indicators defined for a dataset
+	 * 
+	 * @param dataset
+	 * @return
+	 * @throws APIException
+	 */
+	@Authorized()
+	@Transactional(readOnly = true)
+	List<FacilityReportIndicator> getIndicatorsByDataset(FacilityReportDataset dataset) throws APIException;
 	
 	/**
 	 * saves or updates report data object
@@ -120,6 +188,7 @@ public interface FacilityreportingService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
+	@Transactional
 	FacilityReportData saveOrUpdateReportData(FacilityReportData reportData) throws APIException;
 	
 	/**
@@ -129,6 +198,21 @@ public interface FacilityreportingService extends OpenmrsService {
 	 * @return
 	 * @throws APIException
 	 */
+	@Authorized()
+	@Transactional(readOnly = true)
 	FacilityReportData getReportDataByUuid(String dataUuid) throws APIException;
+	
+	/**
+	 * Gets report data for a particular period
+	 * 
+	 * @param report
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 * @throws APIException
+	 */
+	@Authorized()
+	@Transactional(readOnly = true)
+	List<FacilityReportData> getReportData(FacilityReport report, Date startDate, Date endDate) throws APIException;
 	
 }
