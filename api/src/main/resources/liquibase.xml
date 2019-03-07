@@ -32,7 +32,7 @@
             <column name="mapping" type="varchar(255)">
                 <constraints nullable="false" unique="true"></constraints>
             </column>
-            <column name="created_by" type="int">
+            <column name="created_by" type="int" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
 
@@ -78,7 +78,7 @@
             <column name="mapping" type="varchar(255)">
                 <constraints nullable="false" unique="true"></constraints>
             </column>
-            <column name="created_by" type="int">
+            <column name="created_by" type="int" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
             <column name="date_created" type="datetime">
@@ -124,7 +124,7 @@
             <column name="mapping" type="varchar(255)">
                 <constraints nullable="false" unique="true"></constraints>
             </column>
-            <column name="created_by" type="int">
+            <column name="created_by" type="int" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
             <column name="date_created" type="datetime">
@@ -170,7 +170,7 @@
             <column name="value" type="TEXT">
                 <constraints nullable="true" unique="false"></constraints>
             </column>
-            <column name="created_by" type="int">
+            <column name="created_by" type="int" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
             <column name="date_created" type="datetime">
@@ -221,7 +221,7 @@
                 <constraints nullable="true" unique="false"></constraints>
             </column>
 
-            <column name="created_by" type="int">
+            <column name="created_by" type="int" defaultValue="1">
                 <constraints nullable="false"/>
             </column>
             <column name="date_created" type="datetime">
