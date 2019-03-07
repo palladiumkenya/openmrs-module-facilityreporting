@@ -1,21 +1,20 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC
-		"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
 <hibernate-mapping package="org.openmrs.module.facilityreporting">
 
-	<class name="org.openmrs.module.facilityreporting.api.models.FacilityReportDataset"
-		   table="kenyaemr_facilityreporting_dataset">
+	<class name="org.openmrs.module.facilityreporting.api.models.FacilityReportMappingPrefix"
+		table="kenyaemr_facilityreporting_prefix_map">
 		<id name="id" type="int" column="id" unsaved-value="0">
 			<generator class="native" />
 		</id>
 		<discriminator column="id" insert="false" />
 		<property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" />
-		<property name="name" type ="java.lang.String" column ="name" length="255"/>
+		<property name="prefix" type ="java.lang.String" column ="prefix" length="255"/>
 		<property name="description" type="java.lang.String" column="description" length="255"/>
-		<property name="mapping" type="java.lang.String" column="mapping" length="255"/>
-		<many-to-one name="report" class="org.openmrs.module.facilityreporting.api.models.FacilityReport" column="report_id"/>
+		<many-to-one name="indicator" class="org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator" column="indicator_id"/>
 		<many-to-one name="creator" class="org.openmrs.User" column="created_by"/>
 		<property name="dateCreated" type="java.util.Date" column="date_created" length="19"/>
 		<many-to-one name="changedBy" class="org.openmrs.User" column="changed_by"/>

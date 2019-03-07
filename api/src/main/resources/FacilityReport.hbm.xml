@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC
-    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+		"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
 <hibernate-mapping package="org.openmrs.module.facilityreporting">
 
 	<class name="org.openmrs.module.facilityreporting.api.models.FacilityReport"
-		table="kenyaemr_facilityreporting_report">
+		   table="kenyaemr_facilityreporting_report">
 		<id name="id" type="int" column="id" unsaved-value="0">
 			<generator class="native" />
 		</id>
@@ -15,6 +15,7 @@
 		<property name="name" type ="java.lang.String" column ="name" length="255"/>
 		<property name="description" type="java.lang.String" column="description" length="255"/>
 		<property name="mapping" type="java.lang.String" column="mapping" length="255"/>
+		<many-to-one name="creator" class="org.openmrs.User" column="created_by"/>
 		<property name="dateCreated" type="java.util.Date" column="date_created" length="19"/>
 		<many-to-one name="changedBy" class="org.openmrs.User" column="changed_by"/>
 		<property name="dateChanged" type="java.util.Date" column="date_changed" length="19"/>

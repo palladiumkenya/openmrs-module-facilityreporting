@@ -1,21 +1,22 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC
-    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+		"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
 <hibernate-mapping package="org.openmrs.module.facilityreporting">
 
 	<class name="org.openmrs.module.facilityreporting.api.models.FacilityReportData"
-		table="kenyaemr_facilityreporting_data">
+		   table="kenyaemr_facilityreporting_data">
 		<id name="id" type="int" column="id" unsaved-value="0">
 			<generator class="native" />
 		</id>
 		<discriminator column="id" insert="false" />
-		<many-to-one name="indicator" class="org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator" column="indicator_id"/>
+		<many-to-one name="dataset" class="org.openmrs.module.facilityreporting.api.models.FacilityReportDataset" column="dataset_id"/>
 		<many-to-one name="report" class ="org.openmrs.module.facilityreporting.api.models.FacilityReport" column ="report_id"/>
 		<property name="startDate" type="java.util.Date" column="start_date" length="19"/>
 		<property name="endDate" type="java.util.Date" column="end_date" length="19"/>
-		<property name="value" type="java.lang.String" column="value" length="255"/>
+		<property name="value" type="java.lang.String" column="value"/>
+		<many-to-one name="creator" class="org.openmrs.User" column="created_by"/>
 		<property name="dateCreated" type="java.util.Date" column="date_created" length="19"/>
 		<many-to-one name="changedBy" class="org.openmrs.User" column="changed_by"/>
 		<property name="dateChanged" type="java.util.Date" column="date_changed" length="19"/>

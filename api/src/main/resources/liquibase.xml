@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
     <!--  FACILITY REPORTING SCHEMA -->
@@ -31,6 +31,9 @@
             </column>
             <column name="mapping" type="varchar(255)">
                 <constraints nullable="false" unique="true"></constraints>
+            </column>
+            <column name="created_by" type="int">
+                <constraints nullable="false"/>
             </column>
 
             <column name="date_created" type="datetime">
@@ -75,6 +78,9 @@
             <column name="mapping" type="varchar(255)">
                 <constraints nullable="false" unique="true"></constraints>
             </column>
+            <column name="created_by" type="int">
+                <constraints nullable="false"/>
+            </column>
             <column name="date_created" type="datetime">
                 <constraints nullable="false"/>
             </column>
@@ -118,6 +124,9 @@
             <column name="mapping" type="varchar(255)">
                 <constraints nullable="false" unique="true"></constraints>
             </column>
+            <column name="created_by" type="int">
+                <constraints nullable="false"/>
+            </column>
             <column name="date_created" type="datetime">
                 <constraints nullable="false"/>
             </column>
@@ -146,7 +155,7 @@
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="indicator_id" type="int">
+            <column name="dataset_id" type="int">
                 <constraints nullable="false" unique="false"></constraints>
             </column>
             <column name="report_id" type="int">
@@ -158,8 +167,11 @@
             <column name="end_date" type="date">
                 <constraints nullable="false" unique="false"></constraints>
             </column>
-            <column name="value" type="varchar(255)">
+            <column name="value" type="TEXT">
                 <constraints nullable="true" unique="false"></constraints>
+            </column>
+            <column name="created_by" type="int">
+                <constraints nullable="false"/>
             </column>
             <column name="date_created" type="datetime">
                 <constraints nullable="false"/>
@@ -174,12 +186,56 @@
             <column name="voided_reason" type="varchar(255)"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="kenyaemr_facilityreporting_data" baseColumnNames="report_id" constraintName="kenyaemr_facilityreporting_report_data_constraint" referencedTableName="kenyaemr_facilityreporting_report" referencedColumnNames="id" />
-        <addForeignKeyConstraint baseTableName="kenyaemr_facilityreporting_data" baseColumnNames="indicator_id" constraintName="kenyaemr_facilityreporting_indicator_data_constraint" referencedTableName="kenyaemr_facilityreporting_indicator" referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="kenyaemr_facilityreporting_data" baseColumnNames="dataset_id" constraintName="kenyaemr_facilityreporting_dataset_constraint" referencedTableName="kenyaemr_facilityreporting_dataset" referencedColumnNames="id" />
     </changeSet>
     <changeSet id="${project.parent.artifactId}-20190306-1320" author="aojwang">
         <comment>
             inserts additional datasets and indicators for MOH 731
         </comment>
         <sqlFile path="sql/moh731_additional_report_indicators.sql" stripComments="true" />
+    </changeSet>
+    <changeSet id="kenyaemr_facilityreporting_005" author="schege">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="kenyaemr_facilityreporting_prefix_map"/>
+            </not>
+        </preConditions>
+        <comment>
+            Creating facilityreporting_prefix_map table
+        </comment>
+        <createTable tableName="kenyaemr_facilityreporting_prefix_map">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="uuid" type="char(38)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+            <column name="indicator_id" type="int">
+                <constraints nullable="false" unique="false"></constraints>
+            </column>
+            <column name="prefix" type="varchar(255)">
+                <constraints nullable="false" unique="true"></constraints>
+            </column>
+
+            <column name="description" type="varchar(255)">
+                <constraints nullable="true" unique="false"></constraints>
+            </column>
+
+            <column name="created_by" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="changed_by" type="int"/>
+            <column name="date_changed" type="datetime"/>
+            <column defaultValueBoolean="false" name="voided" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voided_by" type="int"/>
+            <column name="date_voided" type="datetime"/>
+            <column name="voided_reason" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="kenyaemr_facilityreporting_prefix_map" baseColumnNames="indicator_id" constraintName="kenyaemr_facilityreporting_prefix_idicator_constraint" referencedTableName="kenyaemr_facilityreporting_indicator" referencedColumnNames="id" />
     </changeSet>
 </databaseChangeLog>
