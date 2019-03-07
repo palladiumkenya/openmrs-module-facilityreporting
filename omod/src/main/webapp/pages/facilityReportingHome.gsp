@@ -54,5 +54,10 @@
         ${ui.includeFragment("facilityreporting", "facilityDataSets", ["patient": ""])}
 
     </div>
+    <div>
+        Single Report Dataset
+        ${ui.includeFragment("facilityreporting", "singleReportDataSets", ["patient": ""])}
+
+    </div>
 
 </div>

@@ -1,0 +1,22 @@
+.table th {
+    padding: .5rem !important;
+}
+.tables td {
+    padding: .5rem !important;;
+}
+.ke-toolbar-item a {
+
+    font-weight: bold;
+    color: white !important ;
+    text-decoration: none !important;
+
+}
+
+.ke-menu-item {
+    display: block;
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #CCC;
+    padding: 1px !important;
+    min-height: 32px;
+
+}
