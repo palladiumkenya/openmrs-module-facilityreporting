@@ -16,7 +16,8 @@ public class FacilityReporting {
 	
 	SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	
-	public ObjectNode getReportDataForPeriod(Integer reportId, String startDate, String endDate) throws ParseException {
+	public ObjectNode getReportDataForPeriod(Integer reportId, String startDate, String endDate, String adxOrgUnit,
+	        String adxReportPeriod) throws ParseException {
 		FacilityreportingService service = Context.getService(FacilityreportingService.class);
 		
 		System.out.println("Variables as received: reportId:" + reportId + ", startDate: " + startDate + ", endDate: "

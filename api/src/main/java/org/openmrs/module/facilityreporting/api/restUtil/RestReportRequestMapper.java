@@ -13,12 +13,19 @@ public class RestReportRequestMapper {
 	
 	String endDate;
 	
+	String adxOrgUnit;
+	
+	String adxReportingPeriod;
+	
 	@JsonCreator
 	public RestReportRequestMapper(@JsonProperty("REPORTID") String reportID, @JsonProperty("STARTDATE") String startDate,
-	    @JsonProperty("ENDDATE") String endDate) {
+	    @JsonProperty("ENDDATE") String endDate, @JsonProperty("ADXORGUNIT") String adxOrgUnit,
+	    @JsonProperty("ADXREPORTINGPERIOD") String adxReportingPeriod) {
 		this.reportID = reportID;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.adxOrgUnit = adxOrgUnit;
+		this.adxReportingPeriod = adxReportingPeriod;
 	}
 	
 	@JsonProperty("REPORTID")
@@ -46,5 +53,33 @@ public class RestReportRequestMapper {
 	
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+	
+	/**
+	 * we want to reuse org unit already generated from kenyaemr module
+	 * 
+	 * @return
+	 */
+	@JsonProperty("ADXORGUNIT")
+	public String getAdxOrgUnit() {
+		return adxOrgUnit;
+	}
+	
+	public void setAdxOrgUnit(String adxOrgUnit) {
+		this.adxOrgUnit = adxOrgUnit;
+	}
+	
+	/**
+	 * the reporting period is also shared across
+	 * 
+	 * @return
+	 */
+	@JsonProperty("ADXREPORTINGPERIOD")
+	public String getAdxReportingPeriod() {
+		return adxReportingPeriod;
+	}
+	
+	public void setAdxReportingPeriod(String adxReportingPeriod) {
+		this.adxReportingPeriod = adxReportingPeriod;
 	}
 }
