@@ -9,7 +9,7 @@ public class FacilityReportData extends BaseOpenmrsData {
 	
 	private Integer id;
 	
-	private FacilityReportIndicator indicator;
+	private FacilityReportDataset dataset;
 	
 	private FacilityReport report;
 	
@@ -46,12 +46,12 @@ public class FacilityReportData extends BaseOpenmrsData {
 		this.id = id;
 	}
 	
-	public FacilityReportIndicator getIndicator() {
-		return indicator;
+	public FacilityReportDataset getDataset() {
+		return dataset;
 	}
 	
-	public void setIndicator(FacilityReportIndicator indicator) {
-		this.indicator = indicator;
+	public void setDataset(FacilityReportDataset dataset) {
+		this.dataset = dataset;
 	}
 	
 	public FacilityReport getReport() {

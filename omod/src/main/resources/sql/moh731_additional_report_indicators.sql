@@ -6,7 +6,7 @@ TRUNCATE TABLE kenyaemr_facilityreporting_dataset;
 TRUNCATE TABLE kenyaemr_facilityreporting_report;
 
 
-INSERT INTO kenyaemr_facilityreporting_report(id,uuid,name,description,mapping,date_created) 
+INSERT INTO kenyaemr_facilityreporting_report(id,uuid,name,description,mapping,date_created)
 VALUES(1,'4063de77-e17d-442c-b4a4-ccdb915b17e4','MOH 731','Monthly Report for MOH',"",'2019-03-07');
 
 INSERT INTO kenyaemr_facilityreporting_dataset(id,uuid,name,description,mapping,report_id,date_created) 
