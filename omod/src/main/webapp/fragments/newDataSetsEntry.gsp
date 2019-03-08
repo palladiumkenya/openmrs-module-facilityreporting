@@ -22,16 +22,15 @@
 %>
 <script >
     window.OpenMRS = window.OpenMRS || {};
-    window.OpenMRS.datim = ${datim}
+
         jq(document).ready(function () {
 
             jq('.saveData').click(function () {
                 payload = {
-                    "DataSetResults": datasetPayload
+                    "DataSetResults": result
 
                 };
-                console.log('payload==========', payload);
-                jq.getJSON('${ ui.actionLink("facilityreporting", "facilityDataSets", "saveDataSetReport") }',
+                jq.getJSON('${ ui.actionLink("facilityreporting", "singleReportDataSets", "saveDataset") }',
                     {
                         'payload': JSON.stringify(payload)
                     })
@@ -50,47 +49,58 @@
         });
 </script>
 
-<div class="ke-page-content">
-    <div class="ui-tabs">
-<div id="create-facility-datasets" ng-controller="FacilityDataSetCtrl" ng-init='init()'>
 
-    <div ng-repeat="control in reportList" >
-        <div ng-repeat = " data in control.dataset">
-            <div class="form-group row">
-                <fieldset>
-                <legend>{{data.datasetName}}</legend>
-                <div ng-repeat ="indicator in data.indicators" class="table-responsive">
+
+<div id="new-datasets-entry" ng-controller="FacilityDataSetCtrl" ng-init='init()'>
+
+    <!-- single dataset data entry -->
+    <div class="modal fade" id="enterDataSingle" tabindex="-1" role="dialog" style="font-size:16px;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="enterDataSingleModalLabel">Enter Data for {{singleEntryDataset.datasetName}}</h5>
+                    <button type="button" aria-label="Close" ng-click="closeEnterDataDialogModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body"  id="modalEnterData">
+                    <div class="table-responsive">
                     <table class="table table-striped tables">
-                        <tr>
+                        <tr ng-repeat ="indicator in singleEntryDataset.indicators">
                             <td>
                                 {{indicator.name}}:
                             </td>
                             <td>
-                                <input class="form-control" type="number" ng-model="typeValues[indicator.id]">
+                                <input class="form-control" type="number" ng-model="singleDatasetValues[indicator.id]">
 
                             </td>
                             <td></td>
                         </tr>
                     </table>
 
-                </div>
-                </fieldset>
 
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" ng-click="closeEnterDataDialogModal()">Close</button>
+                    <button type="button"  data-dismiss="modal2" ng-click="saveSingleDataSetReport()">Save</button>
+                </div>
             </div>
         </div>
-        <div>
-            <button type="button" ng-click="savReportDataSets()" class="saveData">Save</button>
-        </div>
     </div>
 
 
+
 </div>
-    </div>
+
+
 </div>
+
 
 
 
 <script type="text/javascript">
-    angular.bootstrap('#create-facility-datasets', ['facility']);
+    angular.bootstrap('#new-datasets-entry', ['facility']);
 </script>
 

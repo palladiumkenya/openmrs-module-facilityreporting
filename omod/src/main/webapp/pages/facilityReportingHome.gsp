@@ -50,14 +50,6 @@
                 <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Report Configuration
             </button>
     </div>
-    <div>
-        ${ui.includeFragment("facilityreporting", "facilityDataSets", ["patient": ""])}
 
-    </div>
-    <div>
-        Single Report Dataset
-        ${ui.includeFragment("facilityreporting", "singleReportDataSets", ["patient": ""])}
-
-    </div>
 
 </div>

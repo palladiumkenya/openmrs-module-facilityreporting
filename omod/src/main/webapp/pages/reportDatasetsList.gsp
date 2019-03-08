@@ -4,6 +4,25 @@
             [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to Reports", href: returnUrl ]
     ]
     ui.includeCss("facilityreporting", "table_formatter.css")
+
+    ui.includeJavascript("uicommons", "angular.min.js")
+    ui.includeJavascript("uicommons", "angular-app.js")
+    ui.includeJavascript("uicommons", "angular-resource.min.js")
+    ui.includeJavascript("uicommons", "angular-common.js")
+    ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.11.2.js")
+    ui.includeJavascript("uicommons", "ngDialog/ngDialog.js")
+    ui.includeJavascript("uicommons", "ngDialog/ngDialog.js")
+    ui.includeJavascript("facilityreporting", "bootstrap.min.js")
+    ui.includeJavascript("facilityreporting", "facilityDataset.js")
+
+
+    ui.includeCss("uicommons", "ngDialog/ngDialog.min.css")
+    ui.includeCss("uicommons", "styleguide/jquery-ui-1.9.2.custom.min.css")
+    ui.includeCss("facilityreporting", "index.css")
+    ui.includeCss("facilityreporting", "facilityReporting.css")
+
+    ui.includeCss("facilityreporting", "bootstrap.min.css")
+
 %>
 
 <div class="ke-page-sidebar">
@@ -37,6 +56,14 @@
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "reportIndicatorsList", [datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">
                         <img src="${ui.resourceLink("kenyaui", "images/glyphs/view.png")}"/> View Indicators
                     </button>
+                    <button type="button" ng-click="captureDataForSingleDataset(data)"
+                            data-toggle="modal" data-target="#enterDataSingle"
+                            class="saveData">Enter Data</button>
+                    <button type="button" data-toggle="modal" data-target="#viewDatasetReport"
+                            ng-click="viewReportDataSets(data)">View Data</button>
+                    <button type="button" class="fa fa-edit fa-1x"
+                            data-toggle="modal" data-target="#editSingleDataset"
+                            ng-click="editResultsDatasetDialog(data)" style="cursor: pointer">Edit</button>
                 </td>
         </tr>
         <% } %>
@@ -46,9 +73,19 @@
         <div>No Datasets defined</div>
         <% } %>
     <div>
+        ${ui.includeFragment("facilityreporting", "singleReportDataSets", ["patient": ""])}
+
+</div>
+    <div>
             <button class="addConfiguration" name="addConfiguration" type="button"
                     onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportDatasetForm", [reportId: report.id, returnUrl: ui.pageLink("facilityreporting", "reportDatasetList", [reportId: report.id, returnUrl:ui.pageLink("facilityreporting", "facilityReportingHome")]) ])}')">
                 <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Dataset
             </button>
+
+        <button  type="button"
+                 onclick="ui.navigate('${ ui.pageLink("facilityreporting", "facilityDatasetEntryForm", [reportId: report.id, returnUrl: ui.thisUrl() ])}')">
+            <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Enter Data All sets
+        </button>
     </div>
+
 </div>

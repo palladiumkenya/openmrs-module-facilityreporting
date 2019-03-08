@@ -6,6 +6,7 @@ import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.ui.framework.fragment.FragmentConfiguration;
 import org.openmrs.ui.framework.fragment.FragmentModel;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class FacilityDataSetsFragmentController {
 		
 		ObjectNode rpt1Dataset2 = getJsonNodeFactory().objectNode();
 		
-		System.out.println("============" + reportList);
+		// System.out.println("============" + reportList);
 		model.put("datim", reportList);
 		
 	}
@@ -61,6 +62,11 @@ public class FacilityDataSetsFragmentController {
 	private JsonNodeFactory getJsonNodeFactory() {
 		final JsonNodeFactory factory = JsonNodeFactory.instance;
 		return factory;
+	}
+	
+	private void saveDataSetReport(@RequestParam("payload") String payload) {
+		System.out.println("================== this is the payload" + payload);
+		
 	}
 	
 }

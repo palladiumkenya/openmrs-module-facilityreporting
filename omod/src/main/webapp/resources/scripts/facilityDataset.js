@@ -5,7 +5,7 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
         var test = [
             {
                 "reportName": "Datim_v1",
-                "description": "Something here",
+                "description": "This is the payload",
                 "dataset": [
                     {
                         "datasetName": "dataset_1",
@@ -52,6 +52,7 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
                 ]
             }
         ];
+        window.datasetPayload = [];
 
         $scope.init = function() {
 
@@ -91,7 +92,8 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
 
                 return r;
             }, { hash: {}, arr: [] }).arr;
-            console.log("$scope.createDatasetResultsObj",$scope.result );
+            console.log('$scope.result',$scope.result);
+            datasetPayload = $scope.result;
         }
 
         function generateDatasetResultsObj(res) {

@@ -53,7 +53,7 @@
     <div class="ui-tabs">
 <div id="single-report-datasets" ng-controller="FacilityDataSetCtrl" ng-init='init()'>
 
-    <!-- single report view -->
+    <!-- single report view
     <div ng-repeat="control in reportList">
     <div >
         <div class="form-group row">
@@ -83,6 +83,7 @@
         </div>
     </div>
     </div>
+    -->
     <!-- single dataset data entry -->
     <div class="modal fade" id="enterDataSingle" tabindex="-1" role="dialog" style="font-size:16px;">
         <div class="modal-dialog modal-dialog-centered" role="document">
