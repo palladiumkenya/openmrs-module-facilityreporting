@@ -1,8 +1,10 @@
 package org.openmrs.module.facilityreporting.api.restUtil;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.commons.lang3.ArrayUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.facilityreporting.api.FacilityreportingService;
 import org.openmrs.module.facilityreporting.api.models.FacilityReport;
@@ -18,18 +20,18 @@ public class FacilityReporting {
 	
 	SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	
-	public ObjectNode getReportDataForPeriod(Integer reportId, String startDate, String endDate, String adxOrgUnit,
+	public ArrayNode getReportDataForPeriod(Integer reportId, String startDate, String endDate, String adxOrgUnit,
 	        String adxReportPeriod) throws ParseException {
 		FacilityreportingService service = Context.getService(FacilityreportingService.class);
 		
-		System.out.println("Variables as received: reportId:" + reportId + ", startDate: " + startDate + ", endDate: "
-		        + endDate);
 		FacilityReport report = service.getReportById(reportId);
 		Date from = DATE_FORMAT.parse(startDate);
 		Date to = DATE_FORMAT.parse(endDate);
 		
 		List<FacilityReportData> rData = service.getReportData(report, from, to);
-		ObjectNode node = getJsonNodeFactory().objectNode();
+		ArrayNode result = constructResponseJson(rData);
+		
+		/*ObjectNode node = getJsonNodeFactory().objectNode();
 		node.put("dataset", "test");
 		node.put("indicator", "this is the first indicator");
 		
@@ -41,8 +43,8 @@ public class FacilityReporting {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Parsing string with json array: ==================" + dsVal.getIndicators());
-		return node;
+		*/
+		return result;
 		
 	}
 	
@@ -51,19 +53,23 @@ public class FacilityReporting {
 		return factory;
 	}
 	
-	private String createDummyDatasetEntry() {
-		String val = "{\n" + "                        \"datasetName\": \"dataset_1\",\n"
-		        + "                        \"reportId\":1,\n" + "                        \"datasetId\":1,\n"
-		        + "                        \"indicators\": [\n" + "                            {\n"
-		        + "                                \"name\": \"females_pregnant\",\n"
-		        + "                                \"id\": 200,\n" + "                                \"value\":36\n"
-		        + "                            },\n" + "                            {\n"
-		        + "                                \"name\": \"females_delivered\",\n"
-		        + "                                \"id\": 300,\n" + "                                \"value\":30\n"
-		        + "                            },\n" + "                            {\n"
-		        + "                                \"name\": \"females_on_art\",\n"
-		        + "                                \"id\": 400,\n" + "                                \"value\":\"\"\n"
-		        + "                            }\n" + "                        ]\n" + "                    }";
+	private ArrayNode constructResponseJson(List<FacilityReportData> result) {
+		ArrayNode items = getJsonNodeFactory().arrayNode();
+		
+		for (FacilityReportData data : result) {
+			items.add(data.getValue());
+		}
+		return items;
+	}
+	
+	public static String createDummyDatasetEntry() {
+		String val = "[{\n" + "  \"datasetName\": \"Methadone Assisted Therapy\",\n" + "  \"datasetId\": 3,\n"
+		        + "  \"indicators\": [\n" + "    {\n" + "      \"name\": \"HV06-03\",\n" + "      \"id\": 200,\n"
+		        + "      \"value\": 36\n" + "    },\n" + "    {\n" + "      \"name\": \"HV06-01\",\n"
+		        + "      \"id\": 300,\n" + "      \"value\": 30\n" + "    },\n" + "    {\n"
+		        + "      \"name\": \"HV06-04\",\n" + "      \"id\": 400,\n" + "      \"value\": \"\"\n" + "    },\n"
+		        + "    {\n" + "      \"name\": \"HV06-02\",\n" + "      \"id\": 500,\n" + "      \"value\": \"49\"\n"
+		        + "    }\n" + "  ]\n" + "}]";
 		return val;
 	}
 }

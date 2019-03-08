@@ -9,16 +9,20 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class ReportDatasetValueEntryMapper {
 	
-	String reportID;
+	private String reportID;
 	
-	String datasetID;
+	private String datasetName;
 	
-	List<DatasetIndicatorDetails> indicators;
+	private String datasetID;
+	
+	private List<DatasetIndicatorDetails> indicators;
 	
 	@JsonCreator
 	public ReportDatasetValueEntryMapper(@JsonProperty("reportId") String reportID,
-	    @JsonProperty("datasetId") String datasetID, @JsonProperty("indicators") List<DatasetIndicatorDetails> indicators) {
+	    @JsonProperty("datasetName") String datasetName, @JsonProperty("datasetId") String datasetID,
+	    @JsonProperty("indicators") List<DatasetIndicatorDetails> indicators) {
 		this.reportID = reportID;
+		this.datasetName = datasetName;
 		this.datasetID = datasetID;
 		this.indicators = indicators;
 	}
@@ -30,6 +34,15 @@ public class ReportDatasetValueEntryMapper {
 	
 	public void setDatasetID(String datasetID) {
 		this.datasetID = datasetID;
+	}
+	
+	@JsonProperty("datasetName")
+	public String getDatasetName() {
+		return datasetName;
+	}
+	
+	public void setDatasetName(String datasetName) {
+		this.datasetName = datasetName;
 	}
 	
 	@JsonProperty("indicators")

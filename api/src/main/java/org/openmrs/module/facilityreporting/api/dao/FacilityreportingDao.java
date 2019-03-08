@@ -190,4 +190,9 @@ public class FacilityreportingDao {
 		criteria.add(Restrictions.eq("endDate", endDate));
 		return criteria.list();
 	}
+	
+	public FacilityReportData getReportDataById(Integer integer) {
+		return (FacilityReportData) getSession().createCriteria(FacilityReportData.class)
+		        .add(Restrictions.eq("id", integer)).uniqueResult();
+	}
 }

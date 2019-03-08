@@ -215,4 +215,7 @@ public interface FacilityreportingService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	List<FacilityReportData> getReportData(FacilityReport report, Date startDate, Date endDate) throws APIException;
 	
+	@Authorized()
+	@Transactional(readOnly = true)
+	FacilityReportData getReportDataById(Integer integer) throws APIException;
 }
