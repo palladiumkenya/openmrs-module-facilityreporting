@@ -20,33 +20,35 @@
 
 
 %>
-<script >
-    window.OpenMRS = window.OpenMRS || {};
-    window.OpenMRS.datim = ${datim}
+<script type="text/javascript" >
+
+        jq = jQuery;
+
         jq(document).ready(function () {
-
-            jq('.saveData').click(function () {
-                payload = {
-                    "DataSetResults": datasetPayload
-
-                };
-                console.log('payload==========', payload);
-                jq.getJSON('${ ui.actionLink("facilityreporting", "facilityDataSets", "saveDataSetReport") }',
-                    {
-                        'payload': JSON.stringify(payload)
-                    })
-                    .success(function (data) {
-                        payload = {};
-                        window.location.reload(true);
-                    })
-                    .error(function (xhr, status, err) {
-                        console.log('AJAX error ' + JSON.stringify(xhr));
-                        console.log("response text: " + JSON.stringify(xhr.statusText));
-
-                    })
-            });
+            console.log('payload==========000000000000');
 
 
+        });
+        jq(document).on('click','#button1',function(e) {
+            console.log('payload==========dont click me');
+            payload = {
+                "dataSetResults": datasetPayload
+
+            };
+            console.log('payload==========', payload);
+            jq.getJSON('${ ui.actionLink("facilityreporting", "facilityDataSets", "saveDataSetReport") }',
+                {
+                    'payload': JSON.stringify(payload) , 'reportId': ${report.id}
+                })
+                .success(function (data) {
+                    payload = {};
+                    window.location.reload(true);
+                })
+                .error(function (xhr, status, err) {
+                    console.log('AJAX error ' + JSON.stringify(xhr));
+                    console.log("response text: " + JSON.stringify(xhr.statusText));
+
+                })
         });
 </script>
 
@@ -79,7 +81,8 @@
             </div>
         </div>
         <div>
-            <button type="button" ng-click="savReportDataSets()" class="saveData">Save</button>
+            <button type="button" ng-click="savReportDataSets()" class="saveData" id="button1"
+            >Save</button>
         </div>
     </div>
 

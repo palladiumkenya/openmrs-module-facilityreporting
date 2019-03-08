@@ -1,7 +1,7 @@
 angular.module('facility', []).
 controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout','$q',
     function ($scope, $window, $location, $timeout, $q) {
-        var datim = OpenMRS.datim;
+     //   var datim = OpenMRS.datim;
         var test = [
             {
                 "reportName": "Datim_v1",
