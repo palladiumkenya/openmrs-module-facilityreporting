@@ -78,7 +78,7 @@ public class FacilityReportingDataRestController extends BaseRestController {
 		if (reportID != 0) {
 			FacilityReporting fData = new FacilityReporting();
 			try {
-				return fData.getReportDataForPeriod(reportID, startDate, endDate, adxOrgUnit, adxReportPeriod);
+				return fData.getReportDataForPeriod(reportID, startDate, endDate, adxOrgUnit, adxReportPeriod).toString();
 			}
 			catch (ParseException e) {
 				e.printStackTrace();
