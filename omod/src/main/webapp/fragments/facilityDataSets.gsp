@@ -21,16 +21,22 @@
 
 %>
 <script type="text/javascript" >
+    window.OpenMRS = window.OpenMRS || {};
+    window.OpenMRS.datasetLists = ${datasetLists}
 
         jq = jQuery;
 
         jq(document).ready(function () {
-            console.log('payload==========000000000000');
-
 
         });
         jq(document).on('click','#button1',function(e) {
             console.log('payload==========dont click me');
+            if(datasetPayload.length === 0) {
+                return
+            }
+            if(givenDate > currentDate) {
+                return
+            }
             payload = {
                 "dataSetResults": datasetPayload
 
@@ -38,11 +44,11 @@
             console.log('payload==========', payload);
             jq.getJSON('${ ui.actionLink("facilityreporting", "facilityDataSets", "saveDataSetReport") }',
                 {
-                    'payload': JSON.stringify(payload) , 'reportId': ${report.id}
+                    'payload': JSON.stringify(payload) , 'datasetId':1, 'reportId': ${report.id}
                 })
                 .success(function (data) {
                     payload = {};
-                    window.location.reload(true);
+                 //   window.location.reload(true);
                 })
                 .error(function (xhr, status, err) {
                     console.log('AJAX error ' + JSON.stringify(xhr));
@@ -55,9 +61,15 @@
 <div class="ke-page-content">
     <div class="ui-tabs">
 <div id="create-facility-datasets" ng-controller="FacilityDataSetCtrl" ng-init='init()'>
+    <div>
+      Start Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "startDate", formFieldName: "startDate"])}
+      End Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "endDate", formFieldName: "endDate"])}
 
-    <div ng-repeat="control in reportList" >
-        <div ng-repeat = " data in control.dataset">
+
+    </div>
+
+    <div>
+        <div ng-repeat = "data in reportList">
             <div class="form-group row">
                 <fieldset>
                 <legend>{{data.datasetName}}</legend>
@@ -85,6 +97,28 @@
             >Save</button>
         </div>
     </div>
+
+    <!--Error Modal -->
+    <div class="modal fade" id="orderError" tabindex="-1" role="dialog" style="font-size:16px;">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Server Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" id="modal-text">
+                    {{showErrorToast}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button"  data-dismiss="modal2" ng-click="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 </div>

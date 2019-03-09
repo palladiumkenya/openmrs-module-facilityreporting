@@ -56,7 +56,7 @@
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "reportIndicatorsList", [datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">
                         <img src="${ui.resourceLink("kenyaui", "images/glyphs/view.png")}"/> View Indicators
                     </button>
-                    <button type="button" ng-click="captureDataForSingleDataset(data)"
+                    <button type="button" ng-click="captureDataForSingleDataset(ds)"
                             data-toggle="modal" data-target="#enterDataSingle"
                             class="saveData">Enter Data</button>
                     <button type="button" data-toggle="modal" data-target="#viewDatasetReport"

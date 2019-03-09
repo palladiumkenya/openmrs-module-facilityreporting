@@ -1,7 +1,7 @@
 angular.module('facility', []).
 controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout','$q',
     function ($scope, $window, $location, $timeout, $q) {
-     //   var datim = OpenMRS.datim;
+        var datasetLists = OpenMRS.datasetLists;
         var test = [
             {
                 "reportName": "Datim_v1",
@@ -58,17 +58,53 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
 
 
             $timeout(function() {
-                $q.all(test)
+                $q.all(datasetLists)
                     .then(function(results) {
+                        console.log('results=========',results);
                         $scope.reportList = results ;
                     });
 
-            },500);
+            },10);
         };
 
         $scope.typeValues = {};
         $scope.singleDatasetValues = {};
+        $scope.showErrorToast ='';
         $scope.savReportDataSets = function () {
+            $scope.startDate = angular.element('#startDate').val();
+            $scope.endDate = angular.element('#endDate').val();
+            var currentDate = new Date();
+            $scope.givenDate = new Date($scope.startDate);
+
+            if($scope.givenDate > currentDate){
+                $scope.showErrorToast = 'Start date is greater than the current date.';
+
+                $('#orderError').modal('show');
+                return;
+            }
+
+            if($scope.endDate < $scope.startDate){
+                $scope.showErrorToast = 'End date can not be before start date';
+
+                $('#orderError').modal('show');
+                return;
+            }
+            if($scope.startDate === '') {
+                $scope.showErrorToast = 'Please provide start date';
+
+                $('#orderError').modal('show');
+                return;
+            }
+            if($scope.endDate === '') {
+                $scope.showErrorToast = 'Please provide end date';
+
+                $('#orderError').modal('show');
+                return;
+            }
+            $scope.startDate = $scope.startDate.substring(0, 10);
+            $scope.endDate = $scope.endDate.substring(0, 10);
+
+
             $scope.createDatasetResultsObj = generateDatasetResultsObj($scope.reportList);
 
             $scope.result = $scope.createDatasetResultsObj.reduce(function(r, item) {
@@ -78,6 +114,8 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
                     current = r.hash[item.datasetName] = {
                         datasetName: item.datasetName,
                         datasetId:item.dataset_id,
+                        startDate:$scope.startDate,
+                        endDate:$scope.endDate,
                         indicators: []
                     };
 
@@ -167,6 +205,11 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
         $scope.closeViewDataSetReport = function() {
             $('#viewDatasetReport').modal('hide');
         };
+
+        $scope.closeModal = function() {
+            $('#orderError').modal('hide');
+
+        }
         $scope.viewReportDataSets = function (res) {
             $scope.singleDatasetView = res
 
