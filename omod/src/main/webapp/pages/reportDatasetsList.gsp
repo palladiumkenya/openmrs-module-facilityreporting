@@ -56,9 +56,8 @@
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "reportIndicatorsList", [datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">
                         <img src="${ui.resourceLink("kenyaui", "images/glyphs/view.png")}"/> View Indicators
                     </button>
-                    <button type="button" ng-click="captureDataForSingleDataset(ds)"
-                            data-toggle="modal" data-target="#enterDataSingle"
-                            class="saveData">Enter Data</button>
+                    <button type="button"
+                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "reportSingleDatasetEntryForm", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">Enter Data</button>
                     <button type="button" data-toggle="modal" data-target="#viewDatasetReport"
                             ng-click="viewReportDataSets(data)">View Data</button>
                     <button type="button" class="fa fa-edit fa-1x"
@@ -73,7 +72,6 @@
         <div>No Datasets defined</div>
         <% } %>
     <div>
-        ${ui.includeFragment("facilityreporting", "singleReportDataSets", ["patient": ""])}
 
 </div>
     <div>

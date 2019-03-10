@@ -1,4 +1,6 @@
 <%
+
+    ui.includeCss("facilityreporting", "table_formatter.css")
     ui.includeJavascript("uicommons", "angular.min.js")
     ui.includeJavascript("uicommons", "angular-app.js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
@@ -17,206 +19,103 @@
 
     ui.includeCss("facilityreporting", "bootstrap.min.css")
 
-
-
 %>
-<script >
+<script type="text/javascript" >
     window.OpenMRS = window.OpenMRS || {};
+    window.OpenMRS.singleDataset = ${singleDataset}
 
-        jq(document).ready(function () {
+    jq = jQuery;
 
-            jq('.saveData').click(function () {
-                payload = {
-                    "DataSetResults": result
+        jq(document).on('click','#button2',function(e) {
+            payload = {
+                "dataSetResults": datasetPayload
 
-                };
-                jq.getJSON('${ ui.actionLink("facilityreporting", "singleReportDataSets", "saveDataset") }',
-                    {
-                        'payload': JSON.stringify(payload)
-                    })
-                    .success(function (data) {
-                        payload = {};
-                        window.location.reload(true);
-                    })
-                    .error(function (xhr, status, err) {
-                        console.log('AJAX error ' + JSON.stringify(xhr));
-                        console.log("response text: " + JSON.stringify(xhr.statusText));
+            };
+            jq.getJSON('${ ui.actionLink("facilityreporting", "singleReportDataSets", "saveDataSet") }',
+                {
+                    'payload': JSON.stringify(payload) , 'datasetId':${dataset}, 'reportId': ${report.id}
+                })
+                .success(function (data) {
+                    payload = {};
+                    window.location.reload(true);
+                })
+                .error(function (xhr, status, err) {
+                    console.log('AJAX error ' + JSON.stringify(xhr));
+                    console.log("response text: " + JSON.stringify(xhr.statusText));
 
-                    })
-            });
-
-
+                })
         });
 </script>
 
+
+
+
 <div class="ke-page-content">
-    <div class="ui-tabs">
-<div id="single-report-datasets" ng-controller="FacilityDataSetCtrl" ng-init='init()'>
 
-    <!-- single report view
-    <div ng-repeat="control in reportList">
-    <div >
-        <div class="form-group row">
 
-                <div  class="table-responsive">
-                    <table class="table table-striped tables">
-                        <tr ng-repeat = "data in control.dataset">
-                            <td>
-                                {{data.datasetName}}
-                            </td>
-                            <td>
-                                <button type="button" data-toggle="modal" data-target="#viewDatasetReport"
-                                        ng-click="viewReportDataSets(data)">View</button>
-                                <button type="button" ng-click="captureDataForSingleDataset(data)"
-                                        data-toggle="modal" data-target="#enterDataSingle"
-                                        class="saveData">Enter Data</button>
-                                <button type="button" class="fa fa-edit fa-1x"
-                                        data-toggle="modal" data-target="#editSingleDataset"
-                                        ng-click="editResultsDatasetDialog(data)" style="cursor: pointer">Edit</button>
+    <div id="singleData" ng-controller="FacilityDataSetCtrl" ng-init='init()'>
+        <h3>{{singleDatasetValue[0].datasetName}}</h3>
 
-                            </td>
-                        </tr>
-                    </table>
 
-                </div>
+        <div>
+            Start Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "startDate", formFieldName: "startDate"])}
+            End Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "endDate", formFieldName: "endDate"])}
+
 
         </div>
-    </div>
-    </div>
-    -->
-    <!-- single dataset data entry -->
-    <div class="modal fade" id="enterDataSingle" tabindex="-1" role="dialog" style="font-size:16px;">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="enterDataSingleModalLabel">Enter Data for {{singleEntryDataset.datasetName}}</h5>
-                    <button type="button" aria-label="Close" ng-click="closeEnterDataDialogModal()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+        <div class="table-responsive" style="padding-top: 30px">
+            <div class="table-responsive">
+                <table class="table table-striped tables">
+                    <tr ng-repeat ="indicator in singleDatasetValue[0].indicators">
+                        <td>
+                            {{indicator.name}}:
+                        </td>
+                        <td>
+                            <input class="form-control" type="number" ng-model="singleDatasetValues[indicator.id]">
 
-                <div class="modal-body"  id="modalEnterData">
-                    <div class="table-responsive">
-                    <table class="table table-striped tables">
-                        <tr ng-repeat ="indicator in singleEntryDataset.indicators">
-                            <td>
-                                {{indicator.name}}:
-                            </td>
-                            <td>
-                                <input class="form-control" type="number" ng-model="singleDatasetValues[indicator.id]">
-
-                            </td>
-                            <td></td>
-                        </tr>
-                    </table>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
 
 
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" ng-click="closeEnterDataDialogModal()">Close</button>
-                    <button type="button"  data-dismiss="modal2" ng-click="saveSingleDataSetReport()">Save</button>
-                </div>
             </div>
+
+
         </div>
-    </div>
+        <div>
+            <button type="button" ng-click="saveSingleDataSetReport()" id="button2">Save</button>
 
-
-
-</div>
-
-    <!-- view data set report -->
-    <div class="modal fade" id="viewDatasetReport" tabindex="-1" role="dialog" style="font-size:16px;">
-        <div class="modal-dialog  modal-dialog-centered modal-lg"  role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="viewDatasetReportModalLabel">View Dataset Report</h5>
-                    <button type="button" aria-label="Close" ng-click="closeViewDataSetReport()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body"  id="modalviewDatasetReport">
-                    <div class="table-responsive" >
-                        <table class="table table-striped tables">
-                            <tr>
-                                <th>Dataset</th>
-                                <th>Indicator</th>
-                                <th>Value</th>
-                            </tr>
-                            <tr ng-repeat = "data in singleDatasetView.indicators">
-                                <td>
-                                  {{singleDatasetView.datasetName}}
-                                </td>
-                                <td>
-                                    {{data.name}}
-                                </td>
-                                <td>
-                                    {{data.value}}
-                                </td>
-                            </tr>
-
-                        </table>
-
+        </div>
+        <!--Error Modal -->
+        <div class="modal fade" id="orderError" tabindex="-1" role="dialog" style="font-size:16px;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Server Error</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" ng-click="closeViewDataSetReport()">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- single dataset Edit-->
-    <div class="modal fade" id="editSingleDataset" tabindex="-1" role="dialog" style="font-size:16px;">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editSingleDatasetModalLabel">Edit {{editDataset.datasetName}}</h5>
-                    <button type="button" aria-label="Close" ng-click="closeEnterDataDialogModal()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body"  id="modalEditData">
-                    <div class="table-responsive">
-                        <table class="table table-striped tables">
-                            <tr ng-repeat ="indicator in editDataset.indicators">
-                                <td>
-                                    {{indicator.name}}:
-                                </td>
-                                <td>
-                                    <input class="form-control" type="number" ng-model="indicator.value">
-
-                                </td>
-                                <td></td>
-                            </tr>
-                        </table>
-
-
-
+                    <div class="modal-body" id="modal-text">
+                        {{showErrorToast}}
                     </div>
                     <div class="modal-footer">
-                        <button type="button" ng-click="closeEnterDataDialogModal()">Close</button>
-                        <button type="button"  data-dismiss="modal2" ng-click="editSingleDataset()">Save</button>
+                        <button type="button"  data-dismiss="modal2" ng-click="closeModal()">Close</button>
                     </div>
                 </div>
             </div>
         </div>
 
 
-
     </div>
 
 
+
+
 </div>
-    </div>
-</div>
-
-
-
 <script type="text/javascript">
-    angular.bootstrap('#single-report-datasets', ['facility']);
+    angular.bootstrap('#singleData', ['facility']);
 </script>
-

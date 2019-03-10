@@ -2,56 +2,7 @@ angular.module('facility', []).
 controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout','$q',
     function ($scope, $window, $location, $timeout, $q) {
         var datasetLists = OpenMRS.datasetLists;
-        var test = [
-            {
-                "reportName": "Datim_v1",
-                "description": "This is the payload",
-                "dataset": [
-                    {
-                        "datasetName": "dataset_1",
-                        "dataset_id":1,
-                        "indicators": [
-                            {
-                                "name": "females_pregnant",
-                                "id": 200,
-                                "value":36
-                            },
-                            {
-                                "name": "females_delivered",
-                                "id": 300,
-                                "value":30
-                            },
-                            {
-                                "name": "females_on_art",
-                                "id": 400,
-                                "value":""
-                            }
-                        ]
-                    },
-                    {
-                        "datasetName": "dataset_2",
-                        "dataset_id":2,
-                        "indicators": [
-                            {
-                                "name": "pregnant",
-                                "id": 202,
-                                "value":16
-                            },
-                            {
-                                "name": "vmmc",
-                                "id": 301,
-                                "value":38
-                            },
-                            {
-                                "name": "currently_in_care",
-                                "id": 407,
-                                "value":33
-                            }
-                        ]
-                    }
-                ]
-            }
-        ];
+        var singleDataset = OpenMRS.singleDataset;
         window.datasetPayload = [];
 
         $scope.init = function() {
@@ -60,8 +11,15 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
             $timeout(function() {
                 $q.all(datasetLists)
                     .then(function(results) {
-                        console.log('results=========',results);
                         $scope.reportList = results ;
+                    });
+
+            },10);
+
+            $timeout(function() {
+                $q.all(singleDataset)
+                    .then(function(results) {
+                        $scope.singleDatasetValue = results ;
                     });
 
             },10);
@@ -130,7 +88,6 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
 
                 return r;
             }, { hash: {}, arr: [] }).arr;
-            console.log('$scope.result',$scope.result);
             datasetPayload = $scope.result;
         }
 
@@ -172,10 +129,10 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
         }
         function generatePayloadSingleDataSet(rs) {
             var payload = [];
-            var name = rs.datasetName;
-            var id =rs.dataset_id;
-            for (var t =0; t < rs.indicators.length; ++t)  {
-                var data = rs.indicators[t];
+            var name = rs[0].datasetName;
+            var id =rs[0].dataset_id;
+            for (var t =0; t < rs[0].indicators.length; ++t)  {
+                var data = rs[0].indicators[t];
                 for (var r in data) {
                     if (data.hasOwnProperty(r)) {
                         data['value'] = $scope.singleDatasetValues[data.id];
@@ -222,7 +179,40 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
             $scope.editDataset = res
         }
         $scope.saveSingleDataSetReport = function () {
-            $scope.createDatasetResultsObj = generatePayloadSingleDataSet($scope.singleEntryDataset);
+
+            $scope.startDate = angular.element('#startDate').val();
+            $scope.endDate = angular.element('#endDate').val();
+            var currentDate = new Date();
+            /*$scope.givenDate = new Date($scope.startDate);
+
+            if($scope.givenDate > currentDate){
+                $scope.showErrorToast = 'Start date is greater than the current date.';
+
+                $('#orderError').modal('show');
+                return;
+            }
+
+            if($scope.endDate < $scope.startDate){
+                $scope.showErrorToast = 'End date can not be before start date';
+
+                $('#orderError').modal('show');
+                return;
+            }
+            if($scope.startDate === '') {
+                $scope.showErrorToast = 'Please provide start date';
+
+                $('#orderError').modal('show');
+                return;
+            }
+            if($scope.endDate === '') {
+                $scope.showErrorToast = 'Please provide end date';
+
+                $('#orderError').modal('show');
+                return;
+            }*/
+            $scope.startDate = $scope.startDate.substring(0, 10);
+            $scope.endDate = $scope.endDate.substring(0, 10);
+            $scope.createDatasetResultsObj = generatePayloadSingleDataSet($scope.singleDatasetValue);
             $scope.result = $scope.createDatasetResultsObj.reduce(function(r, item) {
                 var current = r.hash[item.datasetName];
 
@@ -230,6 +220,8 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
                     current = r.hash[item.datasetName] = {
                         datasetName: item.datasetName,
                         datasetId:item.dataset_id,
+                        startDate:$scope.startDate,
+                        endDate:$scope.endDate,
                         indicators: []
                     };
 
@@ -244,6 +236,8 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
 
                 return r;
             }, { hash: {}, arr: [] }).arr;
+
+            datasetPayload = $scope.result;
 
         }
         
@@ -264,8 +258,6 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
                 payload.push(data);
 
             }
-            console.log('this is the edit payload',payload);
-
             /*_.each(payload, function(o) {
                 if (o.value === undefined) {
                     o.value = "";
