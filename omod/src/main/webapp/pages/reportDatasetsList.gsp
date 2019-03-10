@@ -59,7 +59,8 @@
                     <button type="button"
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "reportSingleDatasetEntryForm", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">Enter Data</button>
                     <button type="button" data-toggle="modal" data-target="#viewDatasetReport"
-                            ng-click="viewReportDataSets(data)">View Data</button>
+                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "viewReportData", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">View Data
+                    </button>
                     <button type="button" class="fa fa-edit fa-1x"
                             data-toggle="modal" data-target="#editSingleDataset"
                             ng-click="editResultsDatasetDialog(data)" style="cursor: pointer">Edit</button>

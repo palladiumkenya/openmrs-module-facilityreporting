@@ -71,8 +71,8 @@
     <div>
         <div ng-repeat = "data in reportList">
             <div class="form-group row">
-                <fieldset>
-                <legend>{{data.datasetName}}</legend>
+                <fieldset class=" scheduler-border">
+                <legend class="scheduler-border">{{data.datasetName}}</legend>
                 <div ng-repeat ="indicator in data.indicators" class="table-responsive">
                     <table class="table table-striped tables">
                         <tr>

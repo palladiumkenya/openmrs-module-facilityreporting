@@ -54,8 +54,8 @@
 
 
     <div id="singleData" ng-controller="FacilityDataSetCtrl" ng-init='init()'>
-        <h3>{{singleDatasetValue[0].datasetName}}</h3>
-
+        <fieldset class=" scheduler-border">
+            <legend class="scheduler-border">{{singleDatasetValue[0].datasetName}}</legend>
 
         <div>
             Start Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "startDate", formFieldName: "startDate"])}
@@ -88,6 +88,7 @@
             <button type="button" ng-click="saveSingleDataSetReport()" id="button2">Save</button>
 
         </div>
+        </fieldset>
         <!--Error Modal -->
         <div class="modal fade" id="orderError" tabindex="-1" role="dialog" style="font-size:16px;">
             <div class="modal-dialog modal-dialog-centered" role="document">
