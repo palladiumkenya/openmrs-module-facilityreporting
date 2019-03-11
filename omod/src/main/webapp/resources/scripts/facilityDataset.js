@@ -3,6 +3,7 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
     function ($scope, $window, $location, $timeout, $q) {
         var datasetLists = OpenMRS.datasetLists;
         var singleDataset = OpenMRS.singleDataset;
+        var dataNodes = OpenMRS.dataNodes;
         window.datasetPayload = [];
 
         $scope.init = function() {
@@ -22,7 +23,15 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
                         $scope.singleDatasetValue = results ;
                     });
 
-            },10);
+            },100);
+
+            $timeout(function() {
+                $q.all(dataNodes)
+                    .then(function(results) {
+                        $scope.dataNodes = results ;
+                    });
+
+            },100);
         };
 
         $scope.typeValues = {};
@@ -34,12 +43,12 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
             var currentDate = new Date();
             $scope.givenDate = new Date($scope.startDate);
 
-            if($scope.givenDate > currentDate){
+            /*if($scope.givenDate > currentDate){
                 $scope.showErrorToast = 'Start date is greater than the current date.';
 
                 $('#orderError').modal('show');
                 return;
-            }
+            }*/
 
             if($scope.endDate < $scope.startDate){
                 $scope.showErrorToast = 'End date can not be before start date';
@@ -93,12 +102,10 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
 
         function generateDatasetResultsObj(res) {
             var payload = [];
-            for (var n = 0; n < res.length; ++n ) {
-                var ls = res[n].dataset;
-                for (var i = 0; i < ls.length; ++i) {
-                    var indicator = ls[i].indicators;
-                    var id = ls[i].dataset_id;
-                    var name = ls[i].datasetName;
+                for (var i = 0; i < res.length; ++i) {
+                    var indicator = res[i].indicators;
+                    var id = res[i].dataset_id;
+                    var name = res[i].datasetName;
 
                     for (var t =0; t < indicator.length; ++t)  {
                         var data = indicator[t];
@@ -116,7 +123,6 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
 
                 }
 
-            }
             _.each(payload, function(o) {
                 if (o.value === undefined) {
                     o.value = "";
@@ -183,14 +189,14 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
             $scope.startDate = angular.element('#startDate').val();
             $scope.endDate = angular.element('#endDate').val();
             var currentDate = new Date();
-            /*$scope.givenDate = new Date($scope.startDate);
+            $scope.givenDate = new Date($scope.startDate);
 
-            if($scope.givenDate > currentDate){
+           /* if($scope.givenDate > currentDate){
                 $scope.showErrorToast = 'Start date is greater than the current date.';
 
                 $('#orderError').modal('show');
                 return;
-            }
+            }*/
 
             if($scope.endDate < $scope.startDate){
                 $scope.showErrorToast = 'End date can not be before start date';
@@ -209,7 +215,7 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
 
                 $('#orderError').modal('show');
                 return;
-            }*/
+            }
             $scope.startDate = $scope.startDate.substring(0, 10);
             $scope.endDate = $scope.endDate.substring(0, 10);
             $scope.createDatasetResultsObj = generatePayloadSingleDataSet($scope.singleDatasetValue);

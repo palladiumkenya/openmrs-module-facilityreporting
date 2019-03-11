@@ -22,7 +22,8 @@
 %>
 <script type="text/javascript" >
     window.OpenMRS = window.OpenMRS || {};
-    window.OpenMRS.singleDataset = ${singleDataset}
+    window.OpenMRS.dataNodes = ${dataNodes}
+
 
 </script>
 
@@ -35,22 +36,21 @@
     <div id="viewData" ng-controller="FacilityDataSetCtrl" ng-init='init()'>
         
         <div>
-            Start Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "startDate", formFieldName: "startDate"])}
-            End Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "endDate", formFieldName: "endDate"])}
+
 
 
         </div>
         <div class="table-responsive" style="padding-top: 30px">
-            <div class="table-responsive" >
+            <div class="table-responsive" ng-repeat="d in dataNodes"  >
                 <table class="table table-striped tables">
                     <tr>
                         <th>Dataset</th>
                         <th>Indicator</th>
                         <th>Value</th>
                     </tr>
-                    <tr ng-repeat = "data in singleDatasetView.indicators">
+                    <tr ng-repeat = "data in d.dataNode.indicators">
                         <td>
-                            {{singleDatasetView.datasetName}}
+                            {{d.dataNode.datasetName}}
                         </td>
                         <td>
                             {{data.name}}

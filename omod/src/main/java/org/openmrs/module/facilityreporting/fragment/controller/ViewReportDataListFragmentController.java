@@ -22,45 +22,30 @@ public class ViewReportDataListFragmentController {
 	
 	public void controller(FragmentConfiguration config, FragmentModel model,
 	        @RequestParam(value = "returnUrl") String returnUrl, @RequestParam("reportId") FacilityReport report,
+	        @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate,
 	        @RequestParam("datasetId") Integer dataset) throws Exception {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
 		model.addAttribute("returnUrl", returnUrl);
 		model.addAttribute("dataset", dataset);
 		model.addAttribute("report", report);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
 		
 		FacilityreportingService service = org.openmrs.api.context.Context.getService(FacilityreportingService.class);
 		ObjectMapper mapper = new ObjectMapper();
+		
+		List<FacilityReportData> reportData = service.getReportData(report, df.parse(startDate), df.parse(endDate));
 		List<JsonNode> objDatasets = new ArrayList<JsonNode>();
-		service.getDatasetById(dataset);
-		JsonNode childNode = mapper.createObjectNode();
-		((ObjectNode) childNode).put("dataset_id", dataset);
-		((ObjectNode) childNode).put("datasetName", service.getDatasetById(dataset).getName());
-		((ObjectNode) childNode).put("description", service.getDatasetById(dataset).getDescription());
-		((ObjectNode) childNode).put("mapping", service.getDatasetById(dataset).getMapping());
-		List<FacilityReportIndicator> reportConfigurations = service.getIndicatorsByDataset(service.getDatasetById(dataset));
-		List<JsonNode> indicators = reportFormatterIndicators(reportConfigurations);
-		((ObjectNode) childNode).putArray("indicators").addAll(indicators);
-		
-		objDatasets.add(childNode);
-		model.put("singleDataset", objDatasets);
-		
-	}
-	
-	private List<JsonNode> reportFormatterIndicators(List<FacilityReportIndicator> definitions) {
-		List<JsonNode> objects = new ArrayList<JsonNode>();
-		ObjectMapper mapper = new ObjectMapper();
-		
-		for (FacilityReportIndicator ds : definitions) {
-			JsonNode childNode1 = mapper.createObjectNode();
-			((ObjectNode) childNode1).put("id", ds.getId());
-			((ObjectNode) childNode1).put("name", ds.getName());
-			((ObjectNode) childNode1).put("description", ds.getDescription());
-			((ObjectNode) childNode1).put("mapping", ds.getMapping());
-			objects.add(childNode1);
+		for (FacilityReportData dt : reportData) {
+			JsonNode jsonNode = mapper.readValue(dt.getValue(), JsonNode.class);
+			JsonNode childNode = mapper.createObjectNode();
+			((ObjectNode) childNode).put("dataNode", jsonNode);
 			
+			objDatasets.add(childNode);
 		}
+		model.put("dataNodes", objDatasets);
 		
-		return objects;
 	}
 	
 }

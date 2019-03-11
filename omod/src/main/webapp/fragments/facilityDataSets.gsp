@@ -30,25 +30,23 @@
 
         });
         jq(document).on('click','#button1',function(e) {
-            console.log('payload==========dont click me');
             if(datasetPayload.length === 0) {
                 return
             }
-            if(givenDate > currentDate) {
+            /*if(givenDate > currentDate) {
                 return
-            }
+            }*/
             payload = {
                 "dataSetResults": datasetPayload
 
             };
-            console.log('payload==========', payload);
             jq.getJSON('${ ui.actionLink("facilityreporting", "facilityDataSets", "saveDataSetReport") }',
                 {
                     'payload': JSON.stringify(payload) , 'datasetId':1, 'reportId': ${report.id}
                 })
                 .success(function (data) {
                     payload = {};
-                 //   window.location.reload(true);
+                    window.location.reload(true);
                 })
                 .error(function (xhr, status, err) {
                     console.log('AJAX error ' + JSON.stringify(xhr));

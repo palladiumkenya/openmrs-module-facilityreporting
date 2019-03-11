@@ -14,7 +14,6 @@
     ui.includeCss("uicommons", "styleguide/jquery-ui-1.9.2.custom.min.css")
     ui.includeCss("facilityreporting", "index.css")
     ui.includeCss("facilityreporting", "facilityReporting.css")
-
     ui.includeCss("facilityreporting", "bootstrap.min.css")
 
 

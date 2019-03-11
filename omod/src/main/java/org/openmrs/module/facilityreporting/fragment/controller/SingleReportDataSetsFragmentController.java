@@ -70,7 +70,7 @@ public class SingleReportDataSetsFragmentController {
 				((ObjectNode) childNode1).put("dataset", datasetJson);
 				data.setReport(report);
 				data.setDataset(dataset);
-				data.setValue(childNode1.toString());
+				data.setValue(datasetJson.toString());
 				data.setStartDate(df.parse(startDate));
 				data.setEndDate(df.parse(endDate));
 				service.saveOrUpdateReportData(data);

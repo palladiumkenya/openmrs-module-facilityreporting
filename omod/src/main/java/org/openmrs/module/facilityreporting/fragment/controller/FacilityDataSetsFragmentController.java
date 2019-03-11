@@ -7,6 +7,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.ObjectNode;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.facilityreporting.api.FacilityreportingService;
 import org.openmrs.module.facilityreporting.api.models.FacilityReport;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportData;
@@ -52,7 +53,6 @@ public class FacilityDataSetsFragmentController {
 	        @RequestParam("datasetId") FacilityReportDataset dataset) throws ParseException {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
-		System.out.println("================== this is the payload" + payload);
 		FacilityReportData data = new FacilityReportData();
 		FacilityreportingService service = org.openmrs.api.context.Context.getService(FacilityreportingService.class);
 		
@@ -70,10 +70,11 @@ public class FacilityDataSetsFragmentController {
 				((ObjectNode) childNode1).put("dataset", datasetJson);
 				data.setReport(report);
 				data.setDataset(dataset);
-				data.setValue(childNode1.toString());
+				data.setValue(datasetJson.toString());
 				data.setStartDate(df.parse(startDate));
 				data.setEndDate(df.parse(endDate));
 				service.saveOrUpdateReportData(data);
+				Context.flushSession();
 			}
 		}
 		catch (IOException e) {

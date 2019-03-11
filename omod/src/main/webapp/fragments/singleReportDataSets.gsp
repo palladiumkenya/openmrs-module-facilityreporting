@@ -27,6 +27,9 @@
     jq = jQuery;
 
         jq(document).on('click','#button2',function(e) {
+            if(datasetPayload.length === 0) {
+                return
+            }
             payload = {
                 "dataSetResults": datasetPayload
 
@@ -66,7 +69,7 @@
         <div class="table-responsive" style="padding-top: 30px">
             <div class="table-responsive">
                 <table class="table table-striped tables">
-                    <tr ng-repeat ="indicator in singleDatasetValue[0].indicators">
+                    <tr ng-repeat ="indicator in singleDatasetValue[0].indicators" class="column">
                         <td>
                             {{indicator.name}}:
                         </td>

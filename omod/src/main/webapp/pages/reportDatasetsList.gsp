@@ -24,6 +24,19 @@
     ui.includeCss("facilityreporting", "bootstrap.min.css")
 
 %>
+<script type="text/javascript">
+    function getStartDate() {
+        return document.getElementById("startDate").value();
+    }
+    document.getElementById("startDate").addEventListener("change", function() {
+        var startDate = this.value;
+        console.log(startDate); //e.g. 2015-11-13
+    });
+    document.getElementById("endDate").addEventListener("change", function() {
+        var endDate = this.value;
+        console.log(endDate); //e.g. 2015-11-13
+    });
+</script>
 
 <div class="ke-page-sidebar">
     <div class="ke-panel-frame">
@@ -32,6 +45,12 @@
 </div>
 
 <div class="ke-page-content">
+    <div>
+        Start Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "startDate", formFieldName: "startDate"])}
+        End Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "endDate", formFieldName: "endDate"])}
+
+
+    </div>
         <h2>Datasets for ${report.name} Report (${report.description})</h2>
         <div class="clear"></div>
 
@@ -59,7 +78,7 @@
                     <button type="button"
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "reportSingleDatasetEntryForm", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">Enter Data</button>
                     <button type="button" data-toggle="modal" data-target="#viewDatasetReport"
-                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "viewReportData", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">View Data
+                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "viewReportData", [ reportId: report.id, datasetId: ds.id, startDate:"2019-03-01", endDate:"2019-03-08", returnUrl: ui.thisUrl() ])}')">View Data
                     </button>
                     <button type="button" class="fa fa-edit fa-1x"
                             data-toggle="modal" data-target="#editSingleDataset"
@@ -81,10 +100,7 @@
                 <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Dataset
             </button>
 
-        <button  type="button"
-                 onclick="ui.navigate('${ ui.pageLink("facilityreporting", "facilityDatasetEntryForm", [reportId: report.id, returnUrl: ui.thisUrl() ])}')">
-            <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Enter Data All sets
-        </button>
+
     </div>
 
 </div>
