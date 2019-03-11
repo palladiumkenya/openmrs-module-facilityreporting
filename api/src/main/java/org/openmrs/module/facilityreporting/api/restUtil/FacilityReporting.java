@@ -60,6 +60,7 @@ public class FacilityReporting {
 		List<ReportDatasetValueEntryMapper> res = new ArrayList<ReportDatasetValueEntryMapper>();
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
 		for (FacilityReportData data : result) {
 			ReportDatasetValueEntryMapper dsVal = null;
