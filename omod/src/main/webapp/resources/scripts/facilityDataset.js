@@ -191,19 +191,6 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
             var currentDate = new Date();
             $scope.givenDate = new Date($scope.startDate);
 
-           /* if($scope.givenDate > currentDate){
-                $scope.showErrorToast = 'Start date is greater than the current date.';
-
-                $('#orderError').modal('show');
-                return;
-            }*/
-
-            if($scope.endDate < $scope.startDate){
-                $scope.showErrorToast = 'End date can not be before start date';
-
-                $('#orderError').modal('show');
-                return;
-            }
             if($scope.startDate === '') {
                 $scope.showErrorToast = 'Please provide start date';
 
