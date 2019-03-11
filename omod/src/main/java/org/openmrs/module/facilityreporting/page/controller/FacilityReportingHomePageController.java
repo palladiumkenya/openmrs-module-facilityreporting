@@ -38,5 +38,6 @@ public class FacilityReportingHomePageController {
 		}
 		
 		return objects;
+		
 	}
 }

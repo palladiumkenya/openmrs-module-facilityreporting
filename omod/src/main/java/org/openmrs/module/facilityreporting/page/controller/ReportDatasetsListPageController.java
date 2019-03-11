@@ -24,6 +24,7 @@ public class ReportDatasetsListPageController {
 		FacilityreportingService service = org.openmrs.api.context.Context.getService(FacilityreportingService.class);
 		
 		List<FacilityReportDataset> datasetConfigurations = service.getDatasetsByReport(report);
+		
 		model.put("datasets", reportFormatter(datasetConfigurations));
 		model.put("report", report);
 		model.put("returnUrl", returnUrl);
