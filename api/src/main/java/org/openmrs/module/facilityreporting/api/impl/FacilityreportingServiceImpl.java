@@ -138,6 +138,11 @@ public class FacilityreportingServiceImpl extends BaseOpenmrsService implements 
 	}
 
 	@Override
+	public List<FacilityReportData> getReportData(FacilityReport report, FacilityReportDataset dataset) throws APIException {
+		return dao.getReportData(report, dataset);
+	}
+
+	@Override
 	public FacilityReportData getReportDataById(Integer integer) throws APIException {
 		return dao.getReportDataById(integer);
 	}

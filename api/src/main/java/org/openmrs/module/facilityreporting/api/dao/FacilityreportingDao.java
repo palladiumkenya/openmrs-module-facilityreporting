@@ -204,4 +204,11 @@ public class FacilityreportingDao {
 		criteria.add(Restrictions.eq("endDate", endDate));
 		return criteria.list();
 	}
+
+	public List<FacilityReportData> getReportData(FacilityReport report, FacilityReportDataset dataset) {
+		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(FacilityReportData.class);
+		criteria.add(Restrictions.eq("report", report));
+		criteria.add(Restrictions.eq("dataset", dataset));
+		return criteria.list();
+	}
 }
