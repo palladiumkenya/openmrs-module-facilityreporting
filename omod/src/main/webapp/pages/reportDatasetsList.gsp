@@ -22,6 +22,8 @@
     ui.includeCss("facilityreporting", "facilityReporting.css")
 
     ui.includeCss("facilityreporting", "bootstrap.min.css")
+    def startFieldName = ""
+    def endFieldName = ""
 
 %>
 <script type="text/javascript">
@@ -46,8 +48,8 @@
 
 <div class="ke-page-content">
     <div>
-        Start Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "startDate", formFieldName: "startDate"])}
-        End Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "endDate", formFieldName: "endDate"])}
+        Start Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "startDate", formFieldName: startFieldName])}
+        End Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "endDate", formFieldName: endFieldName])}
 
 
     </div>
@@ -77,12 +79,10 @@
                     </button>
                     <button type="button"
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "reportSingleDatasetEntryForm", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">Enter Data</button>
-                    <button type="button" data-toggle="modal" data-target="#viewDatasetReport"
-                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "viewReportData", [ reportId: report.id, datasetId: ds.id, startDate:"2019-03-01", endDate:"2019-03-08", returnUrl: ui.thisUrl() ])}')">View Data
-                    </button>
                     <button type="button" class="fa fa-edit fa-1x"
-                            data-toggle="modal" data-target="#editSingleDataset"
-                            ng-click="editResultsDatasetDialog(data)" style="cursor: pointer">Edit</button>
+                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "showListDataset", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">
+
+                    Show Dataset List</button>
                 </td>
         </tr>
         <% } %>

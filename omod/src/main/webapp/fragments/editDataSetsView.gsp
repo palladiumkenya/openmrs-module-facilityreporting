@@ -22,11 +22,11 @@
 %>
 <script type="text/javascript" >
     window.OpenMRS = window.OpenMRS || {};
-    window.OpenMRS.singleDataset = ${singleDataset}
+    window.OpenMRS.editDatasetPayload = ${editDatasetPayload}
 
     jq = jQuery;
 
-        jq(document).on('click','#button2',function(e) {
+        jq(document).on('click','#button3',function(e) {
             if(datasetPayload.length === 0) {
                 return
             }
@@ -34,7 +34,7 @@
                 "dataSetResults": datasetPayload
 
             };
-            jq.getJSON('${ ui.actionLink("facilityreporting", "singleReportDataSets", "saveDataSet") }',
+            jq.getJSON('${ ui.actionLink("facilityreporting", "editDataSetsView", "updateDataSet") }',
                 {
                     'payload': JSON.stringify(payload) , 'datasetId':${dataset}, 'reportId': ${report.id}
                 })
@@ -58,26 +58,22 @@
 
     <div id="singleData" ng-controller="FacilityDataSetCtrl" ng-init='init()'>
         <fieldset class=" scheduler-border">
-            <legend class="scheduler-border">{{singleDatasetValue[0].datasetName}}</legend>
+            <legend class="scheduler-border"> Edit {{editDatasetsValue[0].dataNodeValue.datasetName}} Dataset</legend>
 
-        <div>
-            Start Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "startDate", formFieldName: "startDate"])}
-            End Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "endDate", formFieldName: "endDate"])}
-
-
-        </div>
         <div class="table-responsive" style="padding-top: 30px">
             <div class="table-responsive">
                 <table class="table table-striped tables">
-                    <tr ng-repeat ="indicator in singleDatasetValue[0].indicators" class="column">
-                        <td>
-                            {{indicator.name}}:
-                        </td>
-                        <td>
-                            <input class="form-control" type="number" ng-model="singleDatasetValues[indicator.id]">
 
-                        </td>
-                    </tr>
+                        <tr ng-repeat ="indicator in editDatasetsValue[0].dataNodeValue.indicators" class="column">
+                            <td>
+                                {{indicator.name}}:
+                            </td>
+                            <td>
+                                <input class="form-control" type="number" ng-model="indicator.value">
+
+                            </td>
+                        </tr>
+
                 </table>
 
 
@@ -87,7 +83,7 @@
 
         </div>
         <div>
-            <button type="button" ng-click="saveSingleDataSetReport()" id="button2">Save</button>
+            <button type="button" ng-click="editSingleDataset()" id="button3">Save</button>
 
         </div>
         </fieldset>

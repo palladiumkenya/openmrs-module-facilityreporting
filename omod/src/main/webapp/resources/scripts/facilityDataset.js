@@ -4,6 +4,9 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
         var datasetLists = OpenMRS.datasetLists;
         var singleDataset = OpenMRS.singleDataset;
         var dataNodes = OpenMRS.dataNodes;
+        var editDatasetPayload = OpenMRS.editDatasetPayload;
+        var datasetHstoryPayload= OpenMRS.datasetHstoryPayload;
+
         window.datasetPayload = [];
 
         $scope.init = function() {
@@ -29,6 +32,22 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
                 $q.all(dataNodes)
                     .then(function(results) {
                         $scope.dataNodes = results ;
+                    });
+
+            },100);
+
+            $timeout(function() {
+                $q.all(editDatasetPayload)
+                    .then(function(results) {
+                        $scope.editDatasetsValue = results ;
+                    });
+
+            },100);
+
+            $timeout(function() {
+                $q.all(datasetHstoryPayload)
+                    .then(function(results) {
+                        $scope.datasetHistoryList = results ;
                     });
 
             },100);
@@ -231,6 +250,19 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
             }, { hash: {}, arr: [] }).arr;
 
             datasetPayload = $scope.result;
+
+        }
+        $scope.getReportDataset = function() {
+            $scope.startDate = angular.element('#startDate').val();
+            $scope.endDate = angular.element('#endDate').val();
+            $scope.startDate = $scope.startDate.substring(0, 10);
+            $scope.endDate = $scope.endDate.substring(0, 10);
+
+            dateObject = {
+                startDate:$scope.startDate,
+                endDateDate:$scope.endDate
+            };
+            datasetPayload.push(dateObject);
 
         }
         
