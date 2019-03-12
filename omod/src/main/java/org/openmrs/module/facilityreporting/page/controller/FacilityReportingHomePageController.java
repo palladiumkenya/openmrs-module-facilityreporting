@@ -23,6 +23,7 @@ public class FacilityReportingHomePageController {
 		
 		List<FacilityReport> reportConfigurations = service.getAllReportDefinitions();
 		model.put("reports", reportFormatter(reportConfigurations));
+		
 	}
 	
 	private List<SimpleObject> reportFormatter(List<FacilityReport> definitions) {
@@ -37,5 +38,6 @@ public class FacilityReportingHomePageController {
 		}
 		
 		return objects;
+		
 	}
 }

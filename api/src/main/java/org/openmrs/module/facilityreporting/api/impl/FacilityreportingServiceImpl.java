@@ -131,4 +131,20 @@ public class FacilityreportingServiceImpl extends BaseOpenmrsService implements 
 	public List<FacilityReportData> getReportData(FacilityReport report, Date startDate, Date endDate) throws APIException {
 		return dao.getReportData(report, startDate, endDate);
 	}
+	
+	@Override
+	public List<FacilityReportData> getReportData(FacilityReport report, FacilityReportDataset dataset, Date startDate,
+	        Date endDate) throws APIException {
+		return dao.getReportData(report, dataset, startDate, endDate);
+	}
+	
+	@Override
+	public List<FacilityReportData> getReportData(FacilityReport report, FacilityReportDataset dataset) throws APIException {
+		return dao.getReportData(report, dataset);
+	}
+	
+	@Override
+	public FacilityReportData getReportDataById(Integer integer) throws APIException {
+		return dao.getReportDataById(integer);
+	}
 }

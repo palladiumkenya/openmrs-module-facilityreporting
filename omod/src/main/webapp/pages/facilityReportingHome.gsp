@@ -50,4 +50,6 @@
                 <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Report Configuration
             </button>
     </div>
+
+
 </div>

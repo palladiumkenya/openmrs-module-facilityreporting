@@ -31,4 +31,5 @@
 	<bean class="org.openmrs.module.facilityreporting.api.converter.StringToFacilityReportConverter"/>
 	<bean class="org.openmrs.module.facilityreporting.api.converter.StringToFacilityReportDatasetConverter"/>
 	<bean class="org.openmrs.module.facilityreporting.api.converter.StringToFacilityReportIndicatorConverter"/>
+	<bean class="org.openmrs.module.facilityreporting.api.converter.StringToFacilityReportDataConverter"/>
 </beans>
