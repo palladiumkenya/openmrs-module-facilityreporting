@@ -58,7 +58,7 @@
 
     <bean id="kenyaemr.facilityReporting.home" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
         <constructor-arg value="facilityReporting.home" />
-        <constructor-arg value="Facility Reporting" />
+        <constructor-arg value="AIR" />
         <constructor-arg value="facilityreporting/facilityReportingHome.page" />
         <constructor-arg value="facilityreporting:app/facility_reporting.png" />
         <constructor-arg value="510" />
