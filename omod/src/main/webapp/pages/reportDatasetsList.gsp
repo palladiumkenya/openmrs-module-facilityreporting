@@ -47,12 +47,6 @@
 </div>
 
 <div class="ke-page-content">
-    <div>
-        Start Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "startDate", formFieldName: startFieldName])}
-        End Date: ${ui.includeFragment("kenyaui", "field/java.util.Date", [id: "endDate", formFieldName: endFieldName])}
-
-
-    </div>
         <h2>Datasets for ${report.name} Report (${report.description})</h2>
         <div class="clear"></div>
 
@@ -82,7 +76,7 @@
                     <button type="button" class="fa fa-edit fa-1x"
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "showListDataset", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">
 
-                    Show Dataset List</button>
+                    Show reporting history</button>
                 </td>
         </tr>
         <% } %>

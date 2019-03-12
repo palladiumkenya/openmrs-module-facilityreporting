@@ -27,12 +27,11 @@ public class ViewReportDataListFragmentController {
 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public void controller(FragmentConfiguration config, FragmentModel model,
-	        @RequestParam(value = "returnUrl") String returnUrl, @RequestParam("reportId") FacilityReport report,
-	        @RequestParam("dataId") FacilityReportData data) throws Exception {
+	        @RequestParam(value = "returnUrl") String returnUrl, @RequestParam("dataId") FacilityReportData data)
+	        throws Exception {
 		
 		model.addAttribute("returnUrl", returnUrl);
 		model.addAttribute("data", data);
-		model.addAttribute("report", report);
 		
 		List<JsonNode> objDatasets = new ArrayList<JsonNode>();
 		FacilityReportData dt = data;

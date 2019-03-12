@@ -1,7 +1,7 @@
 <%
     ui.decorateWith("kenyaemr", "standardPage", [layout: "sidebar" ])
     def menuItems = [
-            [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: returnUrl ]
+            [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to reporting history", href: returnUrl ]
     ]
     ui.includeCss("facilityreporting", "table_formatter.css")
 %>
@@ -15,7 +15,7 @@
 
 
     <div>
-        ${ui.includeFragment("facilityreporting", "viewReportDataList", ["datasetId": dataset.id,"reportId": report.id ,"startDate":startDate, "endDate":endDate])}
+        ${ui.includeFragment("facilityreporting", "viewReportDataList", ["dataId": reportdata.id])}
 
     </div>
 

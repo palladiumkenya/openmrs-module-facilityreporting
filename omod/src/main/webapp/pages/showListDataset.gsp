@@ -1,7 +1,8 @@
 <%
     ui.decorateWith("kenyaemr", "standardPage", [layout: "sidebar" ])
+    def back = ui.pageLink("facilityreporting", "reportDatasetsList", [reportId:report.id])
     def menuItems = [
-            [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: returnUrl ]
+            [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to dataset list", href: back ]
     ]
     ui.includeCss("facilityreporting", "table_formatter.css")
 %>
@@ -15,7 +16,7 @@
 
 
     <div>
-        ${ui.includeFragment("facilityreporting", "showDatasets", ["datasetId": dataset.id,"reportId": report.id])}
+        ${ui.includeFragment("facilityreporting", "showDatasets", ["datasetId": dataset.id,"reportId": report.id, "returnUrl":back])}
 
     </div>
 
