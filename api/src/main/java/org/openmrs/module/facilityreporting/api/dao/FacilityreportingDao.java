@@ -195,8 +195,9 @@ public class FacilityreportingDao {
 		return (FacilityReportData) getSession().createCriteria(FacilityReportData.class)
 		        .add(Restrictions.eq("id", integer)).uniqueResult();
 	}
-
-    public List<FacilityReportData> getReportData(FacilityReport report, FacilityReportDataset dataset, Date startDate, Date endDate) {
+	
+	public List<FacilityReportData> getReportData(FacilityReport report, FacilityReportDataset dataset, Date startDate,
+	        Date endDate) {
 		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(FacilityReportData.class);
 		criteria.add(Restrictions.eq("report", report));
 		criteria.add(Restrictions.eq("dataset", dataset));
@@ -204,7 +205,7 @@ public class FacilityreportingDao {
 		criteria.add(Restrictions.eq("endDate", endDate));
 		return criteria.list();
 	}
-
+	
 	public List<FacilityReportData> getReportData(FacilityReport report, FacilityReportDataset dataset) {
 		Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(FacilityReportData.class);
 		criteria.add(Restrictions.eq("report", report));

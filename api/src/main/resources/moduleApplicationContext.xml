@@ -60,7 +60,7 @@
         <constructor-arg value="facilityReporting.home" />
         <constructor-arg value="Facility Reporting" />
         <constructor-arg value="facilityreporting/facilityReportingHome.page" />
-        <constructor-arg value="kenyaemrCharts:apps/etl_admin.png" />
+        <constructor-arg value="facilityreporting:app/facility_reporting.png" />
         <constructor-arg value="510" />
     </bean>
 </beans>
