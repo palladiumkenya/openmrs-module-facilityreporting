@@ -214,9 +214,8 @@ public interface FacilityreportingService extends OpenmrsService {
 	@Authorized()
 	@Transactional(readOnly = true)
 	List<FacilityReportData> getReportData(FacilityReport report, Date startDate, Date endDate) throws APIException;
-
+	
 	/**
-	 *
 	 * @param report
 	 * @param dataset
 	 * @param startDate
@@ -226,12 +225,13 @@ public interface FacilityreportingService extends OpenmrsService {
 	 */
 	@Authorized()
 	@Transactional(readOnly = true)
-	List<FacilityReportData> getReportData(FacilityReport report, FacilityReportDataset dataset, Date startDate, Date endDate) throws APIException;
-
+	List<FacilityReportData> getReportData(FacilityReport report, FacilityReportDataset dataset, Date startDate, Date endDate)
+	        throws APIException;
+	
 	@Authorized()
 	@Transactional(readOnly = true)
 	List<FacilityReportData> getReportData(FacilityReport report, FacilityReportDataset dataset) throws APIException;
-
+	
 	@Authorized()
 	@Transactional(readOnly = true)
 	FacilityReportData getReportDataById(Integer integer) throws APIException;

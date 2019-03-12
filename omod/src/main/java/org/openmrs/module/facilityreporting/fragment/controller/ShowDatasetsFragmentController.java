@@ -11,39 +11,38 @@ import org.openmrs.ui.framework.fragment.FragmentConfiguration;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowDataSetsFragmentController {
+public class ShowDatasetsFragmentController {
 	
 	public void controller(FragmentConfiguration config, FragmentModel model,
 	        @RequestParam(value = "returnUrl") String returnUrl, @RequestParam("reportId") FacilityReport report,
-	        @RequestParam("datasetId") Integer dataset) throws Exception {
+	        @RequestParam("datasetId") FacilityReportDataset dataset) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
 		model.addAttribute("returnUrl", returnUrl);
 		model.addAttribute("dataset", dataset);
 		model.addAttribute("report", report);
 		
-		//  model.addAttribute("startDate", startDate);
-		//   model.addAttribute("endDate", endDate);
-		
 		FacilityreportingService service = org.openmrs.api.context.Context.getService(FacilityreportingService.class);
 		ObjectMapper mapper = new ObjectMapper();
-		
-		List<FacilityReportData> reportData = service.getReportData(report, df.parse("2019-03-01"), df.parse("2019-03-07"));
-		List<JsonNode> editDatasetPayload = new ArrayList<JsonNode>();
+		List<FacilityReportData> reportData = service.getReportData(report, dataset);
+		List<JsonNode> datasetHstoryPayload = new ArrayList<JsonNode>();
 		for (FacilityReportData dt : reportData) {
-			JsonNode jsonNode = mapper.readValue(dt.getValue(), JsonNode.class);
+			//JsonNode jsonNode = mapper.readValue(dt.getValue(), JsonNode.class);
 			JsonNode childNode = mapper.createObjectNode();
-			((ObjectNode) childNode).put("dataNodeValue", jsonNode);
+			((ObjectNode) childNode).put("startDate", dt.getStartDate().toString());
+			((ObjectNode) childNode).put("endDate", dt.getEndDate().toString());
+			((ObjectNode) childNode).put("dataNodeValue", dt.getValue());
+			((ObjectNode) childNode).put("dataId", dt.getId());
 			
-			editDatasetPayload.add(childNode);
+			//((ObjectNode) childNode).put("dataNodeValue", jsonNode);
+			
+			datasetHstoryPayload.add(childNode);
 		}
-		model.put("editDatasetPayload", editDatasetPayload);
+		model.put("datasetHstoryPayload", datasetHstoryPayload);
 		
 	}
 	

@@ -22,31 +22,7 @@
 %>
 <script type="text/javascript" >
     window.OpenMRS = window.OpenMRS || {};
-
-    jq = jQuery;
-
-        jq(document).on('click','#button3',function(e) {
-            if(datasetPayload.length === 0) {
-                return
-            }
-            payload = {
-                "dataSetResults": datasetPayload
-
-            };
-            jq.getJSON('${ ui.actionLink("facilityreporting", "editDataSetsView", "updateDataSet") }',
-                {
-                    'payload': JSON.stringify(payload) , 'reportId': ${report.id}
-                })
-                .success(function (data) {
-                    payload = {};
-                    window.location.reload(true);
-                })
-                .error(function (xhr, status, err) {
-                    console.log('AJAX error ' + JSON.stringify(xhr));
-                    console.log("response text: " + JSON.stringify(xhr.statusText));
-
-                })
-        });
+    window.OpenMRS.datasetHstoryPayload = ${datasetHstoryPayload}
 </script>
 
 
@@ -67,19 +43,19 @@
                         <th>End Date</th>
                         <th>Actions</th>
                     </tr>
-                    <tr>
+                    <tr ng-repeat=" data in datasetHistoryList">
                         <td>
-                            start date
+                            {{data.startDate}}
                         </td>
                         <td>
-                            end date
+                            {{data.endDate}}
                         </td>
                         <td>
                             <button type="button" data-toggle="modal" data-target="#viewDatasetReport"
-                                    onclick="ui.navigate('${ ui.pageLink("facilityreporting", "viewReportData", [ reportId: report.id, datasetId:dataset, startDate:"2019-03-01", endDate:"2019-03-07", returnUrl: ui.thisUrl() ])}')">View Data
+                                    onclick="ui.navigate('${ ui.pageLink("facilityreporting", "viewReportData", [ reportId: report.id, datasetId:dataset, returnUrl: ui.thisUrl() ])}')">View Data
                             </button>
                             <button type="button" class="fa fa-edit fa-1x"
-                                    onclick="ui.navigate('${ ui.pageLink("facilityreporting", "editDataset", [ reportId: report.id, datasetId:dataset,startDate:"2019-03-01", endDate:"2019-03-07", returnUrl: ui.thisUrl() ])}')">
+                                    onclick="ui.navigate('${ ui.pageLink("facilityreporting", "editDataset", [ reportId: report.id, datasetId:dataset, returnUrl: ui.thisUrl() ])}')">
 
                                 Edit</button>
                         </td>

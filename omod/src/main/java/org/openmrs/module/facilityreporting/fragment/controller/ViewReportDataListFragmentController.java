@@ -28,24 +28,19 @@ public class ViewReportDataListFragmentController {
 	
 	public void controller(FragmentConfiguration config, FragmentModel model,
 	        @RequestParam(value = "returnUrl") String returnUrl, @RequestParam("reportId") FacilityReport report,
-	        @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate,
-	        @RequestParam("datasetId") Integer dataset) throws Exception {
+	        @RequestParam("dataId") FacilityReportData data) throws Exception {
 		
 		model.addAttribute("returnUrl", returnUrl);
-		model.addAttribute("dataset", dataset);
+		model.addAttribute("data", data);
 		model.addAttribute("report", report);
-		model.addAttribute("startDate", startDate);
-		model.addAttribute("endDate", endDate);
 		
-		List<FacilityReportData> reportData = service.getReportData(report, df.parse(startDate), df.parse(endDate));
 		List<JsonNode> objDatasets = new ArrayList<JsonNode>();
-		for (FacilityReportData dt : reportData) {
-			JsonNode jsonNode = mapper.readValue(dt.getValue(), JsonNode.class);
-			JsonNode childNode = mapper.createObjectNode();
-			((ObjectNode) childNode).put("dataNode", jsonNode);
-			
-			objDatasets.add(childNode);
-		}
+		FacilityReportData dt = data;
+		JsonNode jsonNode = mapper.readValue(dt.getValue(), JsonNode.class);
+		JsonNode childNode = mapper.createObjectNode();
+		((ObjectNode) childNode).put("dataNode", jsonNode);
+		
+		objDatasets.add(childNode);
 		model.put("dataNodes", objDatasets);
 		
 	}

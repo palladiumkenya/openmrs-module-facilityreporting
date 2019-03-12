@@ -5,8 +5,9 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
         var singleDataset = OpenMRS.singleDataset;
         var dataNodes = OpenMRS.dataNodes;
         var editDatasetPayload = OpenMRS.editDatasetPayload;
+        var datasetHstoryPayload= OpenMRS.datasetHstoryPayload;
+
         window.datasetPayload = [];
-       // window.dateObject = {};
 
         $scope.init = function() {
 
@@ -39,7 +40,14 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
                 $q.all(editDatasetPayload)
                     .then(function(results) {
                         $scope.editDatasetsValue = results ;
-                        console.log("$scope.editDatasetsValue-------->>>>>>>",$scope.editDatasetsValue);
+                    });
+
+            },100);
+
+            $timeout(function() {
+                $q.all(datasetHstoryPayload)
+                    .then(function(results) {
+                        $scope.datasetHistoryList = results ;
                     });
 
             },100);
@@ -255,7 +263,6 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
                 endDateDate:$scope.endDate
             };
             datasetPayload.push(dateObject);
-            console.log('============1111111111',datasetPayload);
 
         }
         

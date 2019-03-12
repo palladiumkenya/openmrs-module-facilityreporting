@@ -79,11 +79,8 @@
                     </button>
                     <button type="button"
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "reportSingleDatasetEntryForm", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">Enter Data</button>
-                    <button type="button" data-toggle="modal" data-target="#viewDatasetReport"
-                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "viewReportData", [ reportId: report.id, datasetId: ds.id, startDate:"2019-03-01", endDate:"2019-03-07", returnUrl: ui.thisUrl() ])}')">View Data
-                    </button>
                     <button type="button" class="fa fa-edit fa-1x"
-                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "showListDataset", [ reportId: report.id, datasetId: ds.id, startDate:"2019-03-01", endDate:"2019-03-07", returnUrl: ui.thisUrl() ])}')">
+                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "showListDataset", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">
 
                     Show Dataset List</button>
                 </td>
