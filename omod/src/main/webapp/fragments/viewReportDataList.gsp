@@ -22,6 +22,7 @@
 %>
 <script type="text/javascript" >
     window.OpenMRS = window.OpenMRS || {};
+
     window.OpenMRS.dataNodes = ${dataNodes}
 
 
@@ -34,12 +35,6 @@
 
 
     <div id="viewData" ng-controller="FacilityDataSetCtrl" ng-init='init()'>
-        
-        <div>
-
-
-
-        </div>
         <div class="table-responsive" style="padding-top: 30px">
             <div class="table-responsive" ng-repeat="d in dataNodes"  >
                 <table class="table table-striped tables">
