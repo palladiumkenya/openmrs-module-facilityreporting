@@ -21,30 +21,25 @@ import java.util.List;
 public class EditDataSetsViewFragmentController {
 	
 	public void controller(FragmentConfiguration config, FragmentModel model,
-	        @RequestParam(value = "returnUrl") String returnUrl, @RequestParam("reportId") FacilityReport report,
-	        @RequestParam("datasetId") Integer dataset) throws Exception {
+	        @RequestParam(value = "returnUrl") String returnUrl, @RequestParam("dataId") FacilityReportData data)
+	        throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
 		model.addAttribute("returnUrl", returnUrl);
-		model.addAttribute("dataset", dataset);
-		model.addAttribute("report", report);
 		
-		//  model.addAttribute("startDate", startDate);
-		//   model.addAttribute("endDate", endDate);
-		
-		FacilityreportingService service = org.openmrs.api.context.Context.getService(FacilityreportingService.class);
 		ObjectMapper mapper = new ObjectMapper();
 		
-		List<FacilityReportData> reportData = service.getReportData(report, df.parse("2019-03-01"), df.parse("2019-03-07"));
 		List<JsonNode> editDatasetPayload = new ArrayList<JsonNode>();
-		for (FacilityReportData dt : reportData) {
-			JsonNode jsonNode = mapper.readValue(dt.getValue(), JsonNode.class);
-			JsonNode childNode = mapper.createObjectNode();
-			((ObjectNode) childNode).put("dataNodeValue", jsonNode);
-			
-			editDatasetPayload.add(childNode);
-		}
+		FacilityReportData dt = data;
+		JsonNode jsonNode = mapper.readValue(dt.getValue(), JsonNode.class);
+		JsonNode childNode = mapper.createObjectNode();
+		((ObjectNode) childNode).put("dataNodeValue", jsonNode);
+		
+		editDatasetPayload.add(childNode);
+		
 		model.put("editDatasetPayload", editDatasetPayload);
+		model.put("startDate", df.format(data.getStartDate()));
+		model.put("endDate", df.format(data.getEndDate()));
 		
 	}
 	

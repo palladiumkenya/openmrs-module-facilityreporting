@@ -15,7 +15,7 @@
 
 
     <div>
-        ${ui.includeFragment("facilityreporting", "editDataSetsView", ["datasetId": dataset.id,"reportId": report.id])}
+        ${ui.includeFragment("facilityreporting", "editDataSetsView", ["dataId": reportdata.id,"returnUrl": returnUrl])}
 
     </div>
 

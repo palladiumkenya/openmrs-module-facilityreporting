@@ -31,9 +31,9 @@
 <div class="ke-page-content">
 
 
-    <div id="singleData" ng-controller="FacilityDataSetCtrl" ng-init='init()'>
+    <div id="singleData">
         <fieldset class=" scheduler-border">
-            <legend class="scheduler-border"> Dataset Reporting History</legend>
+            <legend class="scheduler-border"> ${dataset.name} Dataset Reporting History</legend>
 
         <div class="table-responsive" style="padding-top: 30px">
             <div class="table-responsive">
@@ -43,24 +43,27 @@
                         <th>End Date</th>
                         <th>Actions</th>
                     </tr>
-                    <tr ng-repeat=" data in datasetHistoryList">
+                    <%if (datasetHstoryPayload) { %>
+                    <% datasetHstoryPayload.each { %>
+                    <tr>
                         <td>
-                            {{data.startDate}}
+                            ${it.startDate}
                         </td>
                         <td>
-                            {{data.endDate}}
+                            ${it.endDate}
                         </td>
                         <td>
                             <button type="button" data-toggle="modal" data-target="#viewDatasetReport"
-                                    onclick="ui.navigate('${ ui.pageLink("facilityreporting", "viewReportData", [ reportId: report.id, datasetId:dataset, returnUrl: ui.thisUrl() ])}')">View Data
+                                    onclick="ui.navigate('${ ui.pageLink("facilityreporting", "viewReportData", [ dataId: it.dataId, returnUrl: ui.thisUrl() ])}')">View Data
                             </button>
                             <button type="button" class="fa fa-edit fa-1x"
-                                    onclick="ui.navigate('${ ui.pageLink("facilityreporting", "editDataset", [ reportId: report.id, datasetId:dataset, returnUrl: ui.thisUrl() ])}')">
+                                    onclick="ui.navigate('${ ui.pageLink("facilityreporting", "editDataset", [ dataId: it.dataId, returnUrl: ui.thisUrl() ])}')">
 
                                 Edit</button>
                         </td>
                         </td>
                     </tr>
+                    <% } }%>
 
                 </table>
 
@@ -75,28 +78,6 @@
 
         </div>
         </fieldset>
-        <!--Error Modal -->
-        <div class="modal fade" id="orderError" tabindex="-1" role="dialog" style="font-size:16px;">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Server Error</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body" id="modal-text">
-                        {{showErrorToast}}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button"  data-dismiss="modal2" ng-click="closeModal()">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 
 
@@ -104,5 +85,5 @@
 
 </div>
 <script type="text/javascript">
-    angular.bootstrap('#singleData', ['facility']);
+
 </script>
