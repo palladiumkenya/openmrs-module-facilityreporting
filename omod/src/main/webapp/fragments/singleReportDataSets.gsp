@@ -41,6 +41,8 @@
                 .success(function (data) {
                     payload = {};
                     window.location.reload(true);
+                    ui.navigate('${ ui.pageLink("facilityreporting", "reportDatasetsList", [reportId: report, returnUrl: ui.thisUrl()]) }');
+
                 })
                 .error(function (xhr, status, err) {
                     console.log('AJAX error ' + JSON.stringify(xhr));
@@ -79,6 +81,7 @@
                     <tr ng-repeat ="indicator in singleDatasetValue[0].indicators" class="column">
                         <td>
                             {{indicator.name}}:
+                            <p><span>{{indicator.description}}</span></p>
                         </td>
                         <td>
                             <input class="form-control" type="number" ng-model="singleDatasetValues[indicator.id]">

@@ -155,7 +155,7 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
         function generatePayloadSingleDataSet(rs) {
             var payload = [];
             var name = rs[0].datasetName;
-            var id =rs[0].dataset_id;
+            var id = rs[0].dataset_id;
             for (var t =0; t < rs[0].indicators.length; ++t)  {
                 var data = rs[0].indicators[t];
                 for (var r in data) {
@@ -243,7 +243,8 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
                 current.indicators.push({
                     id: item.id,
                     name: item.name,
-                    value: item.value
+                    value: item.value,
+                    description:item.description
                 });
 
                 return r;

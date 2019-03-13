@@ -41,6 +41,7 @@
                     <tr>
                         <th>Dataset</th>
                         <th>Indicator</th>
+                        <th>Description</th>
                         <th>Value</th>
                     </tr>
                     <tr ng-repeat = "data in d.dataNode.indicators">
@@ -49,6 +50,9 @@
                         </td>
                         <td>
                             {{data.name}}
+                        </td>
+                        <td>
+                            {{data.description}}
                         </td>
                         <td>
                             {{data.value}}
