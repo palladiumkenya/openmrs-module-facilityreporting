@@ -48,6 +48,13 @@
 
                 })
         });
+
+    jq(document).ready(function() {
+        jq("#btnBack").click(function(){
+            ui.navigate('${ ui.pageLink("facilityreporting", "reportDatasetsList", [reportId: report, returnUrl: ui.thisUrl()]) }');
+        });
+    });
+
 </script>
 
 
@@ -87,6 +94,7 @@
 
         </div>
         <div>
+            <button type="button" id="btnBack">Cancel</button>
             <button type="button" ng-click="saveSingleDataSetReport()" id="button2">Save</button>
 
         </div>

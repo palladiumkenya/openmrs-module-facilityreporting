@@ -283,12 +283,7 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
                 payload.push(data);
 
             }
-            /*_.each(payload, function(o) {
-                if (o.value === undefined) {
-                    o.value = "";
-                }
 
-            });*/
             return payload;
             
         }

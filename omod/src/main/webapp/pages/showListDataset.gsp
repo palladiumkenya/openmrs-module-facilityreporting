@@ -1,6 +1,6 @@
 <%
     ui.decorateWith("kenyaemr", "standardPage", [layout: "sidebar" ])
-    def back = ui.pageLink("facilityreporting", "reportDatasetsList", [reportId:report.id])
+    def back = ui.pageLink("facilityreporting", "reportDatasetsList", [reportId:report.id, returnUrl: ui.thisUrl()])
     def menuItems = [
             [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to dataset list", href: back ]
     ]

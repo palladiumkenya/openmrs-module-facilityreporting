@@ -48,6 +48,7 @@
 
                 })
         });
+   
 </script>
 
 
@@ -69,7 +70,7 @@
                                 {{indicator.name}}:
                             </td>
                             <td>
-                                <input class="form-control" type="number" ng-model="indicator.value">
+                                <input class="form-control"  value="{{indicator}}" type="number" ng-model="indicator.value">
 
                             </td>
                         </tr>
@@ -83,6 +84,7 @@
 
         </div>
         <div>
+            <button type="button" id="btnBack">Cancel</button>
             <button type="button" ng-click="editSingleDataset()" id="button3">Save</button>
 
         </div>
