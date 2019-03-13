@@ -40,6 +40,7 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
                 $q.all(editDatasetPayload)
                     .then(function(results) {
                         $scope.editDatasetsValue = results ;
+                        console.log(' $scope.editDatasetsValue',  $scope.editDatasetsValue);
                     });
 
             },100);
@@ -268,25 +269,38 @@ controller('FacilityDataSetCtrl', ['$scope', '$window', '$location', '$timeout',
         }
         
         $scope.editSingleDataset =function () {
-            var payload = [];
-            var name = $scope.editDataset.datasetName;
-            var id = $scope.editDataset.dataset_id;
-            for (var t =0; t < $scope.editDataset.indicators.length; ++t)  {
-                var data = $scope.editDataset.indicators[t];
-                for (var r in data) {
-                    if (data.hasOwnProperty(r)) {
-                        data['value'] = $scope.singleDatasetValues[data.id];
-                        data['dataset_id'] = id;
-                        data['datasetName'] = name;
+            var editSet = [];
+            if($scope.editDatasetsValue) {
+                var payload = [];
+                for (var t = 0; t < $scope.editDatasetsValue[0].dataNodeValue.indicators.length; ++t) {
+                    var data = $scope.editDatasetsValue[0].dataNodeValue.indicators[t];
+                    for (var r in data) {
+                        if (data.hasOwnProperty(r)) {
+                            data['value'] = parseInt(angular.element('#' + data.id).val(),10);
+                        }
                     }
-                }
 
-                payload.push(data);
+                    payload.push(data);
+
+                }
+            }
+
+            for (var i = 0; i < payload.length; ++i) {
+                delete payload[i].$$hashKey;
 
             }
 
-            return payload;
-            
+            editSet.push({
+                datasetName:$scope.editDatasetsValue[0].dataNodeValue.datasetName,
+                indicators:payload,
+                datasetId:$scope.editDatasetsValue[0].dataNodeValue.datasetId,
+                endDate:$scope.editDatasetsValue[0].dataNodeValue.endDate,
+                startDate:$scope.editDatasetsValue[0].dataNodeValue.startDate
+
+            });
+
+            datasetPayload = editSet;
+
         }
 
     }]);

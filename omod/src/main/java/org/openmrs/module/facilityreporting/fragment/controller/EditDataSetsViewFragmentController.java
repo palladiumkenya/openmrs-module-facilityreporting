@@ -40,14 +40,14 @@ public class EditDataSetsViewFragmentController {
 		model.put("editDatasetPayload", editDatasetPayload);
 		model.put("startDate", df.format(data.getStartDate()));
 		model.put("endDate", df.format(data.getEndDate()));
+		model.addAttribute("reportdata", data);
 		
 	}
 	
-	public void updateDataSet(@RequestParam("payload") String payload, @RequestParam("reportId") FacilityReport report,
-	        @RequestParam("datasetId") FacilityReportDataset dataset) throws ParseException {
+	public void updateDataSet(@RequestParam("payload") String payload, @RequestParam("dataId") FacilityReportData data)
+	        throws ParseException {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
-		FacilityReportData data = new FacilityReportData();
 		FacilityreportingService service = org.openmrs.api.context.Context.getService(FacilityreportingService.class);
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -57,13 +57,8 @@ public class EditDataSetsViewFragmentController {
 			JsonNode facilityData = jsonNode.get("dataSetResults");
 			for (int i = 0; i < facilityData.size(); i++) {
 				JsonNode datasetJson = facilityData.get(i);
-				String startDate = datasetJson.get("startDate").getValueAsText();
-				String endDate = datasetJson.get("endDate").getValueAsText();
-				data.setReport(report);
-				data.setDataset(dataset);
 				data.setValue(datasetJson.toString());
-				data.setStartDate(df.parse(startDate));
-				data.setEndDate(df.parse(endDate));
+				
 				service.saveOrUpdateReportData(data);
 			}
 		}

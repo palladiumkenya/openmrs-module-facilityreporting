@@ -36,7 +36,7 @@
             };
             jq.getJSON('${ ui.actionLink("facilityreporting", "editDataSetsView", "updateDataSet") }',
                 {
-                    'payload': JSON.stringify(payload)
+                    'payload': JSON.stringify(payload),'dataId':${reportdata.id}
                 })
                 .success(function (data) {
                     payload = {};
@@ -62,15 +62,16 @@
             <legend class="scheduler-border"> Edit {{editDatasetsValue[0].dataNodeValue.datasetName}} Dataset for period ${startDate} to ${endDate}</legend>
 
         <div class="table-responsive" style="padding-top: 30px">
-            <div class="table-responsive">
+            <div class="table-responsive" ng-repeat ="data in editDatasetsValue">
                 <table class="table table-striped tables">
 
-                        <tr ng-repeat ="indicator in editDatasetsValue[0].dataNodeValue.indicators" class="column">
+                        <tr ng-repeat ="indicator in data.dataNodeValue.indicators" class="column">
                             <td>
                                 {{indicator.name}}:
+                                <p><span>{{indicator.description}}</span></p>
                             </td>
                             <td>
-                                <input class="form-control"  value="{{indicator}}" type="number" ng-model="indicator.value">
+                                <input class="form-control"  id="{{indicator.id}}" type="number" ng-model="indicator.value">
 
                             </td>
                         </tr>
