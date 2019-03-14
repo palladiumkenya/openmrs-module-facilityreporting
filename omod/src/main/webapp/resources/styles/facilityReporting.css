@@ -42,3 +42,12 @@ legend.scheduler-border {
     float: left;
     width: 50%;
 }
+
+.set-table-td-description-size {
+    width: 30%;
+}
+
+.set-table-td-input-size {
+    width: 10%;
+
+}

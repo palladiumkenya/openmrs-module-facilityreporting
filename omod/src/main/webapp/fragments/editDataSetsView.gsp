@@ -41,6 +41,8 @@
                 .success(function (data) {
                     payload = {};
                     window.location.reload(true);
+                    ui.navigate('${ ui.pageLink("facilityreporting", "showListDataset", ["dataId": reportdata.id,reportId: report.id, "datasetId": dataset.id,returnUrl: ui.thisUrl()]) }');
+
                 })
                 .error(function (xhr, status, err) {
                     console.log('AJAX error ' + JSON.stringify(xhr));
@@ -48,6 +50,11 @@
 
                 })
         });
+    jq(document).ready(function() {
+        jq("#btnBack").click(function(){
+            ui.navigate('${ ui.pageLink("facilityreporting", "showListDataset", ["dataId": reportdata.id,reportId: report.id, "datasetId": dataset.id, returnUrl: ui.thisUrl()]) }');
+        });
+    });
 
 </script>
 
@@ -66,12 +73,11 @@
                 <table class="table table-striped tables">
 
                         <tr ng-repeat ="indicator in data.dataNodeValue.indicators" class="column">
-                            <td>
-                                {{indicator.name}}:
-                                <p><span>{{indicator.description}}</span></p>
+                            <td class="set-table-td-description-size">
+                                <span class="set-table-td-description-size">{{indicator.description}}</span>
                             </td>
-                            <td>
-                                <input class="form-control"  id="{{indicator.id}}" type="number" ng-model="indicator.value">
+                            <td class="set-table-td-input-size">
+                                <input class="form-control set-table-td-input-size"  id="{{indicator.id}}" type="number" ng-model="indicator.value">
 
                             </td>
                         </tr>

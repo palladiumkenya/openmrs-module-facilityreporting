@@ -79,12 +79,11 @@
             <div class="table-responsive">
                 <table class="table table-striped tables">
                     <tr ng-repeat ="indicator in singleDatasetValue[0].indicators" class="column">
-                        <td>
-                            {{indicator.name}}:
-                            <p><span>{{indicator.description}}</span></p>
+                        <td class="set-table-td-description-size">
+                            <span class="set-table-td-description-size">{{indicator.description}}</span>
                         </td>
-                        <td>
-                            <input class="form-control" type="number" ng-model="singleDatasetValues[indicator.id]">
+                        <td class="set-table-td-input-size">
+                            <input class="form-control set-table-td-input-size" type="number" ng-model="singleDatasetValues[indicator.id]">
 
                         </td>
                     </tr>

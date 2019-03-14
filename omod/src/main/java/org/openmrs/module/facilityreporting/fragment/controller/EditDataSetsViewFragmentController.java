@@ -21,11 +21,14 @@ import java.util.List;
 public class EditDataSetsViewFragmentController {
 	
 	public void controller(FragmentConfiguration config, FragmentModel model,
-	        @RequestParam(value = "returnUrl") String returnUrl, @RequestParam("dataId") FacilityReportData data)
+	        @RequestParam("reportId") FacilityReport report, @RequestParam(value = "returnUrl") String returnUrl,
+	        @RequestParam("dataId") FacilityReportData data, @RequestParam("datasetId") FacilityReportDataset dataset)
 	        throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
 		model.addAttribute("returnUrl", returnUrl);
+		model.addAttribute("report", report);
+		model.addAttribute("dataset", dataset);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		
