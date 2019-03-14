@@ -54,12 +54,13 @@
                         </td>
                         <td>
                             <button type="button" data-toggle="modal" data-target="#viewDatasetReport"
-                                    onclick="ui.navigate('${ ui.pageLink("facilityreporting", "viewReportData", [ dataId: it.dataId,"reportId": report.id,"datasetId": dataset.id, returnUrl: ui.thisUrl() ])}')">View Data
+                                    onclick="ui.navigate('${ ui.pageLink("facilityreporting", "viewReportData", [ dataId: it.dataId,"reportId": report.id,"datasetId": dataset.id, returnUrl: ui.thisUrl() ])}')">
+                                <img src="${ui.resourceLink("kenyaui", "images/glyphs/view.png")}"/>View Data
                             </button>
                             <button type="button" class="fa fa-edit fa-1x"
                                     onclick="ui.navigate('${ ui.pageLink("facilityreporting", "editDataset", [ dataId: it.dataId,"reportId": report.id, "datasetId": dataset.id, returnUrl: ui.thisUrl() ])}')">
 
-                                Edit</button>
+                                <img src="${ui.resourceLink("kenyaui", "images/glyphs/edit.png")}"/>   Edit</button>
                         </td>
                         </td>
                     </tr>

@@ -86,6 +86,7 @@
                             <input class="form-control set-table-td-input-size" type="number" ng-model="singleDatasetValues[indicator.id]">
 
                         </td>
+                        <td class="set-third-column-size"></td>
                     </tr>
                 </table>
 
@@ -96,7 +97,9 @@
 
         </div>
         <div>
-            <button type="button" id="btnBack">Cancel</button>
+            <button type="button" id="btnBack"><img
+                    src="${ui.resourceLink("kenyaui", "images/glyphs/cancel.png")}"/>
+                Cancel</button>
             <button type="button" ng-click="saveSingleDataSetReport()" id="button2">Save</button>
 
         </div>

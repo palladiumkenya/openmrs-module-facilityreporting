@@ -1,7 +1,7 @@
 <%
     ui.decorateWith("kenyaemr", "standardPage", [layout: "sidebar" ])
     def menuItems = [
-            [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: returnUrl ]
+            [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to reporting history", href: returnUrl ]
     ]
     ui.includeCss("facilityreporting", "table_formatter.css")
 %>

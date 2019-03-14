@@ -2,7 +2,8 @@
     padding: .5rem !important;
 }
 .tables td {
-    padding: .5rem !important;;
+    padding: .5rem !important;
+
 }
 .ke-toolbar-item a {
 
@@ -10,6 +11,10 @@
     color: white !important ;
     text-decoration: none !important;
 
+}
+.input-color {
+    border-top: 1px !important;
+    background-color: #dee2e6 !important;
 }
 
 .ke-menu-item {
@@ -44,10 +49,13 @@ legend.scheduler-border {
 }
 
 .set-table-td-description-size {
-    width: 30%;
+    width: 20%;
 }
 
 .set-table-td-input-size {
     width: 10%;
 
+}
+.set-third-column-size {
+    width: 20%;
 }

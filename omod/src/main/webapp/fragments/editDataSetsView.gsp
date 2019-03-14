@@ -80,6 +80,7 @@
                                 <input class="form-control set-table-td-input-size"  id="{{indicator.id}}" type="number" ng-model="indicator.value">
 
                             </td>
+                            <td class="set-third-column-size"></td>
                         </tr>
 
                 </table>
@@ -91,7 +92,9 @@
 
         </div>
         <div>
-            <button type="button" id="btnBack">Cancel</button>
+            <button type="button" id="btnBack"><img
+                    src="${ui.resourceLink("kenyaui", "images/glyphs/cancel.png")}"/>
+                Cancel</button>
             <button type="button" ng-click="editSingleDataset()" id="button3">Save</button>
 
         </div>
