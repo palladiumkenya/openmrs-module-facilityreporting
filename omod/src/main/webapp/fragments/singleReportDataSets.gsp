@@ -78,7 +78,7 @@
         <div class="table-responsive" style="padding-top: 30px">
             <div class="table-responsive">
                 <table class="table table-striped tables">
-                    <tr ng-repeat ="indicator in singleDatasetValue[0].indicators" class="column">
+                    <tr ng-repeat ="indicator in singleDatasetValue[0].indicators" class="column found">
                         <td class="set-table-td-description-size">
                             <span class="set-table-td-description-size">{{indicator.description}}</span>
                         </td>

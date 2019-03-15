@@ -59,3 +59,7 @@ legend.scheduler-border {
 .set-third-column-size {
     width: 20%;
 }
+
+table.table.table-striped tr.found td {
+    background-color:#CECBCB;
+}

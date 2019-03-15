@@ -72,7 +72,7 @@
             <div class="table-responsive" ng-repeat ="data in editDatasetsValue">
                 <table class="table table-striped tables">
 
-                        <tr ng-repeat ="indicator in data.dataNodeValue.indicators" class="column">
+                        <tr ng-repeat ="indicator in data.dataNodeValue.indicators" class="column found">
                             <td class="set-table-td-description-size">
                                 <span class="set-table-td-description-size">{{indicator.description}}</span>
                             </td>
