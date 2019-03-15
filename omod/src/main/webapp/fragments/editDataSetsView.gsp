@@ -95,7 +95,8 @@
             <button type="button" id="btnBack"><img
                     src="${ui.resourceLink("kenyaui", "images/glyphs/cancel.png")}"/>
                 Cancel</button>
-            <button type="button" ng-click="editSingleDataset()" id="button3">Save</button>
+            <button type="button" ng-click="editSingleDataset()" id="button3">
+                <img src="${ ui.resourceLink("kenyaui", "images/glyphs/ok.png") }" />Save</button>
 
         </div>
         </fieldset>

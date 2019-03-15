@@ -78,7 +78,7 @@
         <div class="table-responsive" style="padding-top: 30px">
             <div class="table-responsive">
                 <table class="table table-striped tables">
-                    <tr ng-repeat ="indicator in singleDatasetValue[0].indicators" class="column found">
+                    <tr ng-repeat ="indicator in singleDatasetValue[0].indicators" class="column b-color">
                         <td class="set-table-td-description-size">
                             <span class="set-table-td-description-size">{{indicator.description}}</span>
                         </td>
@@ -100,7 +100,8 @@
             <button type="button" id="btnBack"><img
                     src="${ui.resourceLink("kenyaui", "images/glyphs/cancel.png")}"/>
                 Cancel</button>
-            <button type="button" ng-click="saveSingleDataSetReport()" id="button2">Save</button>
+            <button type="button" ng-click="saveSingleDataSetReport()" id="button2">
+                <img src="${ ui.resourceLink("kenyaui", "images/glyphs/ok.png") }" />Save</button>
 
         </div>
         </fieldset>

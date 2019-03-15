@@ -66,8 +66,7 @@
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "reportSingleDatasetEntryForm", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">Enter Data</button>
                     <button type="button" class="fa fa-edit fa-1x"
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "showListDataset", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">
-
-                    Show reporting history</button>
+                        Reporting history</button>
                 </td>
         </tr>
         <% } %>
