@@ -189,8 +189,18 @@ public interface FacilityreportingService extends OpenmrsService {
 	 * @throws APIException
 	 */
 	@Transactional
+	boolean saveOrUpdateReportData(List<FacilityReportData> reportData) throws APIException;
+
+
+	/**
+	 * saves or updates report data object
+	 *
+	 * @param reportData
+	 * @return
+	 * @throws APIException
+	 */
+	@Transactional
 	FacilityReportData saveOrUpdateReportData(FacilityReportData reportData) throws APIException;
-	
 	/**
 	 * returns report data whose uuid is provided
 	 * 
