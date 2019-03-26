@@ -36,11 +36,13 @@
             };
             jq.getJSON('${ ui.actionLink("facilityreporting", "editDataSetsView", "updateDataSet") }',
                 {
-                    'payload': JSON.stringify(payload)
+                    'payload': JSON.stringify(payload),'dataId':${reportdata.id}
                 })
                 .success(function (data) {
                     payload = {};
                     window.location.reload(true);
+                    ui.navigate('${ ui.pageLink("facilityreporting", "showListDataset", ["dataId": reportdata.id,reportId: report.id, "datasetId": dataset.id,returnUrl: ui.thisUrl()]) }');
+
                 })
                 .error(function (xhr, status, err) {
                     console.log('AJAX error ' + JSON.stringify(xhr));
@@ -48,6 +50,12 @@
 
                 })
         });
+    jq(document).ready(function() {
+        jq("#btnBack").click(function(){
+            ui.navigate('${ ui.pageLink("facilityreporting", "showListDataset", ["dataId": reportdata.id,reportId: report.id, "datasetId": dataset.id, returnUrl: ui.thisUrl()]) }');
+        });
+    });
+
 </script>
 
 
@@ -61,17 +69,18 @@
             <legend class="scheduler-border"> Edit {{editDatasetsValue[0].dataNodeValue.datasetName}} Dataset for period ${startDate} to ${endDate}</legend>
 
         <div class="table-responsive" style="padding-top: 30px">
-            <div class="table-responsive">
+            <div class="table-responsive" ng-repeat ="data in editDatasetsValue">
                 <table class="table table-striped tables">
 
-                        <tr ng-repeat ="indicator in editDatasetsValue[0].dataNodeValue.indicators" class="column">
-                            <td>
-                                {{indicator.name}}:
+                        <tr ng-repeat ="indicator in data.dataNodeValue.indicators" class="column found">
+                            <td class="set-table-td-description-size">
+                                <span class="set-table-td-description-size">{{indicator.description}}</span>
                             </td>
-                            <td>
-                                <input class="form-control" type="number" ng-model="indicator.value">
+                            <td class="set-table-td-input-size">
+                                <input class="form-control set-table-td-input-size"  id="{{indicator.id}}" type="number" ng-model="indicator.value">
 
                             </td>
+                            <td class="set-third-column-size"></td>
                         </tr>
 
                 </table>
@@ -83,7 +92,11 @@
 
         </div>
         <div>
-            <button type="button" ng-click="editSingleDataset()" id="button3">Save</button>
+            <button type="button" id="btnBack"><img
+                    src="${ui.resourceLink("kenyaui", "images/glyphs/cancel.png")}"/>
+                Cancel</button>
+            <button type="button" ng-click="editSingleDataset()" id="button3">
+                <img src="${ ui.resourceLink("kenyaui", "images/glyphs/ok.png") }" />Save</button>
 
         </div>
         </fieldset>

@@ -1,7 +1,8 @@
 <%
     ui.decorateWith("kenyaemr", "standardPage", [layout: "sidebar" ])
+    def back = ui.pageLink("facilityreporting", "facilityReportingHome", [ returnUrl: ui.thisUrl()])
     def menuItems = [
-            [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to Reports", href: returnUrl ]
+            [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to Reports", href: back ]
     ]
     ui.includeCss("facilityreporting", "table_formatter.css")
 
@@ -27,17 +28,7 @@
 
 %>
 <script type="text/javascript">
-    function getStartDate() {
-        return document.getElementById("startDate").value();
-    }
-    document.getElementById("startDate").addEventListener("change", function() {
-        var startDate = this.value;
-        console.log(startDate); //e.g. 2015-11-13
-    });
-    document.getElementById("endDate").addEventListener("change", function() {
-        var endDate = this.value;
-        console.log(endDate); //e.g. 2015-11-13
-    });
+
 </script>
 
 <div class="ke-page-sidebar">
@@ -75,8 +66,7 @@
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "reportSingleDatasetEntryForm", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">Enter Data</button>
                     <button type="button" class="fa fa-edit fa-1x"
                             onclick="ui.navigate('${ ui.pageLink("facilityreporting", "showListDataset", [ reportId: report.id, datasetId: ds.id, returnUrl: ui.thisUrl() ])}')">
-
-                    Show reporting history</button>
+                        Reporting history</button>
                 </td>
         </tr>
         <% } %>
