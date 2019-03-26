@@ -212,4 +212,15 @@ public class FacilityreportingDao {
 		criteria.add(Restrictions.eq("dataset", dataset));
 		return criteria.list();
 	}
+
+    public boolean saveOrUpdateReportData(List<FacilityReportData> reportData) {
+		if (reportData == null)
+			return true;
+		if (reportData.size() > 0) {
+			for (FacilityReportData d : reportData) {
+				saveOrUpdateReportData(d);
+			}
+		}
+		return true;
+    }
 }
