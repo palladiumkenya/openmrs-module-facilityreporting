@@ -18,10 +18,10 @@
         <% if (reports) { %>
         <table class="simple-table">
             <tr>
-                <th align="left">Report Name</th>
-                <th align="left">Description</th>
-                <th align="left">Mapping</th>
-                <th align="left">Actions</th>
+                <th align="left" width="30%">Report Name</th>
+                <th align="left" width="40%">Description</th>
+                <th align="left" width="10%">Mapping</th>
+                <th align="left" width="20%">Actions</th>
             </tr>
         <% reports.each { report -> %>
 
@@ -44,7 +44,7 @@
 
         <div>No reports available</div>
         <% } %>
-    <div>
+    <div style="padding-top: 10px">
             <button class="addConfiguration" name="addConfiguration" type="button"
                     onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportConfigurationForm", [ returnUrl: ui.thisUrl() ])}')">
                 <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Report Configuration

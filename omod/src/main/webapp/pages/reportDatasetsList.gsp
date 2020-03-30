@@ -5,31 +5,10 @@
             [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to Reports", href: back ]
     ]
     ui.includeCss("facilityreporting", "table_formatter.css")
-
-    ui.includeJavascript("uicommons", "angular.min.js")
-    ui.includeJavascript("uicommons", "angular-app.js")
-    ui.includeJavascript("uicommons", "angular-resource.min.js")
-    ui.includeJavascript("uicommons", "angular-common.js")
-    ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.11.2.js")
-    ui.includeJavascript("uicommons", "ngDialog/ngDialog.js")
-    ui.includeJavascript("uicommons", "ngDialog/ngDialog.js")
-    ui.includeJavascript("facilityreporting", "bootstrap.min.js")
-    ui.includeJavascript("facilityreporting", "facilityDataset.js")
-
-
-    ui.includeCss("uicommons", "ngDialog/ngDialog.min.css")
-    ui.includeCss("uicommons", "styleguide/jquery-ui-1.9.2.custom.min.css")
-    ui.includeCss("facilityreporting", "index.css")
-    ui.includeCss("facilityreporting", "facilityReporting.css")
-
-    ui.includeCss("facilityreporting", "bootstrap.min.css")
     def startFieldName = ""
     def endFieldName = ""
 
 %>
-<script type="text/javascript">
-
-</script>
 
 <div class="ke-page-sidebar">
     <div class="ke-panel-frame">
@@ -78,7 +57,7 @@
     <div>
 
 </div>
-    <div>
+    <div style="padding-top: 10px">
             <button class="addConfiguration" name="addConfiguration" type="button"
                     onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportDatasetForm", [reportId: report.id, returnUrl: ui.pageLink("facilityreporting", "reportDatasetList", [reportId: report.id, returnUrl:ui.pageLink("facilityreporting", "facilityReportingHome")]) ])}')">
                 <img src="${ui.resourceLink("kenyaui", "images/glyphs/add.png")}"/> Add Dataset
