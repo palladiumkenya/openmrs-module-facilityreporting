@@ -1,11 +1,7 @@
 package org.openmrs.module.facilityreporting.fragment.controller;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.node.ArrayNode;
-import org.codehaus.jackson.node.JsonNodeFactory;
 import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.facilityreporting.api.FacilityreportingService;
