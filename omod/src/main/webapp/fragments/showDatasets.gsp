@@ -29,8 +29,6 @@
 
 
 <div class="ke-page-content">
-
-
     <div id="singleData">
         <fieldset class=" scheduler-border">
             <legend class="scheduler-border"> ${dataset.name} Dataset Reporting History</legend>

@@ -116,12 +116,12 @@ public class FacilityreportingServiceImpl extends BaseOpenmrsService implements 
 	public List<FacilityReportIndicator> getIndicatorsByDataset(FacilityReportDataset dataset) throws APIException {
 		return dao.getIndicatorsByDataset(dataset);
 	}
-
+	
 	@Override
 	public boolean saveOrUpdateReportData(List<FacilityReportData> reportData) throws APIException {
 		return dao.saveOrUpdateReportData(reportData);
 	}
-
+	
 	@Override
 	public FacilityReportData saveOrUpdateReportData(FacilityReportData reportData) throws APIException {
 		return dao.saveOrUpdateReportData(reportData);
