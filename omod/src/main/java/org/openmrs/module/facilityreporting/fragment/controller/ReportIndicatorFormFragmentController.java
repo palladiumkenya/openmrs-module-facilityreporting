@@ -20,7 +20,7 @@ public class ReportIndicatorFormFragmentController {
 	public void controller(@FragmentParam(value = "id", required = false) FacilityReportIndicator facilityReportIndicator,
 	        @RequestParam(value = "returnUrl") String returnUrl,
 	        @RequestParam(value = "datasetId") FacilityReportDataset dataset, PageModel model) {
-		
+
 		FacilityReportIndicator exists = facilityReportIndicator != null ? facilityReportIndicator : null;
 		model.addAttribute("command", newFacilityReportIndicatorForm(exists, dataset));
 		model.addAttribute("returnUrl", returnUrl);

@@ -17,6 +17,14 @@
     ]
 
 %>
+<script type="text/javascript" >
+    jq(document).ready(function() {
+        jq("#btnBack").click(function(){
+            ui.navigate('${ ui.pageLink("facilityreporting", "reportIndicatorsList", [datasetId: dataset.id, returnUrl: ui.thisUrl()]) }');
+        });
+    });
+
+</script>
 
 <form id="facility-report-dataset-indicator-form" method="post"
       action="${ui.actionLink("facilityreporting", "reportIndicatorForm", "saveReportIndicatorForm")}">
@@ -67,7 +75,7 @@
                 <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/> ${command.original ? "Save Changes" : "Create Report Dataset"}
             </button>
 
-            <button type="button" class="cancel-button"><img
+            <button type="button" id="btnBack"><img
                     src="${ui.resourceLink("kenyaui", "images/glyphs/cancel.png")}"/> Cancel</button>
 
         </div>
