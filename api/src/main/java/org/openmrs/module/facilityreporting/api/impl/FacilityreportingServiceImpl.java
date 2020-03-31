@@ -44,20 +44,6 @@ public class FacilityreportingServiceImpl extends BaseOpenmrsService implements 
 	}
 	
 	@Override
-	public Item getItemByUuid(String uuid) throws APIException {
-		return dao.getItemByUuid(uuid);
-	}
-	
-	@Override
-	public Item saveItem(Item item) throws APIException {
-		if (item.getOwner() == null) {
-			item.setOwner(userService.getUser(1));
-		}
-		
-		return dao.saveItem(item);
-	}
-	
-	@Override
 	public FacilityReport saveOrUpdateReport(FacilityReport report) throws APIException {
 		return dao.saveOrUpdateReport(report);
 	}
