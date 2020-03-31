@@ -14,7 +14,6 @@ import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.hibernate.DbSession;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
-import org.openmrs.module.facilityreporting.Item;
 import org.openmrs.module.facilityreporting.api.models.FacilityReport;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportData;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportDataset;
@@ -33,15 +32,6 @@ public class FacilityreportingDao {
 	
 	private DbSession getSession() {
 		return sessionFactory.getCurrentSession();
-	}
-	
-	public Item getItemByUuid(String uuid) {
-		return (Item) getSession().createCriteria(Item.class).add(Restrictions.eq("uuid", uuid)).uniqueResult();
-	}
-	
-	public Item saveItem(Item item) {
-		getSession().saveOrUpdate(item);
-		return item;
 	}
 	
 	/**
