@@ -3,7 +3,7 @@
 
     def reportName = [
             [
-                    [object: command, property: "name", label: "Report Name"]
+                    [object: command, property: "name", label: "Report Name *"]
 
             ]
     ]
@@ -11,7 +11,7 @@
     def mappingInfo = [
             [
 
-                    [object: command, property: "mapping", label: "DHIS2 Mapping"]
+                    [object: command, property: "mapping", label: "DHIS2 Mapping *"]
 
             ]
     ]

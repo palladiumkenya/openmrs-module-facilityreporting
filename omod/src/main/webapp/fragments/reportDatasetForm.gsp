@@ -3,7 +3,7 @@
 
     def datasetName = [
             [
-                    [object: command, property: "name", label: "Dataset Name"]
+                    [object: command, property: "name", label: "Dataset Name *"]
 
             ]
     ]
@@ -11,7 +11,7 @@
     def mappingInfo = [
             [
 
-                    [object: command, property: "mapping", label: "DHIS2 Dataset Mapping"]
+                    [object: command, property: "mapping", label: "DHIS2 Dataset Mapping *"]
 
             ]
     ]
