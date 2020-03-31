@@ -3,7 +3,7 @@
 
     def indicatorName = [
             [
-                    [object: command, property: "name", label: "Indicator Name"]
+                    [object: command, property: "name", label: "Indicator Name *"]
 
             ]
     ]
@@ -11,7 +11,7 @@
     def mappingInfo = [
             [
 
-                    [object: command, property: "mapping", label: "DHIS2 Indicator Mapping"]
+                    [object: command, property: "mapping", label: "DHIS2 Indicator Mapping *"]
 
             ]
     ]
