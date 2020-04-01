@@ -26,13 +26,15 @@
         <% indicators.each { indicator -> %>
 
         <tr>
+
                 <td>${indicator.name}</td>
 
                 <td>${indicator.description ?: ""}</td>
 
                 <td>${indicator.mapping ?: ""}</td>
                 <td>
-                    <button>
+                    <button
+                            onclick="ui.navigate('${ ui.pageLink("facilityreporting", "newReportIndicatorForm", [datasetId:dataset.id,id:indicator.id, returnUrl: ui.thisUrl() ])}')">
                         <img src="${ui.resourceLink("kenyaui", "images/glyphs/edit.png")}"/> Edit
                     </button>
                 </td>
