@@ -1,5 +1,6 @@
 package org.openmrs.module.facilityreporting.page.controller;
 
+import org.openmrs.module.facilityreporting.FacilityReportingConstant;
 import org.openmrs.module.facilityreporting.api.FacilityreportingService;
 import org.openmrs.module.facilityreporting.api.models.FacilityReport;
 import org.openmrs.module.kenyaui.annotation.AppPage;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Controller class for facility reporting home page
  */
-@AppPage("facilityReporting.home")
+@AppPage(FacilityReportingConstant.APP_FALICITY_REPORTING)
 public class FacilityReportingHomePageController {
 	
 	public void controller(UiUtils ui, PageModel model) {
