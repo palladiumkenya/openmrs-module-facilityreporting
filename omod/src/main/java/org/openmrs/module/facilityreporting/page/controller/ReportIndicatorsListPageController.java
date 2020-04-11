@@ -1,5 +1,6 @@
 package org.openmrs.module.facilityreporting.page.controller;
 
+import org.openmrs.module.facilityreporting.FacilityReportingConstant;
 import org.openmrs.module.facilityreporting.api.FacilityreportingService;
 import org.openmrs.module.facilityreporting.api.models.FacilityReport;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportDataset;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Controller class for facility reporting home page
  */
-
+@AppPage(FacilityReportingConstant.APP_FALICITY_REPORTING)
 public class ReportIndicatorsListPageController {
 	
 	public void controller(UiUtils ui, @RequestParam("datasetId") FacilityReportDataset dataset,
