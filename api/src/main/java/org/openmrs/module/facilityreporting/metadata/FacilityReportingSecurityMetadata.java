@@ -31,15 +31,8 @@ public class FacilityReportingSecurityMetadata extends AbstractMetadataBundle {
 	
 	public static final class _Role {
 		
-		public static final String PEER_EDUCATOR = "Peer Educator";
-		
-		public static final String KP_APPLICATION_MODULE = "Key Population Module";
-		
-		public static final String CLINICIAN = "Clinician";
-		
-		public static final String DATA_CLERK = "Data Clerk";
-		
-		public static final String REGISTRATION = "Registration";
+		public static final String FACILITY_REPORTING_AIR = "Facility reporting";
+
 		
 	}
 	
@@ -52,21 +45,9 @@ public class FacilityReportingSecurityMetadata extends AbstractMetadataBundle {
 		install(privilege(_Privilege.FACILITY_REPORTING_APP, "Able to access Facility Reporting features"));
 		install(privilege(_Privilege.FACILITY_REPORTING_AIR_APP, "Able to access Facility Air Reporting features"));
 		
-		install(role(_Role.CLINICIAN, "Can access the registration, triage, clinician, chart and reports apps",
+		install(role(_Role.FACILITY_REPORTING_AIR, "Can access the facility reporting",
 		    idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
 		    idSet(_Privilege.FACILITY_REPORTING_APP, _Privilege.FACILITY_REPORTING_AIR_APP)));
-		
-		install(role(_Role.DATA_CLERK, "Can access the chart, reporting and data quality apps",
-		    idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
-		    idSet(_Privilege.FACILITY_REPORTING_APP, _Privilege.FACILITY_REPORTING_AIR_APP)));
-		
-		install(role(_Role.KP_APPLICATION_MODULE, "Can access Key Population module App",
-		    idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
-		    idSet(_Privilege.FACILITY_REPORTING_APP, _Privilege.FACILITY_REPORTING_AIR_APP)));
-		
-		install(role(_Role.PEER_EDUCATOR, "Can access Key Population module App",
-		    idSet(SecurityMetadata._Role.API_PRIVILEGES_VIEW_AND_EDIT),
-		    idSet(_Privilege.FACILITY_REPORTING_APP, _Privilege.FACILITY_REPORTING_AIR_APP)));
-		
+
 	}
 }
