@@ -109,13 +109,6 @@
 
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
-				<artifactId>idgen-api</artifactId>
-				<version>${idgenVersion}</version>
-				<scope>provided</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.openmrs.module</groupId>
 				<artifactId>metadatadeploy-api</artifactId>
 				<version>${metadatadeployVersion}</version>
 				<scope>provided</scope>
@@ -271,18 +264,6 @@
 				<artifactId>joda-time</artifactId>
 				<version>${jodaTimeVersion}</version>
 			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-core</artifactId>
-				<version>${jacksonVersion}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-annotations</artifactId>
-				<version>${jacksonVersion}</version>
-			</dependency>
-
-
 
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
@@ -299,12 +280,6 @@
 			<dependency>
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
-				<version>${jacksonVersion}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.fasterxml.jackson.core</groupId>
-				<artifactId>jackson-databind</artifactId>
 				<version>${jacksonVersion}</version>
 			</dependency>
 
