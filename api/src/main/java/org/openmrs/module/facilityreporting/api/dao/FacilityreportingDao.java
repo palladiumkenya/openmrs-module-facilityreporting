@@ -10,28 +10,27 @@
 package org.openmrs.module.facilityreporting.api.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.APIException;
-import org.openmrs.api.db.hibernate.DbSession;
-import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.facilityreporting.api.models.FacilityReport;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportData;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportDataset;
 import org.openmrs.module.facilityreporting.api.models.FacilityReportIndicator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 
-@Repository("facilityreporting.FacilityreportingDao")
 public class FacilityreportingDao {
 	
-	@Autowired
-	DbSessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	
-	private DbSession getSession() {
-		return sessionFactory.getCurrentSession();
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 	
 	/**
@@ -42,7 +41,7 @@ public class FacilityreportingDao {
 	 * @throws APIException
 	 */
 	public FacilityReport saveOrUpdateReport(FacilityReport report) {
-		getSession().saveOrUpdate(report);
+		this.sessionFactory.getCurrentSession().saveOrUpdate(report);
 		return report;
 	}
 	
@@ -54,8 +53,8 @@ public class FacilityreportingDao {
 	 * @throws APIException
 	 */
 	public FacilityReport getReportById(Integer id) {
-		return (FacilityReport) getSession().createCriteria(FacilityReport.class).add(Restrictions.eq("id", id))
-		        .uniqueResult();
+		return (FacilityReport) this.sessionFactory.getCurrentSession().createCriteria(FacilityReport.class)
+		        .add(Restrictions.eq("id", id)).uniqueResult();
 	}
 	
 	/**
@@ -66,8 +65,8 @@ public class FacilityreportingDao {
 	 * @throws APIException
 	 */
 	public FacilityReport getReportByUuid(String reportUuid) {
-		return (FacilityReport) getSession().createCriteria(FacilityReport.class).add(Restrictions.eq("uuid", reportUuid))
-		        .uniqueResult();
+		return (FacilityReport) this.sessionFactory.getCurrentSession().createCriteria(FacilityReport.class)
+		        .add(Restrictions.eq("uuid", reportUuid)).uniqueResult();
 		
 	}
 	
@@ -84,7 +83,7 @@ public class FacilityreportingDao {
 	 * @throws APIException
 	 */
 	public FacilityReportDataset saveOrUpdateDataset(FacilityReportDataset dataset) {
-		getSession().saveOrUpdate(dataset);
+		this.sessionFactory.getCurrentSession().saveOrUpdate(dataset);
 		return dataset;
 	}
 	
@@ -96,13 +95,13 @@ public class FacilityreportingDao {
 	 * @throws APIException
 	 */
 	public FacilityReportDataset getDatasetByUuid(String datasetUuid) {
-		return (FacilityReportDataset) getSession().createCriteria(FacilityReportDataset.class)
+		return (FacilityReportDataset) this.sessionFactory.getCurrentSession().createCriteria(FacilityReportDataset.class)
 		        .add(Restrictions.eq("uuid", datasetUuid)).uniqueResult();
 		
 	}
 	
 	public FacilityReportDataset getDatasetById(Integer id) {
-		return (FacilityReportDataset) getSession().createCriteria(FacilityReportDataset.class)
+		return (FacilityReportDataset) this.sessionFactory.getCurrentSession().createCriteria(FacilityReportDataset.class)
 		        .add(Restrictions.eq("id", id)).uniqueResult();
 	}
 	
@@ -120,7 +119,7 @@ public class FacilityreportingDao {
 	 * @throws APIException
 	 */
 	public FacilityReportIndicator saveOrUpdateIndicator(FacilityReportIndicator indicator) {
-		getSession().saveOrUpdate(indicator);
+		this.sessionFactory.getCurrentSession().saveOrUpdate(indicator);
 		return indicator;
 	}
 	
@@ -132,8 +131,8 @@ public class FacilityreportingDao {
 	 * @throws APIException
 	 */
 	public FacilityReportIndicator getReportIndicatorByUuid(String indicatorUuid) {
-		return (FacilityReportIndicator) getSession().createCriteria(FacilityReportIndicator.class)
-		        .add(Restrictions.eq("uuid", indicatorUuid)).uniqueResult();
+		return (FacilityReportIndicator) this.sessionFactory.getCurrentSession()
+		        .createCriteria(FacilityReportIndicator.class).add(Restrictions.eq("uuid", indicatorUuid)).uniqueResult();
 		
 	}
 	
@@ -145,7 +144,7 @@ public class FacilityreportingDao {
 	 * @throws APIException
 	 */
 	public FacilityReportData saveOrUpdateReportData(FacilityReportData reportData) {
-		getSession().saveOrUpdate(reportData);
+		this.sessionFactory.getCurrentSession().saveOrUpdate(reportData);
 		return reportData;
 	}
 	
@@ -157,14 +156,14 @@ public class FacilityreportingDao {
 	 * @throws APIException
 	 */
 	public FacilityReportData getReportDataByUuid(String dataUuid) {
-		return (FacilityReportData) getSession().createCriteria(FacilityReportData.class)
+		return (FacilityReportData) this.sessionFactory.getCurrentSession().createCriteria(FacilityReportData.class)
 		        .add(Restrictions.eq("uuid", dataUuid)).uniqueResult();
 		
 	}
 	
 	public FacilityReportIndicator getReportIndicatorById(Integer id) {
-		return (FacilityReportIndicator) getSession().createCriteria(FacilityReportIndicator.class)
-		        .add(Restrictions.eq("id", id)).uniqueResult();
+		return (FacilityReportIndicator) this.sessionFactory.getCurrentSession()
+		        .createCriteria(FacilityReportIndicator.class).add(Restrictions.eq("id", id)).uniqueResult();
 	}
 	
 	public List<FacilityReportIndicator> getIndicatorsByDataset(FacilityReportDataset dataset) {
@@ -182,7 +181,7 @@ public class FacilityreportingDao {
 	}
 	
 	public FacilityReportData getReportDataById(Integer integer) {
-		return (FacilityReportData) getSession().createCriteria(FacilityReportData.class)
+		return (FacilityReportData) this.sessionFactory.getCurrentSession().createCriteria(FacilityReportData.class)
 		        .add(Restrictions.eq("id", integer)).uniqueResult();
 	}
 	
