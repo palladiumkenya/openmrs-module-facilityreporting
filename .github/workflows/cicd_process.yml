@@ -17,9 +17,13 @@ jobs:
         port: ${{ secrets.PORT }}
         command_timeout: 200m
         script: |
+          cd  /apps/github-workflows/kenyaemr-modules
+          sudo rm -rf openmrs-module-facilityreporting
+          sudo mkdir openmrs-module-facilityreporting
+          sudo chown -R cicd2:cicd2 openmrs-module-kenyaemr
           git config --global --add safe.directory /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting      
-          cd /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting
-          git pull origin openmrs-2.3.3-upgrade
+          cd openmrs-module-facilityreporting
+          git clone -b openmrs-2.3.3-upgrade https://github.com/palladiumkenya/openmrs-module-facilityreporting.git .
           git status
           mvn clean install -DskipTests
           sudo rm -rf /var/lib/OpenMRS/modules/facilityreporting-*.omod
