@@ -23,7 +23,7 @@ jobs:
           sudo chown -R cicd2:cicd2 openmrs-module-kenyaemr
           git config --global --add safe.directory /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting      
           cd /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting
-          git clone -b master https://github.com/palladiumkenya/openmrs-module-facilityreporting.git
+          git clone https://github.com/palladiumkenya/openmrs-module-facilityreporting.git openmrs-module-facilityreporting
           git status
           mvn clean install -DskipTests
           sudo rm -rf /var/lib/OpenMRS/modules/facilityreporting-*.omod
