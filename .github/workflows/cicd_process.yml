@@ -1,7 +1,7 @@
 name: deploy to prod 8600
 on:
   push:
-    branches: [ openmrs-2.3.3-upgrade ]
+    branches: [ master ]
 jobs:
 
   build:
@@ -23,7 +23,7 @@ jobs:
           sudo chown -R cicd2:cicd2 openmrs-module-kenyaemr
           git config --global --add safe.directory /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting      
           cd openmrs-module-facilityreporting
-          git clone -b openmrs-2.3.3-upgrade https://github.com/palladiumkenya/openmrs-module-facilityreporting.git .
+          git clone -b master https://github.com/palladiumkenya/openmrs-module-facilityreporting.git .
           git status
           mvn clean install -DskipTests
           sudo rm -rf /var/lib/OpenMRS/modules/facilityreporting-*.omod
