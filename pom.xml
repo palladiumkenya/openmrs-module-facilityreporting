@@ -56,7 +56,7 @@
 		<kenyauiVersion>2.0.3</kenyauiVersion>
 		<jodaTimeVersion>2.9.1</jodaTimeVersion>
 		<idgenVersion>2.6</idgenVersion>
-		<jacksonVersion>2.10.3</jacksonVersion>
+		<jacksonVersion>2.13.4.1</jacksonVersion>
 		<webservicesRestVersion>2.1</webservicesRestVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
