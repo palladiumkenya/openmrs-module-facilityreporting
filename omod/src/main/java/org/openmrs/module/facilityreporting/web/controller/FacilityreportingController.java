@@ -39,17 +39,17 @@ public class FacilityreportingController {
 	UserService userService;
 	
 	/** Success form view name */
-	private final String VIEW = "/module/${rootArtifactid}/${rootArtifactid}";
+	///private final String VIEW = "/module/${rootArtifactid}/${rootArtifactid}";
 	
 	/**
 	 * Initially called after the getUsers method to get the landing form name
 	 * 
 	 * @return String form view name
 	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public String onGet() {
-		return VIEW;
-	}
+	// @RequestMapping(method = RequestMethod.GET)
+	// public String onGet() {
+	// 	return VIEW;
+	// }
 	
 	/**
 	 * All the parameters are optional based on the necessity
@@ -59,16 +59,16 @@ public class FacilityreportingController {
 	 * @param errors
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.POST)
-	public String onPost(HttpSession httpSession, @ModelAttribute("anyRequestObject") Object anyRequestObject,
-	        BindingResult errors) {
-		
-		if (errors.hasErrors()) {
-			// return error view
-		}
-		
-		return VIEW;
-	}
+	// @RequestMapping(method = RequestMethod.POST)
+	// public String onPost(HttpSession httpSession, @ModelAttribute("anyRequestObject") Object anyRequestObject,
+	//         BindingResult errors) {
+	
+	// 	if (errors.hasErrors()) {
+	// 		// return error view
+	// 	}
+	
+	// 	//return VIEW;
+	// }
 	
 	/**
 	 * This class returns the form backing object. This can be a string, a boolean, or a normal java
