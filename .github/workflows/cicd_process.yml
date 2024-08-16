@@ -17,21 +17,51 @@ jobs:
         port: ${{ secrets.PORT }}
         command_timeout: 200m
         script: |
-          cd  /apps/github-workflows/kenyaemr-modules
+          # cd  /apps/github-workflows/kenyaemr-modules
+          # sudo rm -rf openmrs-module-facilityreporting
+          # sudo mkdir openmrs-module-facilityreporting
+          # sudo chown -R cicd2:cicd2 openmrs-module-facilityreporting
+          # cd /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting
+          # git config --global --add safe.directory /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting      
+          # sudo git clone https://github.com/palladiumkenya/openmrs-module-facilityreporting.git .
+          # git status
+          # sudo chown -R cicd2:cicd2 /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting
+          # mvn clean install -DskipTests
+          # sudo rm -rf /var/lib/OpenMRS/modules/facilityreporting-*.omod
+          # sudo cp /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting/omod/target/facilityreporting-*.omod /var/lib/OpenMRS/modules/
+          # sudo chown -R tomcat:tomcat /var/lib/OpenMRS/modules/
+          # sudo chmod +r /var/lib/OpenMRS/modules/*.omod
+          # sudo chmod 775 /var/lib/OpenMRS/modules/*.omod
+          # sudo systemctl stop tomcat
+          # sudo systemctl start tomcat
+  dev_server_deployment:
+    name: deploying to 3.x dev instance
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote connection
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.CICD_HOST }}
+        username: ${{ secrets.CICD_USERNAME }}
+        key: ${{ secrets.CICD_SECRET }}
+        port: ${{ secrets.PORT }}
+        command_timeout: 200m
+        script: |
+          cd /apps/githubworkflows/kenyaemr-modules
           sudo rm -rf openmrs-module-facilityreporting
           sudo mkdir openmrs-module-facilityreporting
-          sudo chown -R cicd2:cicd2 openmrs-module-facilityreporting
-          cd /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting
-          git config --global --add safe.directory /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting      
-          sudo git clone https://github.com/palladiumkenya/openmrs-module-facilityreporting.git .
+          sudo chown -R cicd:cicd openmrs-module-facilityreporting
+          git config --global --add safe.directory /apps/githubworkflows/kenyaemr-modules/openmrs-module-facilityreporting
+          cd /apps/githubworkflows/kenyaemr-modules/openmrs-module-facilityreporting
+          git clone -b master https://github.com/palladiumkenya/openmrs-module-facilityreporting.git .
           git status
-          sudo chown -R cicd2:cicd2 /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting
-          mvn clean install -DskipTests
-          sudo rm -rf /var/lib/OpenMRS/modules/facilityreporting-*.omod
-          sudo cp /apps/github-workflows/kenyaemr-modules/openmrs-module-facilityreporting/omod/target/facilityreporting-*.omod /var/lib/OpenMRS/modules/
+          mvn license:format
+          sudo mvn clean install -DskipTests
+          sudo rm -rf /var/lib/OpenMRS/modules/facilityreporting*.omod
+          sudo cp -r /apps/githubworkflows/kenyaemr-modules/openmrs-module-facilityreporting/omod/target/facilityreporting*.omod /var/lib/OpenMRS/modules/
           sudo chown -R tomcat:tomcat /var/lib/OpenMRS/modules/
           sudo chmod +r /var/lib/OpenMRS/modules/*.omod
-          sudo chmod 775 /var/lib/OpenMRS/modules/*.omod
-          sudo systemctl stop tomcat
-          sudo systemctl start tomcat
+          sudo chmod 755 /var/lib/OpenMRS/modules/*.omod
+          sudo service tomcat9 restart 
          
