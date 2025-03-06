@@ -67,8 +67,5 @@ jobs:
               "password": "${{ secrets.MAVEN_TOKEN }}"
             }]
 
-      - name: Resolve Maven dependencies
-        run: mvn -B dependency:resolve-plugins dependency:resolve
-
       - name: Publish
         run: mvn --batch-mode clean install deploy -DskipTests
