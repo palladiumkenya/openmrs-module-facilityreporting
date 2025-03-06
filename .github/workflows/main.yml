@@ -1,0 +1,74 @@
+name: Build and Publish to Nexus
+
+on:
+  # Manually triggered workflow using the "Run workflow" button
+  workflow_dispatch:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "8"
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build with Maven
+        run: mvn -B clean install -DskipTests
+
+  publish:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "8"
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Set settings.xml
+        uses: s4u/maven-settings-action@v3.0.0
+        with:
+          servers: |
+            [{
+              "id": "mks-repo",
+              "username": "${{ secrets.MAVEN_USERNAME }}",
+              "password": "${{ secrets.MAVEN_TOKEN }}"
+            },
+            {
+              "id": "mks-repo-snapshots",
+              "username": "${{ secrets.MAVEN_USERNAME }}",
+              "password": "${{ secrets.MAVEN_TOKEN }}"
+            }]
+
+      - name: Resolve Maven dependencies
+        run: mvn -B dependency:resolve-plugins dependency:resolve
+
+      - name: Publish
+        run: mvn --batch-mode clean install deploy -DskipTests
