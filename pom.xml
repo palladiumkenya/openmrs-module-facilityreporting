@@ -11,7 +11,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>facilityreporting</artifactId>
-	<version>1.2.1-SNAPSHOT</version>
+	<version>1.2.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Facilityreporting</name>
 	<description>facility reporting module</description>
@@ -59,6 +59,7 @@
 		<idgenVersion>2.6</idgenVersion>
 		<jacksonVersion>2.10.3</jacksonVersion>
 		<webservicesRestVersion>2.38.0</webservicesRestVersion>
+		<dwrVersion>2.0.7-mod</dwrVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -200,6 +201,14 @@
 				<classifier>tests</classifier>
 				<scope>test</scope>
 			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.directwebremoting</groupId>
+				<artifactId>dwr</artifactId>
+				<version>${dwrVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+
 			<!-- End OpenMRS modules -->
 
 			<!-- Begin OpenMRS core -->
@@ -329,6 +338,11 @@
 			<layout>default</layout>
 			<url>https://repo1.maven.org/maven2</url>
 		</repository>
+		<repository>
+			<id>openmrs-maven-repo</id>
+			<name>OpenMRS Maven Repository</name>
+			<url>https://mavenrepo.openmrs.org/public</url>
+		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
@@ -343,14 +357,14 @@
 
 	<distributionManagement>
 		<repository>
-			<id>mks-nexus</id>
-			<name>Mekom Nexus Releases</name>
-			<url>https://nexus.mekomsolutions.net/releases</url>
+			<id>mks-repo</id>
+			<name>Mekom Solutions Nexus Releases</name>
+			<url>https://nexus.mekomsolutions.net/repository/maven-releases</url>
 		</repository>
 		<snapshotRepository>
-			<id>mks-nexus</id>
-			<name>Mekom Nexus Snapshots</name>
-			<url>https://nexus.mekomsolutions.net/snapshots</url>
+			<id>mks-repo-snapshots</id>
+			<name>Mekom Solutions Nexus Snapshots</name>
+			<url>https://nexus.mekomsolutions.net/repository/maven-snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
